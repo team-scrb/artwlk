@@ -38,7 +38,7 @@ Thumbs.db
 
 # build stuff #
 ###############
-dist/*
+dist/
 !dist/index.html
 node_modules/
 bower_components/

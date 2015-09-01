@@ -1,20 +1,17 @@
 const Webpack = require('webpack');
 const path = require('path');
-const appPath = path.resolve(__dirname, 'app');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const buildPath = path.resolve(__dirname, 'public', 'build');
+const mainPath = path.resolve(__dirname, 'app', 'main.js');
 
 const config = {
-  context: __dirname,
-  devtool: 'eval-source-map',
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/dev-server',
-    path.resolve(appPath, 'main.jsx')],
+
+  // We change to normal source mapping, if you need them
+  devtool: 'source-map',
+  entry: mainPath,
   output: {
     path: buildPath,
     filename: 'bundle.js',
-    publicPath: '/build/',
   },
   module: {
     loaders: [
@@ -24,19 +21,13 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test: /\.jsx$/,
-        loader: 'babel',
-        exclude: [nodeModulesPath],
-      },
-      {
         test: /\.css$/,
         loader: 'style!css',
       },
     ],
   },
-  plugins: [new Webpack.HotModuleReplacementPlugin()],
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.json'],
   },
 };
 
