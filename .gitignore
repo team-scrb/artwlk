@@ -36,8 +36,10 @@
 ehthumbs.db
 Thumbs.db
 
-# build tools #
+# build stuff #
 ###############
+dist/*
+!dist/index.html
 node_modules/
 bower_components/
 .sass-cache/**/*
