@@ -1,7 +1,36 @@
-import {ref, paths} from '../config';
-Promise.all(
-  paths.map(path => new Promise(
-    (resolve, reject) => ref().child(path).set(
-      'mock',
-      error => error && reject(error) || resolve()))))
-  .then(process.exit).catch(process.exit);
+import {geo, ref} from '../config';
+
+const addMockArts = () => {
+  // Raw mock art
+  const mockArts = [
+    {url: 'http://i.imgur.com/tDO1tmL.jpg', title: 'Cradle', location: [34.0147601, -118.4934095]},
+    {url: 'http://i.imgur.com/eeqFb1G.png', title: 'The Dinosaurs of Santa Monica', location: [34.0145017, -118.4946411]},
+    {url: 'http://imgur.com/1KQU6C6.png', title: 'Wheels', location: [34.0124757, -118.4941735]},
+    {url: 'http://imgur.com/6Z5E7KN.jpg', title: 'Endangered Species', location: [33.9914636, -118.4778739]},
+  ];
+
+  // Schema MVP: Raw
+
+  // Schema Idea 2
+  // arts: {
+  //   description: {rating, tags, text, timestamp}
+  //   images: {rating, url, tags, timestamp}
+  //   rating: {ups, downs}
+  //   tags: {rating, text}
+  //   title: {rating, text}
+  // }
+  const addSingleMockArt = art => {
+    const {location, title, url} = art;
+    const key = ref.child('arts').push({title, url}).key();
+    return geo.set(key, location); // Promise
+  };
+  // const addArtIndexes = () => {};
+  const promises = mockArts.map(art => addSingleMockArt(art));
+  return promises;
+};
+Promise.all(addMockArts())
+  .then(process.exit)
+  .catch(error => {
+    console.log(error);  // eslint-disable-line no-console
+    process.exit();
+  });
