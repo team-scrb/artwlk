@@ -4,14 +4,14 @@ const webpackConfig = require('./../webpack.config.js');
 const path = require('path');
 const mainPath = path.resolve(__dirname, '..', 'app', 'main.jsx');
 
-module.exports = () => {
+module.exports = function() {
   const bundleStart = null;
   const compiler = webpack(webpackConfig);
-  compiler.plugin('compile', () => {
+  compiler.plugin('compile', function() {
     console.log('Bundling...');
     bundleStart = Date.now();
   });
-  compiler.plugin('done', () => {
+  compiler.plugin('done', function() {
     console.log('Bundled in ' + (Date.now() - bundleStart) + 'ms!');
   });
 
@@ -26,7 +26,7 @@ module.exports = () => {
     },
   });
 
-  bundler.listen(3001, 'localhost', () => {
+  bundler.listen(3001, 'localhost', function() {
     console.log('Bundling project, please wait...');
   });
 };
