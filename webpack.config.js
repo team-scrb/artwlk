@@ -24,6 +24,9 @@ const config = {
     filename: 'bundle.js',
     publicPath: '/build',
   },
+  // eslint: {
+  //   configFile: path.resolve(__dirname, '.eslintrc'),
+  // },
   module: {
     loaders: [
       {
