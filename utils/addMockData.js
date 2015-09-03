@@ -1,4 +1,5 @@
-import {geo, ref} from '../config';
+// import {geo, ref} from '../config';
+import {addSite} from '../app/utils/sites';
 
 const addMockArts = () => {
   // Raw mock art
@@ -20,9 +21,12 @@ const addMockArts = () => {
   //   title: {rating, text}
   // }
   const addSingleMockArt = art => {
-    const {location, title, url} = art;
-    const key = ref.child('arts').push({title, url}).key();
-    return geo.set(key, location); // Promise
+    // const {location, title, url} = art;
+    const {location} = art;
+    const coords = {latitude: location[0], longitude: location[1]};
+    art.coords = coords;
+    delete art.location;
+    return addSite(art, coords);
   };
   // const addArtIndexes = () => {};
   const promises = mockArts.map(art => addSingleMockArt(art));
