@@ -25,7 +25,9 @@ export const mockLocation = {};
  */
 export const getLocation = () => {
   // allow mocking
-  if (mockLocation) return new Promise(() => mockLocation.location, (err) => console.error(err)); // eslint-disable-line no-console
+  if (mockLocation.coords) {
+    return new Promise((resolve) => resolve(mockLocation));
+  }
 
   // try high-accuracy, then fall-back to cell.
   return getCurrentPosition({

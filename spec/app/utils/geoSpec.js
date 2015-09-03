@@ -3,7 +3,16 @@ import {geoRef} from '../../../config';
 
 describe('GeoFire helpers', () => {
   let cancel;
-  mockLocation.location = {latitude: 0, longitude: 0};
+  mockLocation.coords = {latitude: 0, longitude: 0};
+  it('has a mockLocation', (done) => {
+    getLocation()
+    .then(({coords: {latitude, longitude}}) => {
+      dump([latitude, longitude]);
+      expect(latitude === 0 && longitude === 0).toBe(true);
+      done();
+    })
+    .catch(done);
+  }, 9000);
   it('add a dummy location', (done) => {
     getLocation()
     .then(({coords: {latitude, longitude}}) =>
