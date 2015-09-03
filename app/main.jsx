@@ -1,19 +1,7 @@
 import React from 'react';
-import HelloSection from './components/HelloSection';
+import Router from 'react-router';
+import routes from './config/routes';
 
-import './styles/main';
-
-class App extends React.Component {
-  render() {
-    return (
-      <div className="container">
-        <HelloSection />
-      </div>
-    );
-  }
-}
-
-React.render(
-  <App />,
-  document.getElementById('app')
-);
+Router.run(routes, (Root, state) => {
+  React.render(<Root {...state} />, document.getElementById('app'));
+});
