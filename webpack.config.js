@@ -28,6 +28,13 @@ const config = {
   //   configFile: path.resolve(__dirname, '.eslintrc'),
   // },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'eslint-loader',
+        include: appPath,
+      },
+    ],
     loaders: [
       {
         test: /\.js$/,
