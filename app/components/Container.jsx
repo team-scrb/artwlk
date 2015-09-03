@@ -5,9 +5,13 @@ import ContainerNav from './ContainerNav';
 export default class Home extends React.Component {
   render() {
     return (
-      <div className="Container">
-        <ContainerNav />
-        <RouteHandler {...this.props} />
+      <div className="main">
+        <nav className="nav">
+          <ContainerNav />
+        </nav>
+        <div className="Container">
+          <RouteHandler {...this.props} />
+        </div>
       </div>
     );
   }
