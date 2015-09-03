@@ -25,6 +25,13 @@ const config = {
     publicPath: '/build',
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'eslint-loader',
+        include: appPath,
+      },
+    ],
     loaders: [
       {
         test: /\.js$/,

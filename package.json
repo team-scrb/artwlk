@@ -53,5 +53,7 @@
     "webpack": "^1.8.5",
     "webpack-dev-server": "^1.8.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-loader": "^1.0.0"
+  }
 }
