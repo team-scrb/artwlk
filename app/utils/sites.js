@@ -1,1 +1,1 @@
-import {ref} from '../../config';
+import {fireRef} from '../../config';

@@ -1,5 +1,5 @@
 import {onSitesWithinRadius, addSiteLocation, getLocation} from '../../../app/utils/geo';
-import {geo} from '../../../config';
+import {geoRef} from '../../../config';
 
 describe('GeoFire helpers', () => {
   let cancel;
@@ -15,7 +15,7 @@ describe('GeoFire helpers', () => {
     cancel = onSitesWithinRadius(10, (key) => {
       if (key === 'fake-o') {
         expect(true).toBe(true);
-        geo.remove(key);
+        geoRef.remove(key);
         done();
       }
     });

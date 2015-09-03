@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# chmod a+x <this file>
+# ln <this file> .git/hooks/<this file>
+
+function okay? {
+  if [ $? -ne 0 ]; then
+    echo "nope."
+    exit -1
+  fi
+}
+
+cat <<USAGE
+
+  Testing build.  Be prepared to Allow geolocation in Chrome.  Press CTRL+C to abort.
+
+USAGE
+
+./node_modules/.bin/eslint $(find app utils spec -name "*.js")
+okay?
+
+
+WEBPACKERRORS=`webpack | grep 'ERROR' | wc -l`
+okay?
+
+
+npm test
+okay?

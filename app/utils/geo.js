@@ -1,4 +1,4 @@
-import {geo} from '../../config';
+import {geoRef} from '../../config';
 
 /**
  * Promisify navigator.geolocation.getCurrentPosition
@@ -44,14 +44,14 @@ let cancelQuery;
 /**
  * Register handler callback for all items found within given radius.
  * @param  {Number}   radius
- * @param  {function} handler Will be passed a {key:location} instance for every item found.
+ * @param  {function} handler Will be passed (key, location, distance) for every item found.
  * @return {function}         Call to cancel all callbacks on the current query.
  */
 export const onSitesWithinRadius = (radius, handler) => {
   getLocation().then(({coords: {latitude, longitude}}) => {
     const center = [latitude, longitude];
     cancelQuery && cancelQuery();
-    const query = geo.query({center, radius});
+    const query = geoRef.query({center, radius});
     query.on('key_entered', handler);
     cancelQuery = () => query.cancel();
     return cancelQuery;
@@ -65,4 +65,4 @@ export const onSitesWithinRadius = (radius, handler) => {
  * @return {Promise}            Then callback called when data synchronized with Firebase.
  */
 export const addSiteLocation = (siteId, [latitude, longitude]) =>
-  geo.set(siteId, [latitude, longitude]);
+  geoRef.set(siteId, [latitude, longitude]);
