@@ -16,7 +16,7 @@ export default class PhotoUpload extends React.Component {
     getLocation()
     .then((location) => {
       this.setState({
-        userLocation: location
+        userLocation: location,
       });
     })
     .catch((err) => {
@@ -41,10 +41,11 @@ export default class PhotoUpload extends React.Component {
         },
       })
       .then((response) => {
-        let {latitude} = this.state.userLocation.coords;
-        let {longitude} = this.state.userLocation.coords;
-        let url = response.data.data.link.toString().match(/([A-Z])\w+/g)[0];
-        addSiteLocation(url, [latitude, longitude]);
+        const {latitude} = this.state.userLocation.coords;
+        const {longitude} = this.state.userLocation.coords;
+        const url = response.data.data.link.toString().match(/[A-Z]\w+/gi);
+        addSiteLocation(url[3], [latitude, longitude]);
+        console.log('https://i.imgur.com/' + url[3] + '.' + url[4]);
       })
       .catch((err) => {
         console.error(err);
