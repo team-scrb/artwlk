@@ -3,7 +3,6 @@ import {addons} from 'react/addons';
 import {GoogleMap, Marker} from 'react-google-maps';
 import {onSitesWithinRadius, addSiteLocation} from '../utils/geo';
 import '../styles/components/MapSection';
-const {update} = addons;
 
 export default class MapSection extends React.Component {
   constructor(props) {
@@ -15,10 +14,10 @@ export default class MapSection extends React.Component {
 
     // Bind methods in this section
     this._handle_map_click = this._handle_map_click.bind(this);
-  }
- // * @param  {function} handler Will be passed a {key:location} instance for every item found.
+  } // Constructor
+
   componentDidMount() {
-    onSitesWithinRadius(30, (siteId, latLng) => {
+    onSitesWithinRadius(10, (siteId, latLng) => {
       let newMarkers = this.state.markers;
       this.setState({
         markers: newMarkers.concat([{
@@ -35,7 +34,7 @@ export default class MapSection extends React.Component {
   _handle_map_click(event) {
     let date = Date.now();
     addSiteLocation(date.toString(), [event.latLng.G, event.latLng.K]);
-   }
+  }
 
    render () {
      return (
@@ -46,13 +45,12 @@ export default class MapSection extends React.Component {
            },
          }}
          ref="map"
-       defaultZoom={19}
-         defaultCenter={{lat: 34.01940714979137, lng: -118.4945198893547}}
+       defaultZoom={12}
+     defaultCenter={{lat: 34.04935261524454, lng: -118.24610710144043}}
          onClick={this._handle_map_click}>
          {this.state.markers.map((marker, index) => {
            return (
-             <Marker
-               {...marker}/>
+             <Marker {...marker} />
            );
          })}
        </GoogleMap>
