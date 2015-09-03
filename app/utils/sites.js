@@ -10,7 +10,6 @@ export const addSite = siteInfo => {
   return new Promise((resolve, reject) => {
     const {coords: {latitude, longitude}} = siteInfo;
     const key = fireRef.child('sites').push(siteInfo, error => {
-      console.log(key);
       if (error) return reject(error);
       addSiteLocation(key, [latitude, longitude])
       .then(() => resolve(key))
