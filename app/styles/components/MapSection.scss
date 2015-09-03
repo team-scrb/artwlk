@@ -1,3 +1,4 @@
 @import "../utils/config";
 
-.MapSection { background: yellow; }
+.Container,
+.MapSection { width: 100vw; height: 100vh; }
