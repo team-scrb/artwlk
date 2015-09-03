@@ -16,7 +16,7 @@ cat <<USAGE
 
 USAGE
 
-./node_modules/.bin/eslint $(find app utils spec -name "*.js")
+./node_modules/.bin/eslint $(find app utils spec -name "*.js*")
 okay?
 
 
