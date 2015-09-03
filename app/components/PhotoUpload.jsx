@@ -1,24 +1,27 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import {getCurrentPosition} from '../utils/geo';
+import {getLocation, addSiteLocation} from '../utils/geo';
 
 export default class PhotoUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userLocation: {},
-    }
+    };
+    this.onDrop = this.onDrop.bind(this);
   }
 
-  componentWillLoad() {
-    let userLocation = getCurrentUserLocation({
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
+  componentDidMount() {
+    getLocation()
+    .then((location) => {
+      this.setState({
+        userLocation: location
+      });
+    })
+    .catch((err) => {
+      console.error(err);
     });
-    console.log(userLocation)
-    this.setState({userLocation: userLocation});
   }
 
   onDrop(file) {
@@ -38,8 +41,10 @@ export default class PhotoUpload extends React.Component {
         },
       })
       .then((response) => {
-        // This is the link to the photo
-        window.location.replace(response.data.data.link);
+        let {latitude} = this.state.userLocation.coords;
+        let {longitude} = this.state.userLocation.coords;
+        let url = response.data.data.link.toString().match(/([A-Z])\w+/g)[0];
+        addSiteLocation(url, [latitude, longitude]);
       })
       .catch((err) => {
         console.error(err);
