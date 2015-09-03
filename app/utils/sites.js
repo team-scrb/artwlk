@@ -1,0 +1,1 @@
+// import {fireRef} from '../../config';

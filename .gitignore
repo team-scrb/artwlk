@@ -6,6 +6,8 @@
 *.exe
 *.o
 *.so
+bundle.js
+main.css
 
 # Packages #
 ############
