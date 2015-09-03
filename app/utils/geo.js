@@ -7,29 +7,33 @@ import {geo} from '../../config';
  */
 const getCurrentPosition = (opts) => {
   return new Promise(
-    (resolve, reject) => navigator.geolocation.getCurrentPosition(
-      resolve, reject, opts
-    )
+    (resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, opts)
   );
 };
 
 /**
  * Get current location, trying high-accuracy first, then falling back to low-
  * accuracy after timeout.  May still reject is low-accuracy attempt rejects.
+ * @param {{coords:{latitude,longitude}}} mockLocation Optional
  * @return {Promise} Resolve receives [Position]{@link http://mdn.io/Position} Object.
  */
-const getLocation = () => {
+export const getLocation = (mockLocation) => {
+  // allow mocking
+  if (mockLocation) return new Promise(() => mockLocation, (err) => console.error(err)); // eslint-disable-line no-console
+
   // try high-accuracy, then fall-back to cell.
   return getCurrentPosition({
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 600000,
+    maximumAge: 500,
   })
-  .catch(getCurrentPosition({
+  .catch(getCurrentPosition.bind(null, {
     enableHighAccuracy: false,
     timeout: 5000,
-    maximumAge: 600000,
-  }));
+    maximumAge: 500,
+  }))
+  .catch(err => console.log(err)); // eslint-disable-line no-console
 };
 
 /**
@@ -51,7 +55,7 @@ export const onSitesWithinRadius = (radius, handler) => {
     query.on('key_entered', handler);
     cancelQuery = () => query.cancel();
     return cancelQuery;
-  });
+  }).catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
 /**
@@ -60,4 +64,5 @@ export const onSitesWithinRadius = (radius, handler) => {
  * @param  {[Number, Number]}   [latitude, longitude]
  * @return {Promise}            Then callback called when data synchronized with Firebase.
  */
-export const addSiteLocation = (siteId, [latitude, longitude]) => geo.set(siteId, [latitude, longitude]);
+export const addSiteLocation = (siteId, [latitude, longitude]) =>
+  geo.set(siteId, [latitude, longitude]);
