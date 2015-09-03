@@ -1,48 +1,40 @@
 import React from 'react';
 import {addons} from 'react/addons';
 import {GoogleMap, Marker} from 'react-google-maps';
+import {onSitesWithinRadius, addSiteLocation} from '../utils/geo';
 import '../styles/components/MapSection';
 const {update} = addons;
-
-// Placeholder data for markers
-let markerTest = [{
-  position: {
-    lat: 25.0112183,
-    lng: 121.52067570000001,
-    },
-  key: "Taiwan",
-  defaultAnimation: 2
-}, {
-  position: {
-    lat: 34.0112183,
-    lng: 121.52067570000001,
-    },
-  key: "sdfdsf",
-  defaultAnimation: 2
-}];
 
 export default class MapSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      origin: new google.maps.LatLng(41.8507300, -87.6512600),
-      destination: new google.maps.LatLng(41.8525800, -87.6514100),
-      directions: null,
-      markers: markerTest,
+      origin: new google.maps.LatLng(34.01940714979137, -118.4945198893547),
+      markers: [],
     };
+
+    // Bind methods in this section
     this._handle_map_click = this._handle_map_click.bind(this);
   }
-
+ // * @param  {function} handler Will be passed a {key:location} instance for every item found.
   componentDidMount() {
+    onSitesWithinRadius(30, (siteId, latLng) => {
+      let newMarkers = this.state.markers;
+      this.setState({
+        markers: newMarkers.concat([{
+          position: {
+            lat: latLng[0],
+            lng: latLng[1]},
+            key: siteId,
+          defaultAnimation: 2}]
+        )
+      });
+    });
   }
 
   _handle_map_click(event) {
-     var {markers} = this.state;
-     var filteredMarkers = markerTest.filter(function(item) {
-       return item.key === 'Taiwan';
-     })
-     console.log(this.state.markers)
-     this.setState({ markers: filteredMarkers });
+    let date = Date.now();
+    addSiteLocation(date.toString(), [event.latLng.G, event.latLng.K]);
    }
 
    render () {
@@ -54,8 +46,8 @@ export default class MapSection extends React.Component {
            },
          }}
          ref="map"
-         defaultZoom={3}
-         defaultCenter={{lat: 34.363882, lng: 121.044922}}
+       defaultZoom={19}
+         defaultCenter={{lat: 34.01940714979137, lng: -118.4945198893547}}
          onClick={this._handle_map_click}>
          {this.state.markers.map((marker, index) => {
            return (
