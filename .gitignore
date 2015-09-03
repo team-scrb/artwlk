@@ -38,6 +38,7 @@ Thumbs.db
 
 # build stuff #
 ###############
+build/
 node_modules/
 bower_components/
 .sass-cache/
