@@ -1,66 +1,55 @@
 import React from 'react';
-import {addons} from 'react/addons';
 import {GoogleMap, Marker} from 'react-google-maps';
+import {onSitesWithinRadius, addSiteLocation} from '../utils/geo';
 import '../styles/components/MapSection';
-const {update} = addons;
-
-// Placeholder data for markers
-let markerTest = [{
-  position: {
-    lat: 25.0112183,
-    lng: 121.52067570000001,
-    },
-  key: "Taiwan",
-  defaultAnimation: 2
-}, {
-  position: {
-    lat: 34.0112183,
-    lng: 121.52067570000001,
-    },
-  key: "sdfdsf",
-  defaultAnimation: 2
-}];
 
 export default class MapSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      origin: new google.maps.LatLng(41.8507300, -87.6512600),
-      destination: new google.maps.LatLng(41.8525800, -87.6514100),
-      directions: null,
-      markers: markerTest,
+      origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
+      markers: [],
     };
-    this._handle_map_click = this._handle_map_click.bind(this);
-  }
+
+    // Bind methods in this section
+    this._onMapClick = this._onMapClick.bind(this);
+  } // Constructor
 
   componentDidMount() {
+    onSitesWithinRadius(50, (siteId, latLng) => {
+      const newMarkers = this.state.markers;
+      this.setState({
+        markers: newMarkers.concat([{
+          position: {
+            lat: latLng[0],
+            lng: latLng[1]},
+          key: siteId,
+          defaultAnimation: 2}]
+        ),
+      });
+    });
   }
 
-  _handle_map_click(event) {
-     var {markers} = this.state;
-     var filteredMarkers = markerTest.filter(function(item) {
-       return item.key === 'Taiwan';
-     })
-     console.log(this.state.markers)
-     this.setState({ markers: filteredMarkers });
-   }
+  _onMapClick(event) {
+    const date = Date.now();
+    addSiteLocation(date.toString(), [event.latLng.G, event.latLng.K]);
+  }
 
-   render () {
+   render() {
      return (
        <GoogleMap containerProps={{
-           ...this.props,
-           style: {
-             height: "100%",
-           },
-         }}
+         ...this.props,
+         style: {
+           height: '100%',
+         },
+       }}
          ref="map"
-         defaultZoom={3}
-         defaultCenter={{lat: 34.363882, lng: 121.044922}}
-         onClick={this._handle_map_click}>
-         {this.state.markers.map((marker, index) => {
+         defaultZoom={12}
+         defaultCenter={{lat: 34.04935261524454, lng: -118.24610710144043}}
+         onClick={this._onMapClick}>
+         {this.state.markers.map((marker) => {
            return (
-             <Marker
-               {...marker}/>
+             <Marker {...marker} />
            );
          })}
        </GoogleMap>
