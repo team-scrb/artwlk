@@ -1,10 +1,24 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import {getCurrentPosition} from '../utils/geo';
 
 export default class PhotoUpload extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userLocation: {},
+    }
+  }
+
+  componentWillLoad() {
+    let userLocation = getCurrentUserLocation({
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    });
+    console.log(userLocation)
+    this.setState({userLocation: userLocation});
   }
 
   onDrop(file) {
