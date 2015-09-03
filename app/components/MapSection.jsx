@@ -1,9 +1,25 @@
 import React from 'react';
 import {addons} from 'react/addons';
-import {GoogleMap} from 'react-google-maps';
-import {Marker} from 'react-google-maps';
-import '../../styles/components/MapSection';
+import {GoogleMap, Marker} from 'react-google-maps';
+import '../styles/components/MapSection';
 const {update} = addons;
+
+// Placeholder data for markers
+let markerTest = [{
+  position: {
+    lat: 25.0112183,
+    lng: 121.52067570000001,
+    },
+  key: "Taiwan",
+  defaultAnimation: 2
+}, {
+  position: {
+    lat: 34.0112183,
+    lng: 121.52067570000001,
+    },
+  key: "sdfdsf",
+  defaultAnimation: 2
+}];
 
 export default class MapSection extends React.Component {
   constructor(props) {
@@ -20,16 +36,6 @@ export default class MapSection extends React.Component {
   componentDidMount() {
   }
 
-  _handle_marker_rightclick (event) {
-    console.log('hello')
-    var {markers} = this.state;
-    var filteredMarkers2 = markerTest.filter(function(item) {
-      return item.key === 'zxcv';
-    })
-    console.log(filteredMarkers)
-    this.setState({ markers: filteredMarkers2 });
-  }
-
   _handle_map_click(event) {
      var {markers} = this.state;
      var filteredMarkers = markerTest.filter(function(item) {
@@ -37,7 +43,6 @@ export default class MapSection extends React.Component {
      })
      console.log(this.state.markers)
      this.setState({ markers: filteredMarkers });
-     console.log(markerTest)
    }
 
    render () {
@@ -50,13 +55,12 @@ export default class MapSection extends React.Component {
          }}
          ref="map"
          defaultZoom={3}
-         defaultCenter={{lat: -25.363882, lng: 131.044922}}
+         defaultCenter={{lat: 34.363882, lng: 121.044922}}
          onClick={this._handle_map_click}>
          {this.state.markers.map((marker, index) => {
            return (
              <Marker
-               {...marker}
-               onRightclick={this._handle_marker_rightclick.bind(this, index)} />
+               {...marker}/>
            );
          })}
        </GoogleMap>
