@@ -13,14 +13,19 @@ const getCurrentPosition = (opts) => {
 };
 
 /**
+ * Exposed for setting test location.
+ * @type {{location:Position}} {@See http://mdn.io/Position}
+ */
+export const mockLocation = {};
+
+/**
  * Get current location, trying high-accuracy first, then falling back to low-
  * accuracy after timeout.  May still reject is low-accuracy attempt rejects.
- * @param {{coords:{latitude,longitude}}} mockLocation Optional
  * @return {Promise} Resolve receives [Position]{@link http://mdn.io/Position} Object.
  */
-export const getLocation = (mockLocation) => {
+export const getLocation = () => {
   // allow mocking
-  if (mockLocation) return new Promise(() => mockLocation, (err) => console.error(err)); // eslint-disable-line no-console
+  if (mockLocation) return new Promise(() => mockLocation.location, (err) => console.error(err)); // eslint-disable-line no-console
 
   // try high-accuracy, then fall-back to cell.
   return getCurrentPosition({

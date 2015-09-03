@@ -1,8 +1,9 @@
-import {onSitesWithinRadius, addSiteLocation, getLocation} from '../../../app/utils/geo';
+import {onSitesWithinRadius, addSiteLocation, getLocation, mockLocation} from '../../../app/utils/geo';
 import {geoRef} from '../../../config';
 
 describe('GeoFire helpers', () => {
   let cancel;
+  mockLocation.location = {latitude: 0, longitude: 0};
   it('add a dummy location', (done) => {
     getLocation()
     .then(({coords: {latitude, longitude}}) =>
