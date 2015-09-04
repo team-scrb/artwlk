@@ -1,10 +1,28 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import {getLocation} from '../utils/geo';
+import {addSite} from '../utils/sites';
 
 export default class PhotoUpload extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userLocation: {},
+    };
+    this.onDrop = this.onDrop.bind(this);
+  }
+
+  componentDidMount() {
+    getLocation()
+    .then((location) => {
+      this.setState({
+        userLocation: location,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
   onDrop(file) {
@@ -16,16 +34,23 @@ export default class PhotoUpload extends React.Component {
         method: 'post',
         url: 'https://api.imgur.com/3/image',
         headers: {
-          Authorization: 'Client-ID b2670fcbac651a9',
+          Authorization: 'Client-ID 6b87d72f0811d55',
         },
         data: {
-          image: encodedImage.target.result.split('data:image/png;base64,')[1],
+          image: encodedImage.target.result.split(',')[1],
           type: 'base64',
         },
       })
       .then((response) => {
-        // This is the link to the photo
-        console.log('IMGUR URL: ', response.data.data.link);
+        const {latitude, longitude} = this.state.userLocation.coords;
+        const siteInfo = {
+          coords: {latitude, longitude},
+          imageUrl: response.data.data.link,
+        };
+        console.log(siteInfo)
+        addSite(siteInfo).then((key) => {
+          console.log(key);
+        });
       })
       .catch((err) => {
         console.error(err);
