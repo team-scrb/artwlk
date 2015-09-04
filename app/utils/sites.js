@@ -3,7 +3,7 @@ import {addSiteLocation} from './geo';
 
 /**
  * Adds site meta information to firebase.
- * @type {{coords:{latitude: Number, longitude: Number}, ...Object}}  Site metadata including at least coords.
+ * @param {{coords:{latitude: Number, longitude: Number}, ...Object}}  Site metadata including at least coords.
  * @return {Promise}  A promise to the key of the added object.
  */
 export const addSite = siteInfo => {
@@ -15,5 +15,16 @@ export const addSite = siteInfo => {
       .then(() => resolve(key))
       .catch(reject);
     }).key();
+  });
+};
+
+/**
+ * Get promise of siteInfo.
+ * @param {string} key  firebase key
+ * @return {Promise}
+ */
+export const getSiteByKey = key => {
+  return new Promise((resolve, reject) => {
+    fireRef.child('sites').child(key).once('value', snap => resolve(snap.val()), reject);
   });
 };
