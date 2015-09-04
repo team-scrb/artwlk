@@ -42,8 +42,9 @@ export default class PhotoUpload extends React.Component {
         },
       })
       .then((response) => {
+        const {latitude, longitude} = this.state.userLocation.coords;
         const siteInfo = {
-          coords: this.state.userLocation.coords,
+          coords: {latitude, longitude},
           imageUrl: response.data.data.link,
         };
         console.log(siteInfo)
