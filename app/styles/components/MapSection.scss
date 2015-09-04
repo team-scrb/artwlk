@@ -1,4 +1,3 @@
 @import "../utils/config";
 
-.Container,
-.MapSection { width: 100vw; height: 100vh; }
+.MapSection { flex: 1; }
