@@ -10,9 +10,9 @@ describe('GeoFire helpers', () => {
       dump([latitude, longitude]);
       expect(latitude === 0 && longitude === 0).toBe(true);
       done();
-    })
+    }, 9000)
     .catch(done);
-  }, 9000);
+  });
   it('add a dummy location', (done) => {
     getLocation()
     .then(({coords: {latitude, longitude}}) =>
@@ -20,7 +20,7 @@ describe('GeoFire helpers', () => {
     )
     .then(done)
     .catch(done);
-  }, 9000);
+  }, 2000);
   it('finds the dummy location', (done) => {
     cancel = onSitesWithinRadius(mockLocation, 10, (key) => {
       if (key === 'fake-o') {
@@ -29,6 +29,6 @@ describe('GeoFire helpers', () => {
         done();
       }
     });
-  });
+  }, 2000);
   afterAll(() => cancel());
 });
