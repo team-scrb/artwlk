@@ -7,8 +7,10 @@ import {addSite} from '../utils/sites';
 export default class PhotoUpload extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       userLocation: {},
+      progress: 0,
     };
     this.onDrop = this.onDrop.bind(this);
   }
@@ -27,8 +29,7 @@ export default class PhotoUpload extends React.Component {
 
   onDrop(file) {
     const reader = new FileReader();
-    // Reader.onload is asynchronous
-    // ReadAsDataURL runs first and calls .onload when it's done
+
     reader.onload = (encodedImage) => {
       axios({
         method: 'post',
@@ -47,7 +48,6 @@ export default class PhotoUpload extends React.Component {
           coords: {latitude, longitude},
           imageUrl: response.data.data.link,
         };
-        console.log(siteInfo)
         addSite(siteInfo).then((key) => {
           console.log(key);
         });
@@ -57,6 +57,16 @@ export default class PhotoUpload extends React.Component {
       });
     };
 
+    // Progress bar logic
+    reader.onprogress = (data) => {
+      if (data.lengthComputable) {
+        let progress = parseInt( ((data.loaded / data.total) * 100), 10 );
+        this.setState({
+          progress: progress,
+        });
+      }
+    }
+
     reader.readAsDataURL(file[0]);
   }
 
@@ -65,6 +75,7 @@ export default class PhotoUpload extends React.Component {
       <div>
         <Dropzone onDrop={this.onDrop}>
           <div>Try dropping some files here, or click to select files to upload.</div>
+          <progress value={this.state.progress} max={100}></progress>
         </Dropzone>
       </div>
     );
