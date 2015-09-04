@@ -10,7 +10,6 @@ export const uploadImage = imageData => {
       image: imageData,
       type: 'base64',
     },
-  });
-  // .then(response => new Promise(() => response.data.data.link));
-  // not sure i need to create a new promise inside then
+  })
+  .then(response => new Promise((resolve) => resolve(response.data.data.link)));
 };

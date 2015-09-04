@@ -2,7 +2,7 @@ module.exports = function karmaConfig(config) {
   config.set({
     basePath: '.',
     frameworks: ['jasmine'],
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     client: {
       captureConsole: true,
     },

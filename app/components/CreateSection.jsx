@@ -34,18 +34,12 @@ export default class CreateSection extends React.Component {
         imageUrl: response.data.data.link,
       };
       addSite(siteInfo).then(() => {
-        this.setState({
-          progress: 0,
-        });
+        // TODO navigate to map view
       });
     })
     .catch(error => console.error(error)); // eslint-disable-line no-console
   }
-  // _handleChange(event) {
-  //   const data = {};
-  //   data[event.target.name] = event.target.value;
-  //   this.setState(data);
-  // }
+
   render() {
     return (
       <div className="CreateSection">
