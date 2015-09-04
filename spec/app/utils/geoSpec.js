@@ -7,7 +7,6 @@ describe('GeoFire helpers', () => {
   it('has a mockLocation', (done) => {
     getLocation()
     .then(({coords: {latitude, longitude}}) => {
-      dump([latitude, longitude]);
       expect(latitude === 0 && longitude === 0).toBe(true);
       done();
     }, 9000)

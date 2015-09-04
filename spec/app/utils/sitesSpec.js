@@ -13,23 +13,23 @@ describe('site helpers', () => {
     coords: {latitude: 34.0147601, longitude: -118.4934095},
     imageUrl: 'http://i.imgur.com/tDO1tmL.jpg',
   };
+
   it('adds a site', done => {
     addSite(_siteInfo).then(key => {
       _key = key;
+      dump(key);
       done();
-    }).catch(error => console.error(error));
-  }, 5000);
+    }).catch(error => console.error(error)); // eslint-disable-line no-console
+  }, 9000);
 
   it('finds a site', done => {
     getSiteByKey(_key).then(siteInfo => {
       expect(_siteInfo).toEqual(siteInfo);
-      done();
+      dump('removing', _key);
+      geoRef.remove(_key);
+      dump('ok');
+      fireRef.child('sites').child(_key).remove(done);
+      dump('ok');
     });
-  }, 5000);
-
-  afterAll(() => {
-    console.log('removing', key);
-    geoRef.remove(key);
-    fireRef.child('sites').remove(key);
-  });
+  }, 9000);
 });
