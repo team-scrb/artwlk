@@ -1,5 +1,4 @@
 import Firebase from 'firebase';
-// import {MockFirebase as Firebase} from 'mockfirebase';
 import GeoFire from 'geofire';
 
 export const firebaseUrl = 'https://artwlk.firebaseio.com';
