@@ -49,7 +49,10 @@ export default class PhotoUpload extends React.Component {
           imageUrl: response.data.data.link,
         };
         addSite(siteInfo).then((key) => {
-          console.log(key);
+          this.setState({
+            progress: 0,
+          });
+          alert(siteInfo.imageUrl);
         });
       })
       .catch((err) => {
@@ -75,7 +78,7 @@ export default class PhotoUpload extends React.Component {
       <div>
         <Dropzone onDrop={this.onDrop}>
           <div>Try dropping some files here, or click to select files to upload.</div>
-          <progress value={this.state.progress} max={100}></progress>
+          <progress value={this.state.progress} max={100}>{this.state.progress}</progress>
         </Dropzone>
       </div>
     );
