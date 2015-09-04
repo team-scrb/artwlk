@@ -60,12 +60,12 @@ export default class PhotoUpload extends React.Component {
     // Progress bar logic
     reader.onprogress = (data) => {
       if (data.lengthComputable) {
-        let progress = parseInt( ((data.loaded / data.total) * 100), 10 );
+        const progress = parseInt( ((data.loaded / data.total) * 100), 10 );
         this.setState({
           progress: progress,
         });
       }
-    }
+    };
 
     reader.readAsDataURL(file[0]);
   }
