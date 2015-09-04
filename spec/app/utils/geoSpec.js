@@ -22,7 +22,7 @@ describe('GeoFire helpers', () => {
     .catch(done);
   }, 9000);
   it('finds the dummy location', (done) => {
-    cancel = onSitesWithinRadius(10, (key) => {
+    cancel = onSitesWithinRadius(mockLocation, 10, (key) => {
       if (key === 'fake-o') {
         expect(true).toBe(true);
         geoRef.remove(key);
