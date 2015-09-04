@@ -1,7 +1,8 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import {getLocation, addSiteLocation} from '../utils/geo';
+import {getLocation} from '../utils/geo';
+import {addSite} from '../utils/sites';
 
 export default class PhotoUpload extends React.Component {
   constructor(props) {
@@ -41,11 +42,14 @@ export default class PhotoUpload extends React.Component {
         },
       })
       .then((response) => {
-        const {latitude} = this.state.userLocation.coords;
-        const {longitude} = this.state.userLocation.coords;
-        const url = response.data.data.link.toString().match(/[A-Z]\w+/gi);
-        addSiteLocation(url[3], [latitude, longitude]);
-        console.log('https://i.imgur.com/' + url[3] + '.' + url[4]);
+        const siteInfo = {
+          coords: this.state.userLocation.coords,
+          imageUrl: response.data.data.link,
+        };
+        console.log(siteInfo)
+        addSite(siteInfo).then((key) => {
+          console.log(key);
+        });
       })
       .catch((err) => {
         console.error(err);
