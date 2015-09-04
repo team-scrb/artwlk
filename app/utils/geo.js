@@ -39,8 +39,7 @@ export const getLocation = () => {
     enableHighAccuracy: false,
     timeout: 5000,
     maximumAge: 500,
-  }))
-  .catch(err => console.log(err)); // eslint-disable-line no-console
+  }));
 };
 
 /**
@@ -50,19 +49,18 @@ let cancelQuery;
 
 /**
  * Register handler callback for all items found within given radius.
+ * @param {Position} Center from which to search {@see http://mdn.io/Position}
  * @param  {Number}   radius
  * @param  {function} handler Will be passed (key, location, distance) for every item found.
  * @return {function}         Call to cancel all callbacks on the current query.
  */
-export const onSitesWithinRadius = (radius, handler) => {
-  getLocation().then(({coords: {latitude, longitude}}) => {
-    const center = [latitude, longitude];
-    cancelQuery && cancelQuery();
-    const query = geoRef.query({center, radius});
-    query.on('key_entered', handler);
-    cancelQuery = () => query.cancel();
-    return cancelQuery;
-  }).catch(err => console.error(err)); // eslint-disable-line no-console
+export const onSitesWithinRadius = (center, radius, handler) => {
+  const {coords: {latitude, longitude}} = center;
+  cancelQuery && cancelQuery();
+  const query = geoRef.query({center: [latitude, longitude], radius});
+  query.on('key_entered', handler);
+  cancelQuery = () => query.cancel();
+  return cancelQuery;
 };
 
 /**
