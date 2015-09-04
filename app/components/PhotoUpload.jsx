@@ -1,8 +1,8 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import axios from 'axios';
+// import axios from 'axios';
 import {getLocation} from '../utils/geo';
-import {addSite} from '../utils/sites';
+// import {addSite} from '../utils/sites';
 
 export default class PhotoUpload extends React.Component {
   constructor(props) {
@@ -16,48 +16,50 @@ export default class PhotoUpload extends React.Component {
   }
 
   componentDidMount() {
-    getLocation()
-    .then((location) => {
-      this.setState({
-        userLocation: location,
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    // getLocation()
+    // .then((location) => {
+    //   this.setState({
+    //     userLocation: location,
+    //   });
+    // })
+    // .catch((err) => {
+    //   console.error(err);
+    // });
   }
 
   onDrop(file) {
     const reader = new FileReader();
 
     reader.onload = (encodedImage) => {
-      axios({
-        method: 'post',
-        url: 'https://api.imgur.com/3/image',
-        headers: {
-          Authorization: 'Client-ID 6b87d72f0811d55',
-        },
-        data: {
-          image: encodedImage.target.result.split(',')[1],
-          type: 'base64',
-        },
-      })
-      .then((response) => {
-        const {latitude, longitude} = this.state.userLocation.coords;
-        const siteInfo = {
-          coords: {latitude, longitude},
-          imageUrl: response.data.data.link,
-        };
-        addSite(siteInfo).then((key) => {
-          this.setState({
-            progress: 0,
-          });
-          alert(siteInfo.imageUrl);
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      const imageData = encodedImage.target.result.split(',')[1];
+      getLocation().then(userLocation => this.props._setImageData(imageData, userLocation));
+      // axios({
+      //   method: 'post',
+      //   url: 'https://api.imgur.com/3/image',
+      //   headers: {
+      //     Authorization: 'Client-ID 6b87d72f0811d55',
+      //   },
+      //   data: {
+      //     image: encodedImage.target.result.split(',')[1],
+      //     type: 'base64',
+      //   },
+      // })
+      // .then((response) => {
+      //   const {latitude, longitude} = this.state.userLocation.coords;
+      //   const siteInfo = {
+      //     coords: {latitude, longitude},
+      //     imageUrl: response.data.data.link,
+      //   };
+      //   addSite(siteInfo).then((key) => {
+      //     this.setState({
+      //       progress: 0,
+      //     });
+      //     alert(siteInfo.imageUrl);
+      //   });
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // });
     };
 
     // Progress bar logic
@@ -84,3 +86,6 @@ export default class PhotoUpload extends React.Component {
     );
   }
 }
+PhotoUpload.propTypes = {
+  _setImageData: React.PropTypes.func.isRequired,
+};
