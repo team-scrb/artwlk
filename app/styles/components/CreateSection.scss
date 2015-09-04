@@ -1,3 +1,4 @@
 @import "../utils/config";
 
-.CreateSection { background: green; }
+.CreateSection { flex: 1; }
+.CreateSection__selectLocationBtn { color: red; }

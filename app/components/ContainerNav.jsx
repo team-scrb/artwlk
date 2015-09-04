@@ -1,5 +1,8 @@
 import React from 'react';
 
+// styles
+import '../styles/components/ContainerNav';
+
 export default class ContainerNav extends React.Component {
   constructor() {
     super();
@@ -11,7 +14,7 @@ export default class ContainerNav extends React.Component {
   }
   render() {
     return (
-      <nav className="nav">
+      <nav className="ContainerNav">
         <button data-route="Tour" onClick={this._handleClick}>Tour</button>
         <button data-route="Map" onClick={this._handleClick}>Map</button>
         <button data-route="Create" onClick={this._handleClick}>Create</button>

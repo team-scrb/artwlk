@@ -1,6 +1,8 @@
 import React from 'react';
 import {GoogleMap, Marker} from 'react-google-maps';
 import {onSitesWithinRadius, addSiteLocation} from '../utils/geo';
+
+// styles
 import '../styles/components/MapSection';
 
 export default class MapSection extends React.Component {
@@ -37,12 +39,13 @@ export default class MapSection extends React.Component {
 
    render() {
      return (
-       <GoogleMap containerProps={{
-         ...this.props,
-         style: {
-           height: '100%',
-         },
-       }}
+       <GoogleMap
+         containerProps={{
+           ...this.props,
+           style: {
+             height: '100%',
+           },
+         }}
          ref="map"
          defaultZoom={12}
          defaultCenter={{lat: 34.04935261524454, lng: -118.24610710144043}}
