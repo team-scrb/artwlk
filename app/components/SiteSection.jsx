@@ -1,6 +1,5 @@
 import React from 'react';
-import {onSitesWithinRadius, getLocation} from '../utils/geo';
-import {getSiteByKey} from '../utils/sites';
+import {getLocation} from '../utils/geo';
 
 // styles
 import '../styles/components/SiteSection';
@@ -8,37 +7,21 @@ import '../styles/components/SiteSection';
 export default class SiteSection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tempData: [{img: '', title: 'One', artist: 'Banksy', rating: '5 stars', category: ['Art', 'Street Art']}, {img: '', title: 'Two', artist: '', rating: '6 stars', category: ['Art', 'Fine Art']}],
-    };
-    this.getSites = this.getSites.bind(this);
   }
   componentDidMount() {
-    getLocation().then(this.getSites);
-  }
-  getSites(location) {
-    this.setState({sites: []}, () => {
-      onSitesWithinRadius(location, 5, (siteId) => {
-        getSiteByKey(siteId)
-        .then(siteInfo => {
-          this.setState({
-            sites: this.state.sites.concat([{
-              key: siteId,
-              siteInfo,
-            }]),
-          });
-        });
-      });
-    });
+    getLocation().then(this.props.getSites);
   }
   render() {
-    // console.log('sites', this.state.sites);
-    const temp = this.state.tempData.map((data, index) => {
+    const siteList = this.props.sites.map((data, index) => {
       return (
         <li className="" key={index}>
-          {data.title && <h3>{data.title}</h3>}
-          {data.artist && <h5>{data.artist}</h5>}
-          {data.rating && <span>{data.rating}</span>}
+          {data.siteInfo.imageUrl && <img src={data.siteInfo.imageUrl}/>}
+          {data.siteInfo.name && <h3>{data.siteInfo.name}</h3>}
+          {data.siteInfo.artist && <h5>{data.siteInfo.artist}</h5>}
+          {data.siteInfo.coords && <h5>{data.siteInfo.coords}</h5>}
+          {data.siteInfo.architecture && <h6>{data.siteInfo.architecture}</h6>}
+          {data.siteInfo.streetArt && <h6>{data.siteInfo.streetArt}</h6>}
+          {data.siteInfo.description && <p>{data.siteInfo.description}</p>}
         </li>
       );
     });
@@ -46,9 +29,14 @@ export default class SiteSection extends React.Component {
       <div className="SiteSection">
         <h2>Browse our sites!!!</h2>
         <ul>
-          {temp}
+          {siteList}
         </ul>
       </div>
     );
   }
 }
+SiteSection.propTypes = {
+  getLocation: React.PropTypes.func.isRequired,
+  getSites: React.PropTypes.func.isRequired,
+  sites: React.PropTypes.array.isRequired,
+};
