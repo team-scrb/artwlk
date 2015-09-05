@@ -54,7 +54,7 @@ export default class MapSection extends React.Component {
   }
 
   _onMarkerClick(index) {
-    console.log(this.state.markers[index].siteInfo);
+    console.log(this.state.markers[index].siteInfo); // eslint-disable-line no-console
   }
 
  render() {

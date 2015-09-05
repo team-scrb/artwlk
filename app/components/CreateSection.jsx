@@ -20,8 +20,9 @@ export default class CreateSection extends React.Component {
   }
   _submit(event) {
     event.preventDefault();
+    if (!this.state.imageData) throw new Error('imageData is null');
     uploadImage(this.state.imageData)
-    .then(response => {
+    .then(imageUrl => {
       const {latitude, longitude} = this.state.userLocation.coords;
       const siteInfo = {
         coords: {latitude, longitude},
@@ -31,10 +32,10 @@ export default class CreateSection extends React.Component {
         architecture: this.refs.architecture.getDOMNode().value,
         tags: this.refs.tags.getDOMNode().value.split(' '),
         description: this.refs.description.getDOMNode().value,
-        imageUrl: response.data.data.link,
+        imageUrl,
       };
-      addSite(siteInfo).then(() => {
-        // TODO navigate to map view
+      return addSite(siteInfo).then(() => {
+        this.context.router.transitionTo('Map');
       });
     })
     .catch(error => console.error(error)); // eslint-disable-line no-console
@@ -68,3 +69,7 @@ export default class CreateSection extends React.Component {
     );
   }
 }
+
+CreateSection.contextTypes = {
+  router: React.PropTypes.func.isRequired,
+};
