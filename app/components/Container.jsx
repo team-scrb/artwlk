@@ -1,4 +1,4 @@
-import {React} from 'react/addons';
+import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
