@@ -1,4 +1,4 @@
 @import "../utils/config";
 
-.CreateSection { flex: 1; }
+.CreateSection { flex: 1; overflow-y: scroll; }
 .CreateSection__selectLocationBtn { color: red; }
