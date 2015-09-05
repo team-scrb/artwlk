@@ -12,7 +12,6 @@ export default class MapSection extends React.Component {
     this.state = {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       markers: [],
-      currentMarker: null,
     };
 
     // Bind methods in this section
@@ -36,13 +35,13 @@ export default class MapSection extends React.Component {
     });
   }
 
-  onMarkerClick(marker) {
-    this.state.markers.forEach((marker) => {
-      marker.showInfo = false;
+  onMarkerClick(currentMarker) {
+    this.state.markers.forEach((stateMarker) => {
+      stateMarker.showInfo = false;
     });
 
-    marker.showInfo = true;
-    this.setState(marker);
+    currentMarker.showInfo = true;
+    this.setState(currentMarker);
   }
 
   getSites(location) {
@@ -65,9 +64,9 @@ export default class MapSection extends React.Component {
     });
   }
 
-  handleCloseClick(marker) {
-    marker.showInfo = false;
-    this.setState(marker);
+  handleCloseClick(currentMarker) {
+    currentMarker.showInfo = false;
+    this.setState(currentMarker);
   }
 
   renderInfoWindow(ref, marker) {
