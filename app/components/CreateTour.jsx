@@ -4,7 +4,7 @@ import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 
 // Used for quickly adding mock locations
-import {addSite} from '../utils/sites';
+// import {addSite} from '../utils/sites';
 
 // styles
 import '../styles/components/MapSection';
@@ -32,7 +32,8 @@ export default class CreateTour extends React.Component {
     getLocation().then(this.getSites);
   }
 
-  onMapClick(event) {
+  onMapClick() {
+  // onMapClick(event) {
     // Used for quickly adding mock locations
     // addSite({
     //   coords: {
@@ -57,14 +58,14 @@ export default class CreateTour extends React.Component {
         waypoints: this.state.waypoints || null,
       },
       (result, status) => {
-        if(status == google.maps.DirectionsStatus.OK) {
+        if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
             directions: result,
-          })
+          });
         } else {
           console.error(`error fetching directions ${ result }`);
         }
-    });
+      });
   }
 
   onMarkerClick(currentMarker) {
@@ -76,12 +77,12 @@ export default class CreateTour extends React.Component {
       stopover: true,
     };
 
-    if(this.state.origin === null) {
+    if (this.state.origin === null) {
       this.setState({
         origin: currentLocation,
         waypoints: this.state.waypoints.concat([waypoint]),
       });
-    } else if(this.state.origin && !this.state.destination) {
+    } else if (this.state.origin && !this.state.destination) {
       this.setState({
         waypoints: this.state.waypoints.concat([waypoint]),
       });
@@ -132,10 +133,9 @@ export default class CreateTour extends React.Component {
   }
 
  render() {
-   const {origin, directions} = this.state;
+   const {directions} = this.state;
 
    return (
-
      <GoogleMap
        containerProps={{
          ...this.props,
