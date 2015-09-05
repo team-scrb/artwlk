@@ -3,12 +3,23 @@
 # chmod a+x <this file>
 # ln <this file> .git/hooks/<this file>
 
+
+function junk? {
+  JUNKBRANCH=`git branch -v | grep -E "^\*" | grep -c 'junk'`
+  if [ $JUNKBRANCH -ne 0 ]; then
+    echo "On junk branch; hooks disabled."
+    exit 0
+  fi
+}
+junk?
+
 function okay? {
   if [ $? -ne 0 ]; then
     echo "nope."
     exit -1
   fi
 }
+
 
 cat <<USAGE
 
