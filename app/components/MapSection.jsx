@@ -1,5 +1,5 @@
 import React from 'react';
-import {GoogleMap, Marker} from 'react-google-maps';
+import {GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 
@@ -12,19 +12,40 @@ export default class MapSection extends React.Component {
     this.state = {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       markers: [],
+      currentMarker: null,
     };
 
     // Bind methods in this section
-    this._onMapClick = this._onMapClick.bind(this);
-    this._onMarkerClick = this._onMarkerClick.bind(this);
-    this._getSites = this._getSites.bind(this);
+    this.onMapClick = this.onMapClick.bind(this);
+    this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.getSites = this.getSites.bind(this);
+    this.renderInfoWindow = this.renderInfoWindow.bind(this);
+    this.handleCloseClick = this.handleCloseClick.bind(this);
   } // Constructor
 
   componentDidMount() {
-    getLocation().then(this._getSites);
+    getLocation().then(this.getSites);
   }
 
-  _getSites(location) {
+  onMapClick(event) {
+    this.getSites({
+      coords: {
+        latitude: event.latLng.G,
+        longitude: event.latLng.K,
+      },
+    });
+  }
+
+  onMarkerClick(marker) {
+    this.state.markers.forEach((marker) => {
+      marker.showInfo = false;
+    });
+
+    marker.showInfo = true;
+    this.setState(marker);
+  }
+
+  getSites(location) {
     this.setState({markers: []}, () => {
       onSitesWithinRadius(location, 5, (siteId, latLng) => {
         getSiteByKey(siteId)
@@ -44,17 +65,24 @@ export default class MapSection extends React.Component {
     });
   }
 
-  _onMapClick(event) {
-    this._getSites({
-      coords: {
-        latitude: event.latLng.G,
-        longitude: event.latLng.K,
-      },
-    });
+  handleCloseClick(marker) {
+    marker.showInfo = false;
+    this.setState(marker);
   }
 
-  _onMarkerClick(index) {
-    console.log(this.state.markers[index].siteInfo); // eslint-disable-line no-console
+  renderInfoWindow(ref, marker) {
+    return (
+      <InfoWindow
+        key={`${ref}_info_window`}
+        onCloseclick={this.handleCloseClick.bind(this, marker)}
+      >
+        <div>
+          <strong>{marker.siteInfo.name}</strong>
+          <br />
+          <img src={marker.siteInfo.imageUrl}></img>
+        </div>
+      </InfoWindow>
+    );
   }
 
  render() {
@@ -69,10 +97,14 @@ export default class MapSection extends React.Component {
        ref="map"
        defaultZoom={12}
        defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
-       onClick={this._onMapClick}>
+       onClick={this.onMapClick}>
        {this.state.markers.map((marker, index) => {
+         const ref = `marker_${index}`;
          return (
-           <Marker {...marker} onClick={this._onMarkerClick.bind(null, index)}/>
+           <Marker {...marker}
+             onClick={this.onMarkerClick.bind(this, marker)}>
+             {marker.showInfo ? this.renderInfoWindow(ref, marker) : null}
+           </Marker>
          );
        })}
      </GoogleMap>
