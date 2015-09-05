@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "bash utils/installGitHooks.sh || node server",
+    "start": "bash utils/installGitHooks.sh && node server",
     "test": "./node_modules/karma/bin/karma start karma.conf.js",
     "test-watch": "./node_modules/karma/bin/karma start karma.conf.js --auto-watch --no-single-run"
   },
