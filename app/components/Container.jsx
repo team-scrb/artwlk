@@ -1,4 +1,4 @@
-import React from 'react';
+import {React} from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
@@ -24,8 +24,10 @@ export default class Home extends React.Component {
   onMarkerClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
-    const site = sites[index];
-    site.showInfo = true;
+    let site = sites[index];
+    site = React.addons.update(site, {
+      showInfo: {$set: true},
+    });
     sites.splice(index, 1, site);
     this.setState({sites});
   }
@@ -46,8 +48,10 @@ export default class Home extends React.Component {
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
-    const site = sites[index];
-    site.showInfo = false;
+    let site = sites[index];
+    site = React.addons.update(site, {
+      showInfo: {$set: false},
+    });
     sites.splice(index, 1, site);
     this.setState({sites});
   }
