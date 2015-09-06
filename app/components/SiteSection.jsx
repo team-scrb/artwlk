@@ -7,16 +7,26 @@ import '../styles/components/SiteSection';
 export default class SiteSection extends React.Component {
   constructor(props) {
     super(props);
+    this.siteDetailClick = this.siteDetailClick.bind(this);
   }
+
   componentDidMount() {
     getLocation().then(this.props.getSites);
   }
+
+  siteDetailClick(event) {
+    const router = this.context.router;
+    console.log(event.target.dataset.route);
+    router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
+  }
+
   render() {
     const siteList = this.props.sites.map((data, index) => {
+      console.log(data.siteInfo.imageUrl);
       return (
         <li className="" key={index}>
           {data.siteInfo.imageUrl && <img src={data.siteInfo.imageUrl}/>}
-          {data.siteInfo.name && <h3>{data.siteInfo.name}</h3>}
+          {data.siteInfo.name && <h3 data-route={data.siteId} onClick={this.siteDetailClick}>{data.siteInfo.name}</h3>}
           {data.siteInfo.artist && <h5>{data.siteInfo.artist}</h5>}
           {data.siteInfo.coords && <h5>{data.siteInfo.coords}</h5>}
           {data.siteInfo.architecture && <h6>{data.siteInfo.architecture}</h6>}
@@ -35,8 +45,12 @@ export default class SiteSection extends React.Component {
     );
   }
 }
+
+SiteSection.contextTypes = {
+  router: React.PropTypes.func.isRequired,
+};
+
 SiteSection.propTypes = {
-  getLocation: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
 };

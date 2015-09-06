@@ -7,11 +7,16 @@ export default class SiteDetail extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  componentDidMount() {
+    this.props.getCurrSite(this.props.params.siteId);
+  }
+
   render() {
     return (
       <div className="SiteDetail">
         <img src="" />
-        <h3>Site Title</h3>
+        <h3>{this.props.currSite.name}</h3>
         <h5>Artist</h5>
         <span>Rating</span><br/>
         <span>Categories, Categories</span><br/>
@@ -27,3 +32,9 @@ export default class SiteDetail extends React.Component {
     );
   }
 }
+
+SiteDetail.propTypes = {
+  currSite: React.PropTypes.object.isRequired,
+  params: React.PropTypes.object.isRequired,
+  getCurrSite: React.PropTypes.func.isRequired,
+};

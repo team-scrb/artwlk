@@ -6,16 +6,16 @@ import TourDetail from '../components/TourDetail';
 import SiteSection from '../components/SiteSection';
 import SiteDetail from '../components/SiteDetail';
 import CreateSection from '../components/CreateSection';
-import { Route, DefaultRoute } from 'react-router';
+import {Route, DefaultRoute} from 'react-router';
 
 export default (
   <Route name="app" path="/" handler={Container}>
-    <Route name="Tour" handler={TourSection} />
-    <Route name="TourDetail" path="/tour/detail" handler={TourDetail} />
-    <Route name="Site" handler={SiteSection} />
-    <Route name="SiteDetail" path="/site/detail" handler={SiteDetail} />
-    <Route name="Map" handler={MapSection} />
-    <Route name="Create" handler={CreateSection} />
+    <Route name="tour" handler={TourSection} />
+    <Route name="tour-detail" path="/tours/:tourId" handler={TourDetail} />
+    <Route name="sites" handler={SiteSection} />
+    <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
+    <Route name="map" handler={MapSection} />
+    <Route name="create" handler={CreateSection} />
     <DefaultRoute handler={MapSection} />
   </Route>
 );

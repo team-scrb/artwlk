@@ -13,14 +13,18 @@ export default class Home extends React.Component {
     this.state = {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
+      currSite: {},
     };
+    this.getCurrSite = this.getCurrSite.bind(this);
     this.getSites = this.getSites.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
   }
+
   componentDidMount() {
     getLocation().then(this.getSites);
   }
+
   onMarkerClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
@@ -31,6 +35,7 @@ export default class Home extends React.Component {
     sites.splice(index, 1, site);
     this.setState({sites});
   }
+
   getSites(location) {
     this.setState({sites: []}, () => {
       onSitesWithinRadius(location, 5, (siteId) => {
@@ -45,6 +50,14 @@ export default class Home extends React.Component {
       });
     });
   }
+
+  getCurrSite(siteId) {
+    getSiteByKey(siteId)
+    .then(currSite => {
+      this.setState({ currSite });
+    });
+  }
+
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
@@ -55,11 +68,19 @@ export default class Home extends React.Component {
     sites.splice(index, 1, site);
     this.setState({sites});
   }
+
   render() {
     return (
       <div className="Container">
         <ContainerNav />
-        <RouteHandler {...this.props} getSites={this.getSites} {...this.state} onMarkerClick={this.onMarkerClick} handleCloseClick={this.handleCloseClick}/>
+        <RouteHandler
+          {...this.state}
+          {...this.props}
+          getCurrSite={this.getCurrSite}
+          getSites={this.getSites}
+          onMarkerClick={this.onMarkerClick}
+          handleCloseClick={this.handleCloseClick}
+        />
       </div>
     );
   }
