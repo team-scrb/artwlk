@@ -29,6 +29,9 @@ export default class MapSection extends React.Component {
           <strong>{marker.siteInfo.name}</strong>
           <br />
           <img src={marker.siteInfo.imageUrl}></img>
+          <p>by {marker.siteInfo.artist}</p>
+          <p>{marker.siteInfo.description}</p>
+          <p>{marker.siteInfo.name}</p>
         </div>
       </InfoWindow>
     );
