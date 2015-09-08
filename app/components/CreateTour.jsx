@@ -109,29 +109,6 @@ export default class CreateTour extends React.Component {
     });
   }
 
-  handleCloseClick(currentMarker) {
-    currentMarker.showInfo = false;
-    this.setState(currentMarker);
-  }
-
-  renderInfoWindow(ref, marker) {
-    return (
-      <InfoWindow
-        key={`${ref}_info_window`}
-        onCloseclick={this.handleCloseClick.bind(this, marker)}
-      >
-        <div>
-          <strong>{marker.siteInfo.name}</strong>
-          <br />
-          <img src={marker.siteInfo.imageUrl}></img>
-          <p>by {marker.siteInfo.artist}</p>
-          <p>{marker.siteInfo.description}</p>
-          <p>{marker.siteInfo.name}</p>
-        </div>
-      </InfoWindow>
-    );
-  }
-
  render() {
    const {directions} = this.state;
 
@@ -153,7 +130,6 @@ export default class CreateTour extends React.Component {
          return (
            <Marker {...marker}
              onClick={this.onMarkerClick.bind(this, marker)}>
-             {marker.showInfo ? this.renderInfoWindow(ref, marker) : null}
            </Marker>
          );
        })}
