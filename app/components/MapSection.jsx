@@ -31,7 +31,7 @@ export default class MapSection extends React.Component {
           <img src={marker.siteInfo.imageUrl}></img>
           <p>by {marker.siteInfo.artist}</p>
           <p>{marker.siteInfo.description}</p>
-          <p>{marker.siteInfo.name}</p>
+          <p>{marker.siteInfo.imageUrl}</p>
         </div>
       </InfoWindow>
     );
@@ -50,8 +50,10 @@ export default class MapSection extends React.Component {
         defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
         onClick={this.onMapClick}>
         {this.props.sites.map((site, index) => {
+          const {type} = site.siteInfo;
           const marker = {
             siteInfo: site.siteInfo,
+            icon: this.props.iconSets(type),
             position: {
               lat: site.siteInfo.coords.latitude,
               lng: site.siteInfo.coords.longitude,
@@ -60,7 +62,7 @@ export default class MapSection extends React.Component {
             defaultAnimation: 2,
             showInfo: site.showInfo,
           };
-          const ref = `marker_${index}`;
+          const ref = `marke r_${index}`;
           return (
             <Marker {...marker}
               onClick={this.props.onMarkerClick.bind(this, site)}>
@@ -77,4 +79,5 @@ MapSection.propTypes = {
   sites: React.PropTypes.array.isRequired,
   onMarkerClick: React.PropTypes.func.isRequired,
   handleCloseClick: React.PropTypes.func.isRequired,
+  iconSets: React.PropTypes.func.isRequired,
 };
