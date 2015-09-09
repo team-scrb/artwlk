@@ -20,7 +20,7 @@ export default (
     <Route name="map" handler={MapSection} />
     <Route name="create" handler={CreateSection} />
     <Route name="login" handler={Login} />
-    <DefaultRoute handler={MapSection} />
+    <DefaultRoute handler={NearbySection} />
     <NotFoundRoute handler={MapSection} />
   </Route>
 );
