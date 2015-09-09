@@ -72,8 +72,8 @@ export default class Home extends React.Component {
 
   markerIconHandler(string) {
     const iconSets = {
-      street: '/images/Spray-512.png',
-      architecture: '/images/drafting-compass-512.png',
+      street: '/src/images/Spray-512.png',
+      architecture: '/src/images/drafting-compass-512.png',
     };
 
     return iconSets[string];
