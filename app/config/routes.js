@@ -6,6 +6,7 @@ import TourDetail from '../components/TourDetail';
 import SiteSection from '../components/SiteSection';
 import SiteDetail from '../components/SiteDetail';
 import CreateSection from '../components/CreateSection';
+import Login from '../components/login-signup/Login';
 import {Route, DefaultRoute} from 'react-router';
 
 export default (
@@ -16,6 +17,7 @@ export default (
     <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
     <Route name="map" handler={MapSection} />
     <Route name="create" handler={CreateSection} />
+    <Route name="login" handler={Login} />
     <DefaultRoute handler={MapSection} />
   </Route>
 );

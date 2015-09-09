@@ -1,5 +1,5 @@
 import React from 'react';
-import {GoogleMap, Marker, InfoWindow, DirectionsRenderer} from 'react-google-maps';
+import {GoogleMap, Marker, DirectionsRenderer} from 'react-google-maps';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 
@@ -63,7 +63,7 @@ export default class CreateTour extends React.Component {
             directions: result,
           });
         } else {
-          console.error(`error fetching directions ${ result }`);
+          console.error(`error fetching directions ${ result }`); // eslint-disable-line no-console
         }
       });
   }
@@ -125,12 +125,10 @@ export default class CreateTour extends React.Component {
        defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
        onClick={this.onMapClick}>
        {directions ? <DirectionsRenderer directions={directions} /> : null}
-       {this.state.markers.map((marker, index) => {
-         const ref = `marker_${index}`;
+       {this.state.markers.map((marker) => {
          return (
            <Marker {...marker}
-             onClick={this.onMarkerClick.bind(this, marker)}>
-           </Marker>
+             onClick={this.onMarkerClick.bind(this, marker)} />
          );
        })}
      </GoogleMap>
