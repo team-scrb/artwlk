@@ -19,6 +19,7 @@ export default class Home extends React.Component {
     this.getSites = this.getSites.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
+    this.markerIconHandler = this.markerIconHandler.bind(this);
   }
 
   componentDidMount() {
@@ -69,6 +70,15 @@ export default class Home extends React.Component {
     this.setState({sites});
   }
 
+  markerIconHandler(string) {
+    const iconSets = {
+      street: '/images/Spray-512.png',
+      architecture: '/images/drafting-compass-512.png',
+    };
+
+    return iconSets[string];
+  }
+
   render() {
     return (
       <div className="Container">
@@ -80,6 +90,7 @@ export default class Home extends React.Component {
           getSites={this.getSites}
           onMarkerClick={this.onMarkerClick}
           handleCloseClick={this.handleCloseClick}
+          iconSets={this.markerIconHandler}
         />
       </div>
     );
