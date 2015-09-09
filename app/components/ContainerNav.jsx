@@ -15,7 +15,8 @@ export default class ContainerNav extends React.Component {
   render() {
     return (
       <nav className="ContainerNav">
-        <button data-route="tour" onClick={this._handleClick}>Tour</button>
+        <button data-route="nearby" onClick={this._handleClick}>Nearby</button>
+        <button data-route="tours" onClick={this._handleClick}>Tour</button>
         <button data-route="map" onClick={this._handleClick}>Map</button>
         <button data-route="create" onClick={this._handleClick}>Create</button>
       </nav>

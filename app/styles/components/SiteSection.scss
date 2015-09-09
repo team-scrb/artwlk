@@ -1,3 +1,4 @@
 @import "../utils/config";
 
 .SiteSection { flex: 1; overflow-y: scroll; }
+.SiteSection img { max-width: 100%; }

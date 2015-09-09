@@ -1,20 +1,23 @@
 import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
+import TopBarSection from './TopBarSection';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 
 // styles
 import '../styles/components/Container';
 
-export default class Home extends React.Component {
+export default class Container extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       currSite: {},
     };
+
     this.getCurrSite = this.getCurrSite.bind(this);
     this.getSites = this.getSites.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -82,7 +85,10 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="Container">
-        <ContainerNav />
+        <TopBarSection
+          {...this.state}
+          {...this.props}
+        />
         <RouteHandler
           {...this.state}
           {...this.props}
@@ -92,7 +98,12 @@ export default class Home extends React.Component {
           handleCloseClick={this.handleCloseClick}
           iconSets={this.markerIconHandler}
         />
+        <ContainerNav />
       </div>
     );
   }
 }
+
+Container.propTypes = {
+  path: React.PropTypes.string,
+};
