@@ -1,34 +1,48 @@
 import {fireRef} from '../../config';
 
-const fqById = ({id, path, data}) => {
-  const obj = {};
-  obj[id] = data;
-  const _path = path instanceof Arraypath ? path.join('/') : path;
+const setById = ({id, path, data}) => {
+  const _path = path instanceof Array ? path.join('/') : path;
   return new Promise(
-    (resolve, reject) => fireRef.child(_path).set(data, resolve.bind(null, data), reject)
+    (resolve, reject) => {
+      fireRef.child(_path).child(id).set(data, error => {
+        if (error) return reject(error);
+        resolve(data);
+      });
+    }
   );
 };
 
-export const createUser = ({provider, uid, imageUrl, profileUrl, name}) => fqById({
-  id: uid,
-  path: ['users'],
-  data: {provider, uid, imageUrl, profileUrl, name},
+export const getUser = id => new Promise((resolve, reject) => {
+  fireRef.child('users').child(id).once('value', snap => resolve(snap.val()), reject);
 });
 
-export const addBookmark = ({uid, bookmarkType, id}) => fqById({
-  id: uid,
+export const createUser = ({id, displayName, profileImageURL}) => {
+  return getUser(id).then(user => {
+    if (!user) {
+      return setById({
+        id: id,
+        path: ['users'],
+        data: {id, displayName, profileImageURL},
+      });
+    }
+    return new Promise(() => {});
+  });
+};
+
+export const addBookmark = ({uid, bookmarkType, id}) => setById({
+  id: id,
   path: ['users', uid, 'bookmarks', bookmarkType],
-  data: {uid, bookmarkType, id},
+  data: {id},
 });
 
-export const addUserSite = ({uid, id}) => fqById({
-  id: uid,
+export const addUserSite = ({uid, id}) => setById({
+  id: id,
   path: ['users', uid, 'sites'],
-  data: {uid, id},
+  data: {id},
 });
 
-export const addUserTour = ({uid, id}) => fqById({
-  id: uid,
+export const addUserTour = ({uid, id}) => setById({
+  id: id,
   path: ['users', uid, 'tours'],
-  data: {uid, id},
+  data: {id},
 });
