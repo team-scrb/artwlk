@@ -2,6 +2,7 @@ import React from 'react';
 import PhotoUpload from './PhotoUpload';
 import {uploadImage} from '../utils/photo';
 import {addSite} from '../utils/sites';
+import {willTransitionTo} from '../utils/auth';
 
 // styles
 import '../styles/components/CreateSection';
@@ -35,7 +36,7 @@ export default class CreateSection extends React.Component {
         imageUrl,
       };
       return addSite(siteInfo).then(() => {
-        this.context.router.transitionTo('Map');
+        this.context.router.transitionTo('map');
       });
     })
     .catch(error => console.error(error)); // eslint-disable-line no-console
@@ -46,7 +47,7 @@ export default class CreateSection extends React.Component {
       <div className="CreateSection">
         <h2>Create Site Here</h2>
         <form onSubmit={this._submit}>
-          <PhotoUpload _setImageData={this._setImageData}/>
+          <PhotoUpload setImageData={this._setImageData}/>
           <button className="CreateSection__selectLocationBtn">Select Location</button>
           <label>Name
             <input type="text" name="name" ref="name" />
@@ -73,3 +74,5 @@ export default class CreateSection extends React.Component {
 CreateSection.contextTypes = {
   router: React.PropTypes.func.isRequired,
 };
+
+CreateSection.willTransitionTo = willTransitionTo;
