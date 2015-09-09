@@ -21,3 +21,8 @@ export default (
     <DefaultRoute handler={MapSection} />
   </Route>
 );
+
+
+// Authorized routes
+import {willTransitionTo} from '../utils/auth';
+CreateSection.willTransitionTo = willTransitionTo;
