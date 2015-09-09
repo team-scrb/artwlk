@@ -18,7 +18,7 @@ export default class Login extends React.Component {
   doLogin() {
     // TODO Implement as prop?
     login()
-    .catch(error => alert(error));
+    .catch(error => alert(error)); // eslint-disable-line no-alert
   }
   render() {
     return (

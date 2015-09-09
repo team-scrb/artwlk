@@ -16,13 +16,11 @@ export default class SiteSection extends React.Component {
 
   siteDetailClick(event) {
     const router = this.context.router;
-    console.log(event.target.dataset.route);
     router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
   }
 
   render() {
     const siteList = this.props.sites.map((data, index) => {
-      console.log(data.siteInfo.imageUrl);
       return (
         <li className="" key={index}>
           {data.siteInfo.imageUrl && <img src={data.siteInfo.imageUrl}/>}
