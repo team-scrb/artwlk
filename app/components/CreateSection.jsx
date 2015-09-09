@@ -2,7 +2,6 @@ import React from 'react';
 import PhotoUpload from './PhotoUpload';
 import {uploadImage} from '../utils/photo';
 import {addSite} from '../utils/sites';
-import {willTransitionTo} from '../utils/auth';
 
 // styles
 import '../styles/components/CreateSection';
@@ -74,5 +73,3 @@ export default class CreateSection extends React.Component {
 CreateSection.contextTypes = {
   router: React.PropTypes.func.isRequired,
 };
-
-CreateSection.willTransitionTo = willTransitionTo;
