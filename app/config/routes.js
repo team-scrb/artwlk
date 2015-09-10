@@ -7,6 +7,8 @@ import TourDetail from '../components/TourDetail';
 import SiteSection from '../components/SiteSection';
 import SiteDetail from '../components/SiteDetail';
 import CreateSection from '../components/CreateSection';
+import TopBarFilter from '../components/TopBarFilter';
+import TopBarSearch from '../components/TopBarSearch';
 import Login from '../components/login-signup/Login';
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 
@@ -19,6 +21,8 @@ export default (
     <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
     <Route name="map" handler={MapSection} />
     <Route name="create" handler={CreateSection} />
+    <Route name="filter" handler={TopBarFilter} />
+    <Route name="search" handler={TopBarSearch} />
     <Route name="login" handler={Login} />
     <DefaultRoute handler={NearbySection} />
     <NotFoundRoute handler={MapSection} />

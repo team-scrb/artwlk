@@ -1,4 +1,5 @@
 import React from 'react';
+import TopBarSearch from './TopBarSearch';
 
 // styles
 import '../styles/components/TourSection';
@@ -7,6 +8,7 @@ export default class Tour extends React.Component {
   render() {
     return (
       <div className="TourSection">
+        <TopBarSearch />
         <h2>Make me a tour please!</h2>
         <ul>
           <li>
