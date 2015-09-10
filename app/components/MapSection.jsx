@@ -54,10 +54,10 @@ export default class MapSection extends React.Component {
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
           onClick={this.onMapClick}>
           {this.props.sites.map((site, index) => {
-            const {type} = site.siteInfo;
+            const {category} = site.siteInfo;
             const marker = {
               siteInfo: site.siteInfo,
-              icon: this.props.iconSets(type),
+              icon: this.props.iconSets(category),
               position: {
                 lat: site.siteInfo.coords.latitude,
                 lng: site.siteInfo.coords.longitude,

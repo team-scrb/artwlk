@@ -14,6 +14,7 @@ export default class CreateSection extends React.Component {
     };
     this._submit = this._submit.bind(this);
     this._setImageData = this._setImageData.bind(this);
+    this.selectLocationHandler = this.selectLocationHandler.bind(this);
   }
   _setImageData(imageData, userLocation) {
     this.setState({imageData, userLocation});
@@ -23,7 +24,7 @@ export default class CreateSection extends React.Component {
     if (!this.state.imageData) throw new Error('imageData is null');
     uploadImage(this.state.imageData)
     .then(imageUrl => {
-      const {latitude, longitude} = this.state.userLocation.coords;
+      const {latitude, longitude} = this.props.childMapPosition || this.state.userLocation.coords;
       const siteInfo = {
         coords: {latitude, longitude},
         name: this.refs.name.getDOMNode().value,
@@ -43,13 +44,17 @@ export default class CreateSection extends React.Component {
     .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
+  selectLocationHandler() {
+    this.context.router.transitionTo('create-locationselector');
+  }
+
   render() {
     return (
       <div className="CreateSection">
         <h2>Create Site Here</h2>
         <form onSubmit={this._submit}>
           <PhotoUpload setImageData={this._setImageData}/>
-          <button className="CreateSection__selectLocationBtn">Select Location</button>
+          <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>Select Location</h1>
           <label>Name
             <input type="text" name="name" ref="name" />
           </label>
@@ -72,6 +77,10 @@ export default class CreateSection extends React.Component {
   }
 }
 
+CreateSection.propTypes = {
+  location: React.PropTypes.object,
+  childMapPosition: React.PropTypes.object,
+};
 CreateSection.contextTypes = {
   router: React.PropTypes.func.isRequired,
 };

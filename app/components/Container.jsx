@@ -16,6 +16,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       currSite: {},
+      childMapPosition: {},
     };
 
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -23,6 +24,7 @@ export default class Container extends React.Component {
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.markerIconHandler = this.markerIconHandler.bind(this);
+    this.getLatLng = this.getLatLng.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +77,16 @@ export default class Container extends React.Component {
     });
   }
 
+  getLatLng(latLng) {
+    const {lat, lng} = latLng;
+    this.setState({
+      childMapPosition: {
+        latitude: lat,
+        longitude: lng,
+      },
+    });
+  }
+
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
@@ -86,14 +98,22 @@ export default class Container extends React.Component {
     this.setState({sites});
   }
 
-  markerIconHandler(string) {
+  markerIconHandler(category) {
+    // Temporary fix until we finalize how we will do categories
     const iconSets = {
-      street: '/src/images/Spray-512.png',
-      architecture: '/src/images/drafting-compass-512.png',
+      mural: '/src/images/paint-brush-2-icon.png',
+      sculpture: '/src/images/paint-brush-2-icon.png',
+      streetArt: '/src/images/paint-brush-2-icon.png',
+      architectureArt: '/src/images/paint-brush-2-icon.png',
     };
 
-    return iconSets[string];
+    for (const genre in category) {
+      if (category[genre]) {
+        return iconSets[genre];
+      }
+    }
   }
+
 
   render() {
     return (
@@ -110,6 +130,7 @@ export default class Container extends React.Component {
           onMarkerClick={this.onMarkerClick}
           handleCloseClick={this.handleCloseClick}
           iconSets={this.markerIconHandler}
+          getLatLng={this.getLatLng}
         />
         <ContainerNav />
       </div>

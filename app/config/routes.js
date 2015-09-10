@@ -9,6 +9,7 @@ import SiteDetail from '../components/SiteDetail';
 import CreateSection from '../components/CreateSection';
 import FilterSection from '../components/FilterSection';
 import SearchSection from '../components/SearchSection';
+import CreateLocationSelector from '../components/CreateLocationSelector';
 import Login from '../components/login-signup/Login';
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 
@@ -23,6 +24,7 @@ export default (
     <Route name="create" handler={CreateSection} />
     <Route name="filter" handler={FilterSection} />
     <Route name="search" handler={SearchSection} />
+    <Route name="create-locationselector" handler={CreateLocationSelector} />
     <Route name="login" handler={Login} />
     <DefaultRoute handler={NearbySection} />
     <NotFoundRoute handler={MapSection} />
