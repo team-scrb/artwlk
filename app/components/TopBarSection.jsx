@@ -42,9 +42,9 @@ export default class TopBarSection extends React.Component {
       ),
       '/filter': (
         <div>
-          <TopBarButton name="Back" route="filter" />
+          <TopBarButton name="Back" route="sites" />
           <h2>Filter</h2>
-          <TopBarButton name="List" route="sites"/>
+          <TopBarButton name="Go" route="sites"/>
         </div>
       ),
       '/search': (
