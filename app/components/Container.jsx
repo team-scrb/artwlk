@@ -98,13 +98,20 @@ export default class Container extends React.Component {
     this.setState({sites});
   }
 
-  markerIconHandler(string) {
+  markerIconHandler(category) {
+    // Temporary fix until we finalize how we will do categories
     const iconSets = {
-      street: '/src/images/Spray-512.png',
-      architecture: '/src/images/drafting-compass-512.png',
+      mural: '/src/images/paint-brush-2-icon.png',
+      sculpture: '/src/images/paint-brush-2-icon.png',
+      streetArt: '/src/images/paint-brush-2-icon.png',
+      architectureArt: '/src/images/paint-brush-2-icon.png',
     };
 
-    return iconSets[string];
+    for (const genre in category) {
+      if (category[genre]) {
+        return iconSets[genre];
+      }
+    }
   }
 
 
