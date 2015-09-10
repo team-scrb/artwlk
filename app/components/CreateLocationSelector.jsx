@@ -3,7 +3,7 @@ import {GoogleMap, Marker, Circle} from 'react-google-maps';
 
 // styles
 import '../styles/components/MapSection';
-export default class CreateSectionMapView extends React.Component {
+export default class CreateLocationSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -89,13 +89,14 @@ export default class CreateSectionMapView extends React.Component {
     );
   }
 }
-CreateSectionMapView.propTypes = {
+
+CreateLocationSelector.propTypes = {
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
   onMarkerClick: React.PropTypes.func.isRequired,
   getLatLng: React.PropTypes.func.isRequired,
 };
 
-CreateSectionMapView.contextTypes = {
+CreateLocationSelector.contextTypes = {
   router: React.PropTypes.func.isRequired,
 };
