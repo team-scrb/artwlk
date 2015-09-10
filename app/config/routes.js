@@ -24,7 +24,7 @@ export default (
     <Route name="create" handler={CreateSection} />
     <Route name="filter" handler={FilterSection} />
     <Route name="search" handler={SearchSection} />
-    <Route name="create-mapview" handler={CreateLocationSelector} />
+    <Route name="create-locationselector" handler={CreateLocationSelector} />
     <Route name="login" handler={Login} />
     <DefaultRoute handler={NearbySection} />
     <NotFoundRoute handler={MapSection} />

@@ -45,7 +45,7 @@ export default class CreateSection extends React.Component {
   }
 
   selectLocationHandler() {
-    this.context.router.transitionTo('create-mapview');
+    this.context.router.transitionTo('create-locationselector');
   }
 
   render() {
