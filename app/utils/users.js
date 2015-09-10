@@ -25,7 +25,7 @@ export const createUser = ({id, displayName, profileImageURL}) => {
         data: {id, displayName, profileImageURL},
       });
     }
-    return new Promise(() => {});
+    return new Promise(resolve => resolve());
   });
 };
 
