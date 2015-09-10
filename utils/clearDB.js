@@ -1,4 +1,4 @@
-import { ref } from '../config';
+import { fireRef } from '../config';
 // Promise.all(
 //   paths.map(path => new Promise(
 //     (resolve, reject) => ref.child(path).remove(
@@ -10,4 +10,4 @@ import { ref } from '../config';
 //     process.exit();
 //   });
 
-ref.remove(() => process.exit()); // hulk smash
+fireRef.remove(() => process.exit()); // hulk smash
