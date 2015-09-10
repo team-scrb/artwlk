@@ -1,6 +1,6 @@
 import React from 'react';
 import {getLocation} from '../utils/geo';
-import TopBarSearch from './TopBarSearch';
+import SearchSection from './SearchSection';
 
 // styles
 import '../styles/components/SiteSection';
@@ -37,7 +37,7 @@ export default class SiteSection extends React.Component {
     return (
       <div className="SiteSection">
         <div className="SiteSection__TopBarWrapper">
-          <TopBarSearch />
+          <SearchSection />
         </div>
         <h2>Browse our sites!!!</h2>
         <ul>

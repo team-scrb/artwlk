@@ -7,6 +7,13 @@ import '../styles/components/TopBarSection';
 export default class TopBarSection extends React.Component {
   render() {
     const topBarRoutes = {
+      '/': (
+        <div>
+          <TopBarButton name="Filter" route="filter" left/>
+          <h2>Nearby</h2>
+          <TopBarButton name="List" route="map" right/>
+        </div>
+      ),
       '/nearby': (
         <div>
           <TopBarButton name="Filter" route="filter" left/>
