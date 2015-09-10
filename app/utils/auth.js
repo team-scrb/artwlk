@@ -1,14 +1,16 @@
 import {fireRef} from '../../config';
 import {default as Login} from '../components/login-signup/Login';
+import {createUser} from './users';
 
 export const isLoggedIn = () => fireRef.getAuth();
 export const logout = () => fireRef.unauth();
 export const login = () => {
   return new Promise((resolve, reject) => {
     fireRef.authWithOAuthPopup('facebook', (error, authData) => {
-      if (error) {
-        reject(error);
-      } else {
+      if (error) return reject(error);
+      const {facebook: {id, displayName, profileImageURL}} = authData;
+      createUser({id, displayName, profileImageURL})
+      .then(() => {
         if (Login.attemptedTransition) {
           const transition = Login.attemptedTransition;
           Login.attemptedTransition = null;
@@ -17,7 +19,8 @@ export const login = () => {
           this.replaceWith('/');
         }
         resolve(authData);
-      }
+      })
+      .catch(reject);
     }, {
       remember: 'none',
     });
