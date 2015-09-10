@@ -1,22 +1,22 @@
 import React from 'react';
 
 // styles
-import '../styles/components/TopBarSearch';
+import '../styles/components/SearchSection';
 
-export default class TopBarSearch extends React.Component {
+export default class SearchSection extends React.Component {
   constructor() {
     super();
     this.state = {
-      className: 'TopBarSearch',
+      className: 'SearchSection',
     };
     this.handleFocus = this.handleFocus.bind(this);
     this.closeSearch = this.closeSearch.bind(this);
   }
   handleFocus() {
-    this.setState({className: 'TopBarSearch__active'});
+    this.setState({className: 'SearchSection__active'});
   }
   closeSearch() {
-    this.setState({className: 'TopBarSearch'});
+    this.setState({className: 'SearchSection'});
   }
   render() {
     return (
@@ -36,9 +36,9 @@ export default class TopBarSearch extends React.Component {
   }
 }
 
-TopBarSearch.propTypes = {
+SearchSection.propTypes = {
   handleFocus: React.PropTypes.function,
   closeSearch: React.PropTypes.function,
 };
-TopBarSearch.contextTypes = {
+SearchSection.contextTypes = {
 };

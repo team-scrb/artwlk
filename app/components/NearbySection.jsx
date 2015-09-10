@@ -1,5 +1,5 @@
 import React from 'react';
-import TopBarSearch from './TopBarSearch';
+import SearchSection from './SearchSection';
 
 // styles
 import '../styles/components/NearbySection';
@@ -12,7 +12,7 @@ export default class NearbySection extends React.Component {
   render() {
     return (
       <div className="NearbySection">
-        <TopBarSearch />
+        <SearchSection />
         <div>
           <button>Tours</button>
           <button>Sites</button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import TopBarSearch from './TopBarSearch';
+import SearchSection from './SearchSection';
 import {GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 
 // styles
@@ -40,7 +40,7 @@ export default class MapSection extends React.Component {
   render() {
     return (
       <div className="MapSection">
-        <TopBarSearch />
+        <SearchSection />
         <GoogleMap
           containerProps={{
             ...this.props,

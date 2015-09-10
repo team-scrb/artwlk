@@ -1,0 +1,4 @@
+@import "../utils/config";
+
+.SearchSection {flex: 1; overflow-y: scroll; height: 24px; width: 100%;}
+.SearchSection__active {height: 100%; width: 100%; position: absolute; background-color: #fff;z-index:9;}
