@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classNames';
+import classNames from 'classnames';
 
 // styles
 import '../styles/components/TopBarButton';
@@ -27,8 +27,8 @@ export default class TopBarButton extends React.Component {
 TopBarButton.propTypes = {
   name: React.PropTypes.string,
   route: React.PropTypes.string,
-  left: React.PropTypes.boolean,
-  right: React.PropTypes.boolean,
+  left: React.PropTypes.bool,
+  right: React.PropTypes.bool,
 };
 TopBarButton.contextTypes = {
   router: React.PropTypes.func.isRequired,
