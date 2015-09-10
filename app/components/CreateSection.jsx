@@ -28,8 +28,10 @@ export default class CreateSection extends React.Component {
         coords: {latitude, longitude},
         name: this.refs.name.getDOMNode().value,
         artist: this.refs.artist.getDOMNode().value,
-        streetArt: this.refs.streetArt.getDOMNode().value,
-        architecture: this.refs.architecture.getDOMNode().value,
+        category: {
+          streetArt: this.refs.streetArt.getDOMNode().checked,
+          architecture: this.refs.architecture.getDOMNode().checked,
+        },
         tags: this.refs.tags.getDOMNode().value.split(' '),
         description: this.refs.description.getDOMNode().value,
         imageUrl,
