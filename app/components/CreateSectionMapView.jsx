@@ -12,16 +12,7 @@ export default class CreateSectionMapView extends React.Component {
     };
     this.addSite = this.addSite.bind(this);
     this.onMapDrag = this.onMapDrag.bind(this);
-    // this.onMapClick = this.onMapClick.bind(this);
   }
-
-  // onMapClick(event) {
-  //   // Access the map instance
-  //   // this.refs.map.state.map.panTo(event.latLng);
-  //   this.setState({
-  //     center: event.latLng,
-  //   });
-  // }
 
   onMapDrag() {
     const {G, K} = this.refs.map.state.map.center;
