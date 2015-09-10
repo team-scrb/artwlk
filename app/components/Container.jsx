@@ -29,14 +29,27 @@ export default class Container extends React.Component {
     getLocation().then(this.getSites);
   }
 
-  onMarkerClick(currentMarker) {
+  onMarkerClick(clickedMarker) {
     const sites = this.state.sites;
-    const index = sites.indexOf(currentMarker);
+
+    let index = sites.findIndex(site => site.showInfo);
     let site = sites[index];
-    site = React.addons.update(site, {
-      showInfo: {$set: true},
-    });
-    sites.splice(index, 1, site);
+    if (site && site.showInfo) {
+      site = React.addons.update(site, {
+        showInfo: {$set: false},
+      });
+      sites.splice(index, 1, site);
+    }
+
+    index = sites.indexOf(clickedMarker);
+    site = sites[index];
+    if (site) {
+      site = React.addons.update(site, {
+        showInfo: {$set: true},
+      });
+      sites.splice(index, 1, site);
+    }
+
     this.setState({sites});
   }
 
