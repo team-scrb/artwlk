@@ -1,4 +1,5 @@
 import React from 'react';
+import TopBarSearch from './TopBarSearch';
 import {GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 
 // styles
@@ -38,39 +39,43 @@ export default class MapSection extends React.Component {
   }
   render() {
     return (
-      <GoogleMap
-        containerProps={{
-          ...this.props,
-          style: {
-            height: '100%',
-          },
-        }}
-        ref="map"
-        defaultZoom={12}
-        defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
-        onClick={this.onMapClick}>
-        {this.props.sites.map((site, index) => {
-          const {type} = site.siteInfo;
-          const marker = {
-            siteInfo: site.siteInfo,
-            icon: this.props.iconSets(type),
-            position: {
-              lat: site.siteInfo.coords.latitude,
-              lng: site.siteInfo.coords.longitude,
+      <div className="MapSection">
+        <TopBarSearch />
+        <GoogleMap
+          containerProps={{
+            ...this.props,
+            style: {
+              height: '100%',
             },
-            key: site.siteId,
-            defaultAnimation: 2,
-            showInfo: site.showInfo,
-          };
-          const ref = `marke r_${index}`;
-          return (
-            <Marker {...marker}
-              onClick={this.props.onMarkerClick.bind(this, site)}>
-              {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
-            </Marker>
-          );
-        })}
-      </GoogleMap>
+          }}
+          className="MapSection__map"
+          ref="map"
+          defaultZoom={12}
+          defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
+          onClick={this.onMapClick}>
+          {this.props.sites.map((site, index) => {
+            const {type} = site.siteInfo;
+            const marker = {
+              siteInfo: site.siteInfo,
+              icon: this.props.iconSets(type),
+              position: {
+                lat: site.siteInfo.coords.latitude,
+                lng: site.siteInfo.coords.longitude,
+              },
+              key: site.siteId,
+              defaultAnimation: 2,
+              showInfo: site.showInfo,
+            };
+            const ref = `marker_${index}`;
+            return (
+              <Marker {...marker}
+                onClick={this.props.onMarkerClick.bind(this, site)}>
+                {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
+              </Marker>
+            );
+          })}
+        </GoogleMap>
+      </div>
     );
   }
 }
