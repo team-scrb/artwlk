@@ -16,6 +16,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       currSite: {},
+      childMapPosition: {},
     };
 
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -23,6 +24,7 @@ export default class Container extends React.Component {
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.markerIconHandler = this.markerIconHandler.bind(this);
+    this.getLatLng = this.getLatLng.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +77,16 @@ export default class Container extends React.Component {
     });
   }
 
+  getLatLng(latLng) {
+    const {lat, lng} = latLng;
+    this.setState({
+      childMapPosition: {
+        latitude: lat,
+        longitude: lng,
+      },
+    });
+  }
+
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
@@ -95,6 +107,7 @@ export default class Container extends React.Component {
     return iconSets[string];
   }
 
+
   render() {
     return (
       <div className="Container">
@@ -110,6 +123,7 @@ export default class Container extends React.Component {
           onMarkerClick={this.onMarkerClick}
           handleCloseClick={this.handleCloseClick}
           iconSets={this.markerIconHandler}
+          getLatLng={this.getLatLng}
         />
         <ContainerNav />
       </div>
