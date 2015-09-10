@@ -35,3 +35,5 @@ okay?
 
 npm run test-hook
 okay?
+
+rm -r public/build
