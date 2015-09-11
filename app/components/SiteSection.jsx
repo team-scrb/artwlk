@@ -1,6 +1,6 @@
 import React from 'react';
+import {RouteHandler} from 'react-router';
 import {getLocation} from '../utils/geo';
-import SearchSection from './SearchSection';
 
 // styles
 import '../styles/components/SiteSection';
@@ -34,11 +34,14 @@ export default class SiteSection extends React.Component {
         </li>
       );
     });
+
     return (
       <div className="SiteSection">
-        <div className="SiteSection__TopBarWrapper">
-          <SearchSection />
-        </div>
+        <RouteHandler
+          {...this.state}
+          {...this.props}
+        />
+
         <h2>Browse our sites!!!</h2>
         <ul>
           {siteList}

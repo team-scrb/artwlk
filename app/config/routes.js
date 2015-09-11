@@ -18,8 +18,10 @@ export default (
     <Route name="nearby" handler={NearbySection} />
     <Route name="tours" handler={TourSection} />
     <Route name="tours-detail" path="/tours/:tourId" handler={TourDetail} />
-    <Route name="sites" handler={SiteSection} />
-    <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
+    <Route name="sites" path="/sites" handler={SiteSection}>
+      <Route name="map-site" path="/sites/map/:siteId" handler={MapSection} />
+      <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
+    </Route>
     <Route name="map" handler={MapSection} />
     <Route name="create" handler={CreateSection} />
     <Route name="filter" handler={FilterSection} />
