@@ -4,4 +4,4 @@ echo running post-rebase hook...
 
 npm install
 
-git status
+( sleep 1; git status ) &
