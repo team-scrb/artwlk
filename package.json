@@ -48,6 +48,7 @@
     "phantomjs": "^1.9.18",
     "react": "^0.13.3",
     "react-dnd": "^1.1.5",
+    "react-drag-and-drop": "^1.1.0",
     "react-dropzone": "^2.0.1",
     "react-google-maps": "^2.0.3",
     "react-modal": "^0.3.0",
