@@ -16,6 +16,8 @@ export default class Container extends React.Component {
       sites: [],
       currSite: {},
       childMapPosition: {},
+      selectedSites: [],
+      tourFormData: {},
     };
 
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -24,6 +26,9 @@ export default class Container extends React.Component {
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.markerIconHandler = this.markerIconHandler.bind(this);
     this.getLatLng = this.getLatLng.bind(this);
+    this.selectSites = this.selectSites.bind(this);
+    this.reorderSites = this.reorderSites.bind(this);
+    this.saveTourFormData = this.saveTourFormData.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +122,17 @@ export default class Container extends React.Component {
     }
   }
 
+  selectSites(selectedSites) {
+    this.setState({selectedSites});
+  }
+
+  reorderSites(selectedSites) {
+    this.setState({selectedSites});
+  }
+
+  saveTourFormData(tourFormData) {
+    this.setState({tourFormData});
+  }
 
   render() {
     return (
@@ -130,6 +146,9 @@ export default class Container extends React.Component {
           handleCloseClick={this.handleCloseClick}
           iconSets={this.markerIconHandler}
           getLatLng={this.getLatLng}
+          reorderSites={this.reorderSites}
+          selectSites={this.selectSites}
+          saveTourFormData={this.saveTourFormData}
         />
         <ContainerNav />
       </div>

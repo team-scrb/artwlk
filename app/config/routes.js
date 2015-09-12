@@ -12,6 +12,9 @@ import SearchSection from '../components/SearchSection';
 import MapMap from '../components/MapMap';
 import CreateLocationSelector from '../components/CreateLocationSelector';
 import Login from '../components/login-signup/Login';
+import CreateTour from '../components/CreateTour';
+import CreateTourSiteSelector from '../components/CreateTourSiteSelector';
+
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 
 export default (
@@ -29,11 +32,12 @@ export default (
     <Route name="search" handler={SearchSection} />
     <Route name="create-locationselector" handler={CreateLocationSelector} />
     <Route name="login" handler={Login} />
+    <Route name="create-tour" handler={CreateTour} />
+    <Route name="create-tour-site-selector" handler={CreateTourSiteSelector} />
     <DefaultRoute handler={NearbySection} />
     <NotFoundRoute handler={MapSection} />
   </Route>
 );
-
 
 // Authorized routes
 import {willTransitionTo} from '../utils/auth';

@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
+import {getAllTours} from '../utils/tours';
+import {getSiteByKey} from '../utils/sites';
 
 // styles
 import '../styles/components/TourSection';
@@ -19,6 +21,7 @@ export default class TourSection extends React.Component {
     this.state = {
       modalIsOpen: false,
       modalContent: false,
+      tours: [],
     };
     this.siteDetailClick = this.siteDetailClick.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -28,6 +31,37 @@ export default class TourSection extends React.Component {
   componentDidMount() {
     getLocation().then(this.props.getSites);
     this.props.getCurrSite(this.props.params.siteId);
+
+    getAllTours()
+    .then(tours => {
+      const tourPromises = tours.map(tour => {
+        const sitePromises = tour.sites.map(site => {
+          return getSiteByKey(site);
+        });
+        return Promise.all(sitePromises)
+        .then(sites => {
+          tour.sites = sites;
+          return tour;
+        });
+      });
+      return Promise.all(tourPromises);
+    })
+    .then(tours => {
+      tours.forEach(tour => {
+        tour.categories = {};
+        tour.sites.forEach(site => {
+          Object.keys(site.category).forEach(key => {
+            if (site.category[key]) {
+              tour.categories[key] = true;
+            }
+          });
+        });
+        tour.imageUrl = tour.sites[0].imageUrl;
+      });
+      return tours;
+    })
+    .then(tours => this.setState({tours}))
+    .catch(error => console.error(error));
   }
 
   siteDetailClick(event) {
@@ -49,6 +83,19 @@ export default class TourSection extends React.Component {
   }
 
   render() {
+    const list = this.state.tours.map(tour => {
+      return (
+        <li>
+          <h3>{tour.title}</h3>
+          <img src={tour.imageUrl} />
+          <span>{tour.imgUrl}</span>
+          <span>{tour.categories}</span>
+          <span>{tour.distance / 1000}km</span>
+          <span>{tour.duration}min</span>
+          <span>{tour.sites.length}</span>
+        </li>
+      );
+    });
     return (
       <div className="TourSection">
         <TopBarSection
@@ -61,22 +108,7 @@ export default class TourSection extends React.Component {
         <button onClick={this.openModal}>Search me</button>
         <h2>Make me a tour please!</h2>
         <ul>
-          <li>
-            <img src="" />
-            <h3>Title</h3>
-            <div>Rating</div>
-            <span>Categories, Categories</span>
-            <span>Total Distance</span>
-            <span># of sites</span>
-          </li>
-          <li>
-            <img src="" />
-            <h3>Title</h3>
-            <div>Rating</div>
-            <span>Categories, Categories</span>
-            <span>Total Distance</span>
-            <span># of sites</span>
-          </li>
+          {list}
         </ul>
         <Modal
           isOpen={this.state.modalIsOpen}
