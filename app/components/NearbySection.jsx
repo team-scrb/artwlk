@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
+import SiteList from './SiteList';
+import TourList from './TourList';
 
 // styles
 import '../styles/components/NearbySection';
@@ -42,26 +44,37 @@ export default class NearbySection extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+  routeTo(route) {
+    this.context.router.transitionTo(route);
+  }
+
   render() {
     return (
       <div className="NearbySection">
         <TopBarSection
           title="Nearby"
           leftName="Filter"
-          leftClick = {this.openModal.bind(this, 'filter')}
+          leftClick={this.openModal.bind(this, 'filter')}
           rightName="Map"
           rightRoute="map"
         />
         <button onClick={this.openModal}>Search me</button>
         <div>
-          <button>Tours</button>
-          <button>Sites</button>
+          <button onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
+          <button onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
         </div>
-        <ul>
-          <li>Site</li>
-          <li>Site</li>
-          <li>Site</li>
-        </ul>
+        <h2>Sites</h2>
+        <SiteList
+          limit="2"
+          {...this.state}
+          {...this.props}
+        />
+        <h2>Tours</h2>
+        <TourList
+          limit="2"
+          {...this.state}
+          {...this.props}
+        />
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -72,6 +85,10 @@ export default class NearbySection extends React.Component {
     );
   }
 }
+
+NearbySection.contextTypes = {
+  router: React.PropTypes.func.isRequired,
+};
 
 NearbySection.propTypes = {
   getSites: React.PropTypes.func.isRequired,
