@@ -89,9 +89,9 @@ export default class TourSection extends React.Component {
           <h3>{tour.title}</h3>
           <img src={tour.imageUrl} />
           <span>{tour.imgUrl}</span>
-          <span>{tour.categories}</span>
+          <ul>{Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>
           <span>{tour.distance / 1000}km</span>
-          <span>{tour.duration}min</span>
+          <span>{tour.duration / 60}min</span>
           <span>{tour.sites.length}</span>
         </li>
       );
