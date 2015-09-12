@@ -1,7 +1,7 @@
 import React from 'react';
 
 // styles
-// import '../styles/components/TourList';
+import '../styles/components/TourList';
 
 export default class TourList extends React.Component {
   constructor(props) {
