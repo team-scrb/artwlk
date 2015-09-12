@@ -9,6 +9,7 @@ import SiteDetail from '../components/SiteDetail';
 import CreateSection from '../components/CreateSection';
 import FilterSection from '../components/FilterSection';
 import SearchSection from '../components/SearchSection';
+import MapMap from '../components/MapMap';
 import CreateLocationSelector from '../components/CreateLocationSelector';
 import Login from '../components/login-signup/Login';
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
@@ -19,7 +20,7 @@ export default (
     <Route name="tours" handler={TourSection} />
     <Route name="tours-detail" path="/tours/:tourId" handler={TourDetail} />
     <Route name="sites" path="/sites" handler={SiteSection}>
-      <Route name="map-site" path="/sites/map/:siteId" handler={MapSection} />
+      <Route name="map-site" path="/sites/map/:siteId" handler={MapMap} />
       <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
     </Route>
     <Route name="map" handler={MapSection} />

@@ -70,10 +70,14 @@ export default class Container extends React.Component {
   }
 
   getCurrSite(siteId) {
-    getSiteByKey(siteId)
-    .then(currSite => {
-      this.setState({ currSite });
-    });
+    if (siteId) {
+      getSiteByKey(siteId)
+      .then(currSite => {
+        this.setState({ currSite });
+      });
+    } else {
+      this.setState({ currSite: {} });
+    }
   }
 
   getLatLng(latLng) {

@@ -10,7 +10,8 @@ export default class FilterSection extends React.Component {
   render() {
     return (
       <div className="FilterSection">
-        Filter your search:
+        <h3>Filter Options</h3>
+        <p>Etc.</p>
       </div>
     );
   }

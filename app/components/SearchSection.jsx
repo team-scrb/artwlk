@@ -21,7 +21,7 @@ export default class SearchSection extends React.Component {
   render() {
     return (
       <div className={this.state.className}>
-        <input type="text" onFocus={this.handleFocus} placeholder="Search your stuffs!" />
+        <input type="text" onFocus={this.openModal} placeholder="Search your stuffs!" />
         <input type="text" placeholder="GeoSearch your stuffs!" />
         <button onClick={this.closeSearch}>X</button>
         <ul>
@@ -37,8 +37,6 @@ export default class SearchSection extends React.Component {
 }
 
 SearchSection.propTypes = {
-  handleFocus: React.PropTypes.function,
-  closeSearch: React.PropTypes.function,
-};
-SearchSection.contextTypes = {
+  handleFocus: React.PropTypes.func,
+  closeSearch: React.PropTypes.func,
 };

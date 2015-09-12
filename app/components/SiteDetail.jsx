@@ -1,5 +1,4 @@
 import React from 'react';
-import TopBarSection from './TopBarSection';
 
 // styles
 import '../styles/components/SiteDetail';
@@ -14,17 +13,10 @@ export default class SiteDetail extends React.Component {
   }
 
   render() {
-    const mapRoute = `/map/${this.props.params.siteId}`;
+    // const mapRoute = `/map/${this.props.params.siteId}`;
 
     return (
       <div className="SiteDetail">
-        <TopBarSection
-          title={this.props.currSite.name}
-          leftName="back"
-          leftRoute=""
-          rightName="map"
-          rightRoute={mapRoute}
-        />
         <img src="" />
         <h3>{this.props.currSite.name}</h3>
         <h5>Artist</h5>
