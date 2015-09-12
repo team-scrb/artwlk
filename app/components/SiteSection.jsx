@@ -98,7 +98,6 @@ export default class SiteSection extends React.Component {
       );
     });
 
-    // TODO: parse here
     const parsedUrl = () => {
       const url = this.props.path.split('/');
       if (url[2] === 'map' ) {

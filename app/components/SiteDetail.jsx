@@ -13,8 +13,6 @@ export default class SiteDetail extends React.Component {
   }
 
   render() {
-    // const mapRoute = `/map/${this.props.params.siteId}`;
-
     return (
       <div className="SiteDetail">
         <img src="" />
