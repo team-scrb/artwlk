@@ -1,5 +1,6 @@
 import React from 'react';
 import {GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import {getLocation} from '../utils/geo';
 
 // styles
 import '../styles/components/MapSection';
@@ -10,7 +11,8 @@ export default class MapMap extends React.Component {
     this.onMapClick = this.onMapClick.bind(this);
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
+    getLocation().then(this.props.getSites);
     this.props.getCurrSite(this.props.params.siteId);
   }
   onMapClick(event) {
@@ -20,6 +22,28 @@ export default class MapMap extends React.Component {
         longitude: event.latLng.K,
       },
     });
+  }
+  singleMarkerMaker() {
+    if (!Object.keys(this.props.currSite).length) {
+      return null;
+    }
+    const site = this.props.currSite;
+    const marker = {
+      siteInfo: site.siteInfo,
+      position: {
+        lat: site.coords.latitude,
+        lng: site.coords.longitude,
+      },
+      key: site.siteId,
+      defaultAnimation: 2,
+      showInfo: site.showInfo,
+    };
+    return (
+      <Marker {...marker}
+        onClick={this.props.onMarkerClick.bind(this, site)}>
+        {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
+      </Marker>
+    );
   }
   mapMaker() {
     return this.props.sites.map((site, index) => {
@@ -82,7 +106,7 @@ export default class MapMap extends React.Component {
           defaultZoom={12}
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
           onClick={this.onMapClick}>
-          {this.mapMaker()}
+          {this.props.params.siteId ? this.singleMarkerMaker() : this.mapMaker()}
         </GoogleMap>
       </div>
     );
