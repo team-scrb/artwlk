@@ -1,137 +1,93 @@
 import React from 'react';
-import {GoogleMap, Marker, DirectionsRenderer} from 'react-google-maps';
-import {onSitesWithinRadius, getLocation} from '../utils/geo';
-import {getSiteByKey} from '../utils/sites';
-
-// Used for quickly adding mock locations
-// import {addSite} from '../utils/sites';
-
-// styles
-import '../styles/components/MapSection';
+import {Draggable, Droppable} from 'react-drag-and-drop';
+import {addTour} from '../utils/tours';
 
 export default class CreateTour extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      origin: null,
-      destination: null,
-      directions: null,
-      markers: [],
-      waypoints: [],
-    };
-
-    // Bind methods in this section
-    this.onMapClick = this.onMapClick.bind(this);
-    this.onMarkerClick = this.onMarkerClick.bind(this);
-    this.getSites = this.getSites.bind(this);
-    this.renderInfoWindow = this.renderInfoWindow.bind(this);
-    this.handleCloseClick = this.handleCloseClick.bind(this);
-  } // Constructor
-
-  componentDidMount() {
-    getLocation().then(this.getSites);
+    this.onDrop = this.onDrop.bind(this);
+    this.save = this.save.bind(this);
+    this.selectSites = this.selectSites.bind(this);
   }
 
-  onMapClick() {
-  // onMapClick(event) {
-    // Used for quickly adding mock locations
-    // addSite({
-    //   coords: {
-    //     latitude: event.latLng.G,
-    //     longitude: event.latLng.K,
-    //   },
-    // });
-
-    // Map routing service
-    const DirectionsService = new google.maps.DirectionsService();
-
-    this.setState({
-      destination: this.state.waypoints[this.state.waypoints.length - 1].location,
-    });
-
-    DirectionsService.route(
-      {
-        origin: this.state.origin,
-        destination: this.state.destination,
-        travelMode: google.maps.TravelMode.WALKING,
-        optimizeWaypoints: true,
-        waypoints: this.state.waypoints || null,
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          this.setState({
-            directions: result,
-          });
-        } else {
-          console.error(`error fetching directions ${ result }`); // eslint-disable-line no-console
-        }
-      });
+  onDrop(targetId, {site: droppedId}) {
+    const sites = this.props.selectedSites.slice();
+    const droppedIndex = sites.findIndex(site => site.id === droppedId);
+    const [dropped] = sites.splice(droppedIndex, 1);
+    const targetIndex = sites.findIndex(site => site.id === targetId);
+    sites.splice(targetIndex === droppedIndex ? targetIndex + 1 : targetIndex, 0, dropped);
+    this.props.reorderSites(sites);
   }
 
-  onMarkerClick(currentMarker) {
-    const {lat} = currentMarker.position;
-    const {lng} = currentMarker.position;
-    const currentLocation = new google.maps.LatLng(lat, lng);
-    const waypoint = {
-      location: currentLocation,
-      stopover: true,
-    };
+  save() {
+    addTour({
+      title: this.refs.title.getDOMNode().value,
+      descriptions: this.refs.description.getDOMNode().value,
+      sites: this.props.selectedSites,
+    }).then(() => {
+      this.props.saveTourFormData({
+        title: '',
+        description: '',
+      });
 
-    if (this.state.origin === null) {
-      this.setState({
-        origin: currentLocation,
-        waypoints: this.state.waypoints.concat([waypoint]),
-      });
-    } else if (this.state.origin && !this.state.destination) {
-      this.setState({
-        waypoints: this.state.waypoints.concat([waypoint]),
-      });
-    }
-  }
-
-  getSites(location) {
-    this.setState({markers: []}, () => {
-      onSitesWithinRadius(location, 50, (siteId, latLng) => {
-        getSiteByKey(siteId)
-        .then(siteInfo => {
-          this.setState({
-            markers: this.state.markers.concat([{
-              position: {
-                lat: latLng[0],
-                lng: latLng[1]},
-              key: siteId,
-              defaultAnimation: 2,
-              siteInfo,
-            }]),
-          });
-        });
-      });
+      this.props.selectSites([]);
+      this.refs.title.getDOMNode().value = '';
+      this.refs.description.getDOMNode().value = '';
+      this.context.router.transitionTo('tours');
     });
   }
 
- render() {
-   const {directions} = this.state;
+  selectSites() {
+    this.props.saveTourFormData({
+      title: this.refs.title.getDOMNode().value,
+      description: this.refs.description.getDOMNode().value,
+    });
 
-   return (
-     <GoogleMap
-       containerProps={{
-         ...this.props,
-         style: {
-           height: '100%',
-         },
-       }}
-       ref="map"
-       defaultZoom={12}
-       defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
-       onClick={this.onMapClick}>
-       {directions ? <DirectionsRenderer directions={directions} /> : null}
-       {this.state.markers.map((marker) => {
-         return (
-           <Marker {...marker}
-             onClick={this.onMarkerClick.bind(this, marker)} />
-         );
-       })}
-     </GoogleMap>
-   );
- }
+    this.context.router.transitionTo('create-tour-site-selector');
+  }
+
+  render() {
+    const list = this.props.selectedSites.map(n => {
+      return (
+        <div>
+          <Droppable
+              types={['site']}
+              onDrop={this.onDrop.bind(null, n.id)}>
+              <Draggable type="site" data={n.id}><li>{n.name}</li></Draggable>
+          </Droppable>
+        </div>
+      );
+    });
+
+    return (
+      <div>
+        <h1>Create Tour</h1>
+        <label>
+          Title
+          <input type="text" ref="title" defaultValue={this.props.tourFormData.title} />
+        </label>
+        <label>
+          Description
+          <input type="text" ref="description" defaultValue={this.props.tourFormData.description} />
+        </label>
+        <ul>
+          {list}
+        </ul>
+        <button onClick={this.selectSites}>Select Sites</button>
+        <button onClick={this.save}>Save</button>
+      </div>
+    );
+  }
 }
+
+CreateTour.propTypes = {
+  selectedSites: React.PropTypes.array.isRequired,
+  reorderSites: React.PropTypes.func.isRequired,
+  saveTourFormData: React.PropTypes.func.isRequired,
+  tourFormData: React.PropTypes.object.isRequired,
+  selectSites: React.PropTypes.func.isRequired,
+};
+
+CreateTour.contextTypes = {
+  router: React.PropTypes.func.isRequired,
+};

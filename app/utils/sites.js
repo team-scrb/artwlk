@@ -25,6 +25,24 @@ export const addSite = siteInfo => {
  */
 export const getSiteByKey = key => {
   return new Promise((resolve, reject) => {
-    fireRef.child('sites').child(key).once('value', snap => resolve(snap.val()), reject);
+    fireRef.child('sites').child(key).once('value', snap => {
+      const site = snap.val();
+      site.id = snap.key();
+      resolve(site);
+    }, reject);
+  });
+};
+
+export const getAllSites = () => {
+  return new Promise((resolve, reject) => {
+    fireRef.child('sites').once('value', snap => {
+      const collection = snap.val();
+      const array = Object.keys(collection).map(key => {
+        const siteInfo = collection[key];
+        siteInfo.id = key;
+        return siteInfo;
+      });
+      resolve(array);
+    }, reject);
   });
 };

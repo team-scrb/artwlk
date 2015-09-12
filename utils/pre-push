@@ -33,7 +33,7 @@ WEBPACKERRORS=`webpack | grep 'ERROR' | wc -l`
 okay?
 
 
-npm run test-hook
-okay?
+#npm run test-hook
+#okay?
 
 rm -r public/build
