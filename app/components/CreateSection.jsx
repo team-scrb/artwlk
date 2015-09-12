@@ -2,6 +2,7 @@ import React from 'react';
 import PhotoUpload from './PhotoUpload';
 import {uploadImage} from '../utils/photo';
 import {addSite} from '../utils/sites';
+import TopBarSection from './TopBarSection';
 
 // styles
 import '../styles/components/CreateSection';
@@ -51,6 +52,9 @@ export default class CreateSection extends React.Component {
   render() {
     return (
       <div className="CreateSection">
+        <TopBarSection
+          title="Create"
+        />
         <h2>Create Site Here</h2>
         <form onSubmit={this._submit}>
           <PhotoUpload setImageData={this._setImageData}/>

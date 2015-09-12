@@ -7,11 +7,15 @@ import '../styles/components/TopBarButton';
 export default class TopBarButton extends React.Component {
   constructor() {
     super();
-    this._handleClick = this._handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-  _handleClick(event) {
-    const router = this.context.router;
-    router.transitionTo(event.target.dataset.route);
+  handleClick(event) {
+    if (this.props.route) {
+      const router = this.context.router;
+      router.transitionTo(event.target.dataset.route);
+    } else {
+      this.props.click();
+    }
   }
   render() {
     const className = classNames('TopBarButton', {
@@ -19,7 +23,13 @@ export default class TopBarButton extends React.Component {
       'TopBarButton--right': this.props.right,
     });
     return (
-      <button className={className} data-route={this.props.route} onClick={this._handleClick}>{this.props.name}</button>
+      <button
+        className={className}
+        data-route={this.props.route}
+        onClick={this.handleClick}
+      >
+        {this.props.name}
+      </button>
     );
   }
 }
@@ -27,6 +37,7 @@ export default class TopBarButton extends React.Component {
 TopBarButton.propTypes = {
   name: React.PropTypes.string,
   route: React.PropTypes.string,
+  click: React.PropTypes.func,
   left: React.PropTypes.bool,
   right: React.PropTypes.bool,
 };

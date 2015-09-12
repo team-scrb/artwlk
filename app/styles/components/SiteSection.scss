@@ -1,5 +1,6 @@
 @import "../utils/config";
 
-.SiteSection { flex: 1; overflow-y: scroll; position: relative; }
+.SiteSection { flex: 1; overflow-y: scroll; position: relative; flex-direction: column; display: flex; }
 .SiteSection img { max-width: 100%; }
-.SiteSection__TopBarWrapper { position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow: hidden; }
+.SiteSection__SiteList--hidden { display:none; }
+// .SiteSection__TopBarWrapper { position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow: hidden; }

@@ -1,7 +1,6 @@
 import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
-import TopBarSection from './TopBarSection';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 
@@ -71,10 +70,14 @@ export default class Container extends React.Component {
   }
 
   getCurrSite(siteId) {
-    getSiteByKey(siteId)
-    .then(currSite => {
-      this.setState({ currSite });
-    });
+    if (siteId) {
+      getSiteByKey(siteId)
+      .then(currSite => {
+        this.setState({ currSite });
+      });
+    } else {
+      this.setState({ currSite: {} });
+    }
   }
 
   getLatLng(latLng) {
@@ -118,10 +121,6 @@ export default class Container extends React.Component {
   render() {
     return (
       <div className="Container">
-        <TopBarSection
-          {...this.state}
-          {...this.props}
-        />
         <RouteHandler
           {...this.state}
           {...this.props}
