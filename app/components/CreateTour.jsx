@@ -24,17 +24,17 @@ export default class CreateTour extends React.Component {
       title: this.refs.title.getDOMNode().value,
       descriptions: this.refs.description.getDOMNode().value,
       sites: this.props.selectedSites,
-    });
+    }).then(() => {
+      this.props.saveTourFormData({
+        title: '',
+        description: '',
+      });
 
-    this.props.saveTourFormData({
-      title: '',
-      description: '',
+      this.props.selectSites([]);
+      this.refs.title.getDOMNode().value = '';
+      this.refs.description.getDOMNode().value = '';
+      this.context.router.transitionTo('tours');
     });
-
-    this.props.selectSites([]);
-    this.refs.title.getDOMNode().value = '';
-    this.refs.description.getDOMNode().value = '';
-    // this.context.router.transitionTo('tours');
   }
 
   selectSites() {
