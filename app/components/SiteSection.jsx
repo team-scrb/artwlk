@@ -5,36 +5,32 @@ import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
+import SiteList from './SiteList';
 
 // styles
 import '../styles/components/SiteSection';
 
+// modal stuff
 const appElement = document.getElementById('app');
-
 Modal.setAppElement(appElement);
 Modal.injectCSS();
-
 
 export default class SiteSection extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       modalIsOpen: false,
       modalContent: false,
     };
-    this.siteDetailClick = this.siteDetailClick.bind(this);
+
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
-    getLocation().then(this.props.getSites);
+    getLocation();
     this.props.getCurrSite(this.props.params.siteId);
-  }
-
-  siteDetailClick(event) {
-    const router = this.context.router;
-    router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
   }
 
   openModal(modalContent) {
@@ -84,20 +80,6 @@ export default class SiteSection extends React.Component {
       ),
     };
 
-    const siteList = this.props.sites.map((data, index) => {
-      return (
-        <li className={styles} key={index}>
-          {data.siteInfo.imageUrl && <img src={data.siteInfo.imageUrl}/>}
-          {data.siteInfo.name && <h3 data-route={data.siteId} onClick={this.siteDetailClick}>{data.siteInfo.name}</h3>}
-          {data.siteInfo.artist && <h5>{data.siteInfo.artist}</h5>}
-          {data.siteInfo.coords && <h5>{data.siteInfo.coords}</h5>}
-          {data.siteInfo.architecture && <h6>{data.siteInfo.architecture}</h6>}
-          {data.siteInfo.streetArt && <h6>{data.siteInfo.streetArt}</h6>}
-          {data.siteInfo.description && <p>{data.siteInfo.description}</p>}
-        </li>
-      );
-    });
-
     const parsedUrl = () => {
       const url = this.props.path.split('/');
       if (url[2] === 'map' ) {
@@ -119,9 +101,12 @@ export default class SiteSection extends React.Component {
         />
 
         <h2 className={styles}>Browse our sites!!!</h2>
-        <ul className={styles}>
-          {siteList}
-        </ul>
+        <div className={styles}>
+          <SiteList
+            {...this.state}
+            {...this.props}
+          />
+        </div>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -138,8 +123,6 @@ SiteSection.contextTypes = {
 };
 
 SiteSection.propTypes = {
-  getSites: React.PropTypes.func.isRequired,
-  sites: React.PropTypes.array.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   currSite: React.PropTypes.object.isRequired,
   params: React.PropTypes.object.isRequired,

@@ -3,6 +3,7 @@ import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
+import {getAllTours} from '../utils/tours';
 
 // styles
 import '../styles/components/Container';
@@ -14,6 +15,7 @@ export default class Container extends React.Component {
     this.state = {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
+      tours: [],
       currSite: {},
       childMapPosition: {},
       selectedSites: [],
@@ -21,6 +23,7 @@ export default class Container extends React.Component {
     };
 
     this.getCurrSite = this.getCurrSite.bind(this);
+    this.getTours = this.getTours.bind(this);
     this.getSites = this.getSites.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
@@ -57,6 +60,39 @@ export default class Container extends React.Component {
     }
 
     this.setState({sites});
+  }
+
+  getTours() {
+    getAllTours()
+      .then(tours => {
+        const tourPromises = tours.map(tour => {
+          const sitePromises = tour.sites.map(site => {
+            return getSiteByKey(site);
+          });
+          return Promise.all(sitePromises)
+          .then(sites => {
+            tour.sites = sites;
+            return tour;
+          });
+        });
+        return Promise.all(tourPromises);
+      })
+      .then(tours => {
+        tours.forEach(tour => {
+          tour.categories = {};
+          tour.sites.forEach(site => {
+            Object.keys(site.category).forEach(key => {
+              if (site.category[key]) {
+                tour.categories[key] = true;
+              }
+            });
+          });
+          tour.imageUrl = tour.sites[0].imageUrl;
+        });
+        return tours;
+      })
+      .then(tours => this.setState({tours}))
+      .catch(error => console.error(error));
   }
 
   getSites(location) {
@@ -142,6 +178,7 @@ export default class Container extends React.Component {
           {...this.props}
           getCurrSite={this.getCurrSite}
           getSites={this.getSites}
+          getTours={this.getTours}
           onMarkerClick={this.onMarkerClick}
           handleCloseClick={this.handleCloseClick}
           iconSets={this.markerIconHandler}
