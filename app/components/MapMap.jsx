@@ -8,13 +8,26 @@ import '../styles/components/MapSection';
 export default class MapMap extends React.Component {
   constructor(props) {
     super(props);
+
     this.onMapClick = this.onMapClick.bind(this);
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
   }
+
   componentWillMount() {
-    getLocation().then(this.props.getSites);
-    this.props.getCurrSite(this.props.params.siteId);
+    if (this.props.params.siteId) {
+      getLocation().then(this.props.getSites);
+      this.props.getCurrSite(this.props.params.siteId);
+    }
+
+    // if (this.props.params.tourId) {
+    this.props.getTours();
+    // }
   }
+
+  componentWillReceiveProps() {
+    console.log(this.props.tours);
+  }
+
   onMapClick(event) {
     this.props.getSites({
       coords: {
@@ -23,6 +36,7 @@ export default class MapMap extends React.Component {
       },
     });
   }
+
   singleMarkerMaker() {
     if (!Object.keys(this.props.currSite).length) {
       return null;
@@ -45,6 +59,7 @@ export default class MapMap extends React.Component {
       </Marker>
     );
   }
+
   mapMaker() {
     return this.props.sites.map((site, index) => {
       const {category} = site.siteInfo;
@@ -68,6 +83,7 @@ export default class MapMap extends React.Component {
       );
     });
   }
+
   renderInfoWindow(ref, marker) {
     return (
       <InfoWindow
@@ -86,6 +102,7 @@ export default class MapMap extends React.Component {
       </InfoWindow>
     );
   }
+
   render() {
     return (
       <div className="MapSection">
@@ -112,8 +129,11 @@ export default class MapMap extends React.Component {
     );
   }
 }
+
 MapMap.propTypes = {
+  getTours: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
+  tours: React.PropTypes.array.isRequired,
   sites: React.PropTypes.array.isRequired,
   onMarkerClick: React.PropTypes.func.isRequired,
   handleCloseClick: React.PropTypes.func.isRequired,
