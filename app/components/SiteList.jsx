@@ -10,10 +10,6 @@ export default class SiteList extends React.Component {
     this.siteDetailClick = this.siteDetailClick.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getSites();
-  }
-
   siteDetailClick(event) {
     const router = this.context.router;
     router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
