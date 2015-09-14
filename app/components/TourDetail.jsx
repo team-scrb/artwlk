@@ -8,17 +8,20 @@ export default class TourDetail extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.getCurrTour(this.props.params.tourId);
+  }
+
   render() {
+    const tour = this.props.currTour;
     return (
       <div className="TourDetail">
         <img src="" />
-        <h3>Tour Title</h3><br/>
-        <span>Rating</span><br/>
-        <span>Categories, Categories</span><br/>
-        <span>Total Distance</span><br/>
-        <span># of sites</span><br/>
-        <button>View on map</button><br/>
-        <p>Details...</p>
+        <h3>{tour.title}</h3><br/>
+        <span>Duration: {Math.round(tour.duration / 60)} minutes</span><br/>
+        <span>Distance: {Math.round(tour.distance * 0.000621371)} miles</span><br/>
+        <span># of sites: </span><br/>
+        <p>{tour.descriptions}</p>
         <ul>
           <li><strong>Sites</strong></li>
           <li>Site One</li>
@@ -33,3 +36,13 @@ export default class TourDetail extends React.Component {
     );
   }
 }
+
+TourDetail.propTypes = {
+  getTours: React.PropTypes.func.isRequired,
+  getCurrTour: React.PropTypes.func.isRequired,
+  getLocation: React.PropTypes.func.isRequired,
+  tours: React.PropTypes.array,
+  currSite: React.PropTypes.sting,
+  currTour: React.PropTypes.object,
+  params: React.PropTypes.object,
+};

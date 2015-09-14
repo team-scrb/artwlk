@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import {distance} from '../utils/movement';
+import {getTourByKey} from '../utils/tours';
+
 // styles
 import '../styles/components/TourList';
 
@@ -15,9 +17,14 @@ export default class TourList extends React.Component {
     this.props.getTours();
   }
 
-  handleTourClick(event) {
-    const router = this.context.router;
-    router.transitionTo('tours-detail', { tourId: event.target.dataset.route });
+  handleTourClick(tourId) {
+    getTourByKey(tourId).then(tourInfo => {
+      this.props.getCurrTour(tourInfo);
+      this.context.router.transitionTo('tours-detail', {tourId});
+    });
+    // const router = this.context.router;
+    // this.props.getCurrTour(event.target.dataset.route);
+    // router.transitionTo('tours-detail', { tourId: event.target.dataset.route });
   }
 
   render() {
@@ -32,7 +39,7 @@ export default class TourList extends React.Component {
       tourList = tours.map((tour, index) => {
         return (
           <li key={index}>
-            <h3 data-route={tour.id} onClick={this.handleTourClick}>{tour.title}</h3>
+            <h3 data-route={tour.id} onClick={this.handleTourClick.bind(null, tour.id)}>{tour.title}</h3>
             <img src={tour.imageUrl} />
             <span>{tour.imgUrl}</span>
             <ul>{Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>
@@ -58,6 +65,8 @@ TourList.contextTypes = {
 
 TourList.propTypes = {
   getTours: React.PropTypes.func.isRequired,
+  getCurrTour: React.PropTypes.func,
   tours: React.PropTypes.array,
   limit: React.PropTypes.string,
+  currTour: React.PropTypes.object,
 };

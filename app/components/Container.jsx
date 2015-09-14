@@ -5,6 +5,7 @@ import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
+import {getTourByKey} from '../utils/tours';
 
 // styles
 import '../styles/components/Container';
@@ -18,12 +19,14 @@ export default class Container extends React.Component {
       sites: [],
       tours: [],
       currSite: {},
+      currTour: {},
       childMapPosition: {},
       selectedSites: [],
       tourFormData: {},
     };
 
     this.getCurrSite = this.getCurrSite.bind(this);
+    this.getCurrTour = this.getCurrTour.bind(this);
     this.getTours = this.getTours.bind(this);
     this.getSites = this.getSites.bind(this);
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -123,6 +126,17 @@ export default class Container extends React.Component {
     }
   }
 
+  getCurrTour(tourId) {
+    if (tourId) {
+      getTourByKey(tourId)
+      .then(currTour => {
+        this.setState({ currTour });
+      });
+    } else {
+      this.setState({ currTour: {} });
+    }
+  }
+
   getLatLng(latLng) {
     const {lat, lng} = latLng;
     this.setState({
@@ -193,6 +207,7 @@ export default class Container extends React.Component {
           selectSites={this.selectSites}
           saveTourFormData={this.saveTourFormData}
           doSearch={this.doSearch}
+          getCurrTour={this.getCurrTour}
         />
         <ContainerNav />
       </div>

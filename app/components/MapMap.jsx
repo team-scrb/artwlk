@@ -24,10 +24,6 @@ export default class MapMap extends React.Component {
     // }
   }
 
-  componentWillReceiveProps() {
-    console.log(this.props.tours);
-  }
-
   onMapClick(event) {
     this.props.getSites({
       coords: {

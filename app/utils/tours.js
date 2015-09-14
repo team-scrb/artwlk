@@ -99,6 +99,16 @@ export const getAllTours = () => {
   });
 };
 
+export const getTourByKey = key => {
+  return new Promise((resolve, reject) => {
+    fireRef.child('tours').child(key).once('value', snap => {
+      const tour = snap.val();
+      tour.id = snap.key();
+      resolve(tour);
+    }, reject);
+  });
+};
+
 /* Tests/Mock */
 // addTour({
 //   title: 'a fake tour',
