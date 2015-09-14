@@ -65,10 +65,19 @@ export const addTour = tourInfo => {
 //   fireRef.child('toursBySite').child(siteId).child(tourId).remove();
 // };
 
-export const findToursBySiteId = (siteId) => {
+export const findToursBySiteId = siteId => {
   return new Promise((resolve, reject) => {
     fireRef.child('toursBySite').child(siteId).once('value',
       snap => resolve(Object.keys(snap.val())),
+      reject
+    );
+  });
+};
+
+export const getTourById = tourId => {
+  return new Promise((resolve, reject) => {
+    fireRef.child('tours').child(tourId).once('value',
+      snap => resolve(snap.val()),
       reject
     );
   });
