@@ -20,13 +20,15 @@ import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 export default (
   <Route name="app" path="/" handler={Container}>
     <Route name="nearby" handler={NearbySection} />
-    <Route name="tours" handler={TourSection} />
-    <Route name="tours-detail" path="/tours/:tourId" handler={TourDetail} />
+    <Route name="tours" path="/tours" handler={TourSection}>
+      <Route name="map-tour" path="/tours/map/:tourId" handler={MapMap} />
+      <Route name="tours-detail" path="/tours/:tourId" handler={TourDetail} />
+    </Route>
     <Route name="sites" path="/sites" handler={SiteSection}>
       <Route name="map-site" path="/sites/map/:siteId" handler={MapMap} />
       <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
     </Route>
-    <Route name="map" handler={MapSection} />
+    <Route name="map" path="/nearby/map" handler={MapSection} />
     <Route name="create" handler={CreateSection} />
     <Route name="filter" handler={FilterSection} />
     <Route name="search" handler={SearchSection} />

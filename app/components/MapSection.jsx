@@ -25,10 +25,6 @@ export default class MapSection extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getCurrSite(this.props.params.siteId);
-  }
-
   siteDetailClick(event) {
     const router = this.context.router;
     router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
@@ -58,7 +54,10 @@ export default class MapSection extends React.Component {
           rightRoute="nearby"
         />
         <button onClick={this.openModal}>Search me</button>
-        <MapMap {...this.props} {...this.state} />
+        <MapMap
+          {...this.props}
+          {...this.state}
+        />
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

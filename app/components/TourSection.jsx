@@ -5,6 +5,7 @@ import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
 import TourList from './TourList';
+import {RouteHandler} from 'react-router';
 
 // styles
 import '../styles/components/TourSection';
@@ -33,7 +34,7 @@ export default class TourSection extends React.Component {
 
   siteDetailClick(event) {
     const router = this.context.router;
-    router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
+    router.transitionTo('tours-detail', { siteId: event.target.dataset.route });
   }
 
   openModal(modalContent) {
@@ -50,21 +51,65 @@ export default class TourSection extends React.Component {
   }
 
   render() {
+    const styles = this.props.params.tourId ? 'TourSection__TourList--hidden' : 'TourSection__TourList';
+    const mapTourDetailRoute = `/tours/${this.props.params.tourId}`;
+    const tourDetailRoute = `/tours/map/${this.props.params.tourId}`;
+    const topBarRoutes = {
+      'mapTour': (
+        <TopBarSection
+          title = "Tours"
+          leftName = "Filter"
+          leftClick = {this.openModal.bind(this, 'filter')}
+          rightName = "Map"
+          rightRoute = "/map"
+        />
+      ),
+      'mapTourDetail': (
+        <TopBarSection
+          title = {this.props.currTour.title}
+          leftName = "Back"
+          leftRoute = "tours"
+          rightName = "Details"
+          rightRoute = {mapTourDetailRoute}
+        />
+      ),
+      'tourDetail': (
+        <TopBarSection
+          title = {this.props.currTour.title}
+          leftName = "Back"
+          leftRoute = "tours"
+          rightName = "Map"
+          rightRoute = {tourDetailRoute}
+        />
+      ),
+    };
+
+    const parsedUrl = () => {
+      const url = this.props.path.split('/');
+      if (url[2] === 'map' ) {
+        return 'mapTourDetail';
+      } else if (url[2]) {
+        return 'tourDetail';
+      } else if (url[1] === 'tours') {
+        return 'mapTour';
+      }
+    };
+
     return (
       <div className="TourSection">
-        <TopBarSection
-          title="Tour"
-          leftName="Filter"
-          leftClick = {this.openModal.bind(this, 'filter')}
-          rightName="Map"
-          rightRoute="map"
-        />
+        {topBarRoutes[parsedUrl()]}
         <button onClick={this.openModal}>Search me</button>
-        <h2>Make me a tour please!</h2>
-        <TourList
-          {...this.state}
+        <RouteHandler
           {...this.props}
+          {...this.state}
         />
+        <h2 className={styles}>Make me a tour please!</h2>
+        <div className={styles}>
+          <TourList
+            {...this.state}
+            {...this.props}
+          />
+        </div>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -81,4 +126,6 @@ TourSection.propTypes = {
   sites: React.PropTypes.array.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
+  currTour: React.PropTypes.object,
+  path: React.PropTypes.string,
 };
