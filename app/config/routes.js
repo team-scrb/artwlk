@@ -34,6 +34,7 @@ export default (
     <Route name="login" handler={Login} />
     <Route name="create-tour" handler={CreateTour} />
     <Route name="create-tour-site-selector" handler={CreateTourSiteSelector} />
+    <Route name="search-test" handler={SearchSection} />
     <DefaultRoute handler={NearbySection} />
     <NotFoundRoute handler={MapSection} />
   </Route>

@@ -4,6 +4,7 @@ import ContainerNav from './ContainerNav';
 import {onSitesWithinRadius, getLocation} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
+import {onSearch} from '../utils/search';
 
 // styles
 import '../styles/components/Container';
@@ -32,6 +33,7 @@ export default class Container extends React.Component {
     this.selectSites = this.selectSites.bind(this);
     this.reorderSites = this.reorderSites.bind(this);
     this.saveTourFormData = this.saveTourFormData.bind(this);
+    this.doSearch = this.doSearch.bind(this);
   }
 
   componentDidMount() {
@@ -131,6 +133,10 @@ export default class Container extends React.Component {
     });
   }
 
+  doSearch(searchProps) {
+    onSearch(searchProps, (resultType, result) => console.log('search result:', resultType, result));
+  }
+
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
     const index = sites.indexOf(currentMarker);
@@ -186,6 +192,7 @@ export default class Container extends React.Component {
           reorderSites={this.reorderSites}
           selectSites={this.selectSites}
           saveTourFormData={this.saveTourFormData}
+          doSearch={this.doSearch}
         />
         <ContainerNav />
       </div>
