@@ -1,5 +1,6 @@
 import React from 'react';
-
+import moment from 'moment';
+import {distance} from '../utils/movement';
 // styles
 import '../styles/components/TourList';
 
@@ -28,9 +29,9 @@ export default class TourList extends React.Component {
             <img src={tour.imageUrl} />
             <span>{tour.imgUrl}</span>
             <ul>{Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>
-            <span>{tour.distance / 1000}km</span>
-            <span>{tour.duration / 60}min</span>
-            <span>{tour.sites.length}</span>
+            <span>{distance.pretty(tour.distance)}</span>
+            <span>{moment.duration(tour.duration, 'seconds').humanize()}</span>
+            <span>{tour.sites.length} points of interest</span>
           </li>
         );
       });
