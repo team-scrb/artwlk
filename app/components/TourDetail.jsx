@@ -14,6 +14,19 @@ export default class TourDetail extends React.Component {
 
   render() {
     const tour = this.props.currTour;
+    let sites;
+    if (tour) {
+      const _tour = this.props.tours.find(t => t.id === tour.id);
+      if (_tour) {
+        sites = _tour.sites.map(site => (
+          <div>
+            <li>{site.name}</li>
+            <li><img src={site.imageUrl}></img></li>
+            <li>Artist: {site.artist}</li>
+          </div>
+        ));
+      }
+    }
     return (
       <div className="TourDetail">
         <img src="" />
@@ -24,8 +37,7 @@ export default class TourDetail extends React.Component {
         <p>{tour.descriptions}</p>
         <ul>
           <li><strong>Sites</strong></li>
-          <li>Site One</li>
-          <li>Site Two</li>
+          {sites}
         </ul>
         <ul>
           <li><strong>Comments</strong></li>
