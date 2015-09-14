@@ -46,5 +46,4 @@ SearchSection.propTypes = {
   closeSearch: React.PropTypes.func,
   doSearch: React.PropTypes.func,
   closeModal: React.PropTypes.func.isRequired,
-
 };

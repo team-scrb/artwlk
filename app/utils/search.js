@@ -66,35 +66,3 @@ export const onSearch = ({searchText, locationText}, handleSearchResult) => {
     });
   });
 };
-
-//   return axios({
-//     method: 'post',
-//     url: 'https://api.imgur.com/3/image',
-//     headers: {
-//       Authorization: 'Client-ID 6b87d72f0811d55',
-//     },
-//     data: {
-//       image: imageData,
-//       type: 'base64',
-//     },
-//   })
-//   .then(response => new Promise((resolve) => resolve(response.data.data.link)));
-
-/*
-const geocoder = new google.maps.Geocoder;
-const geocoderOptions = {
-  address: 'Canada',
-}
-
-geocoder.geocode(geocoderOptions, (result, statusCode) => {
-  const {G, K} = result[0].geometry.location;
-  console.log(G, K)
-  this.setState({
-    center: new google.maps.LatLng(G, K),
-  });
-  this.refs.map.state.map.panTo(new google.maps.LatLng(G,K));
-});
-
-requires this in index.html to get global google.maps object.
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApCkNJfoDIElgx2D4_IIRYlOEPFLnktEE"></script>
- */
