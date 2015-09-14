@@ -18,10 +18,7 @@ export default class MapMap extends React.Component {
       getLocation().then(this.props.getSites);
       this.props.getCurrSite(this.props.params.siteId);
     }
-
-    // if (this.props.params.tourId) {
     this.props.getTours();
-    // }
   }
 
   onMapClick(event) {

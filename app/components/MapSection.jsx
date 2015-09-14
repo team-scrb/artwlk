@@ -55,9 +55,6 @@ export default class MapSection extends React.Component {
         />
         <button onClick={this.openModal}>Search me</button>
         <MapMap
-          tourId={''}
-          tourLegs={[]}
-          siteId={''}
           {...this.props}
           {...this.state}
         />

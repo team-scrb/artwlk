@@ -22,9 +22,6 @@ export default class TourList extends React.Component {
       this.props.getCurrTour(tourInfo);
       this.context.router.transitionTo('tours-detail', {tourId});
     });
-    // const router = this.context.router;
-    // this.props.getCurrTour(event.target.dataset.route);
-    // router.transitionTo('tours-detail', { tourId: event.target.dataset.route });
   }
 
   render() {
