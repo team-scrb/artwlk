@@ -1,11 +1,11 @@
 import React from 'react';
+import {RouteHandler} from 'react-router';
 import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
 import TourList from './TourList';
-import {RouteHandler} from 'react-router';
 
 // styles
 import '../styles/components/TourSection';
@@ -100,8 +100,8 @@ export default class TourSection extends React.Component {
         {topBarRoutes[parsedUrl()]}
         <button onClick={this.openModal}>Search me</button>
         <RouteHandler
-          {...this.props}
           {...this.state}
+          {...this.props}
         />
         <h2 className={styles}>Make me a tour please!</h2>
         <div className={styles}>

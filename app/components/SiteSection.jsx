@@ -5,7 +5,6 @@ import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
-import SiteList from './SiteList';
 
 // styles
 import '../styles/components/SiteSection';
@@ -47,7 +46,6 @@ export default class SiteSection extends React.Component {
   }
 
   render() {
-    const styles = this.props.params.siteId ? 'SiteSection__SiteList--hidden' : 'SiteSection__SiteList';
     const mapDetailRoute = `/sites/${this.props.params.siteId}`;
     const siteDetailRoute = `/sites/map/${this.props.params.siteId}`;
     const topBarRoutes = {
@@ -99,14 +97,6 @@ export default class SiteSection extends React.Component {
           {...this.state}
           {...this.props}
         />
-
-        <h2 className={styles}>Browse our sites!!!</h2>
-        <div className={styles}>
-          <SiteList
-            {...this.state}
-            {...this.props}
-          />
-        </div>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
