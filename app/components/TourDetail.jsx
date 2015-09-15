@@ -1,4 +1,6 @@
 import React from 'react';
+import {distance} from '../utils/movement';
+import moment from 'moment';
 
 // styles
 import '../styles/components/TourDetail';
@@ -31,12 +33,12 @@ export default class TourDetail extends React.Component {
       <div className="TourDetail">
         <img src="" />
         <h3>{tour.title}</h3><br/>
-        <span>Duration: {Math.round(tour.duration / 60)} minutes</span><br/>
-        <span>Distance: {Math.round(tour.distance * 0.000621371)} miles</span><br/>
-        <span># of sites: </span><br/>
-        <p>{tour.descriptions}</p>
+        <span>Duration: {moment.duration(tour.duration, 'seconds').humanize()}</span><br/>
+        <span>Distance: {distance.pretty(tour.distance)}</span><br/>
+        <span># of sites: {tour.sites && tour.sites.length}</span><br/>
+        <span>Description: {tour.descriptions}</span>
         <ul>
-          <li><strong>Sites</strong></li>
+          <strong>Sites</strong>
           {sites}
         </ul>
         <ul>
