@@ -6,7 +6,7 @@ const geocode = locationText => {
   return new Promise(resolve => {
     (new google.maps.Geocoder).geocode({address: locationText}, ([{geometry: {location: latLng}}], status) => {
       if (status !== 'OK') return reject(status);
-      const {G: latitude, K: longitude} = latLng;
+      const {H: latitude, L: longitude} = latLng;
       resolve({coords: {latitude, longitude}});
     });
   });
