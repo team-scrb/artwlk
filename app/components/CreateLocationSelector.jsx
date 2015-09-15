@@ -51,8 +51,7 @@ export default class CreateLocationSelector extends React.Component {
           strokeColor: 'lightblue',
           strokeOpacity: 1,
           strokeWeight: 1,
-        }} />),
-      ]);
+        }} />)]);
     }
 
     return (
