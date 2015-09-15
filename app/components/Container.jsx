@@ -25,8 +25,6 @@ export default class Container extends React.Component {
       tourFormData: {},
     };
 
-    window.mystate = this.state;
-
     this.getCurrSite = this.getCurrSite.bind(this);
     this.getCurrTour = this.getCurrTour.bind(this);
     this.getTours = this.getTours.bind(this);
@@ -201,7 +199,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    window.mystate = this.state;
     return (
       <div className="Container">
         <RouteHandler
