@@ -6,7 +6,7 @@ const geocode = locationText => {
   return new Promise(resolve => {
     (new google.maps.Geocoder).geocode({address: locationText}, ([{geometry: {location: latLng}}], status) => {
       if (status !== 'OK') return reject(status);
-      const {G: latitude, K: longitude} = latLng;
+      const {H: latitude, L: longitude} = latLng;
       resolve({coords: {latitude, longitude}});
     });
   });
@@ -52,7 +52,7 @@ export const onSearch = ({searchText, locationText}, handleSearchResult) => {
             tour.id = tourId;
             const {title, descriptions} = tour;
             const attributes = [title, descriptions].map(attr => attr.toLowerCase());
-            if (attributes.some(attr => query.some(q => attr.indexOf(q) !== -1))) {
+            if (attributes.some(attr => !query.length || query.some(q => attr.indexOf(q) !== -1))) {
               handleSearchResult('tour', tour);
             }
           })
@@ -66,7 +66,7 @@ export const onSearch = ({searchText, locationText}, handleSearchResult) => {
         const {name, artist, category} = site;
         site.id = siteId;
         const attributes = [name, artist].concat(Object.keys(category).filter(key => category[key])).map(attr => attr.toLowerCase());
-        if (attributes.some(attr => query.some(q => attr.indexOf(q) !== -1))) {
+        if (attributes.some(attr => !query.length || query.some(q => attr.indexOf(q) !== -1))) {
           handleSearchResult('site', site);
 
           // find tours referenced by this site
