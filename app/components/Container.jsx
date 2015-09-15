@@ -25,6 +25,8 @@ export default class Container extends React.Component {
       tourFormData: {},
     };
 
+    window.mystate = this.state;
+
     this.getCurrSite = this.getCurrSite.bind(this);
     this.getCurrTour = this.getCurrTour.bind(this);
     this.getTours = this.getTours.bind(this);
@@ -97,7 +99,7 @@ export default class Container extends React.Component {
         return tours;
       })
       .then(tours => this.setState({tours}))
-      .catch(error => console.error(error));
+      .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
   getSites(location) {
@@ -148,7 +150,15 @@ export default class Container extends React.Component {
   }
 
   doSearch(searchProps) {
-    onSearch(searchProps, (resultType, result) => console.log('search result:', resultType, result));
+    this.setState({sites: [], tours: []});
+    onSearch(searchProps, (resultType, result) => {
+      if (resultType === 'site') {
+        this.setState({sites: this.state.sites.concat({siteId: result.id, siteInfo: result})});
+      }
+      if (resultType === 'tour') {
+        this.setState({tours: this.state.tours.concat(result)});
+      }
+    });
   }
 
   handleCloseClick(currentMarker) {
@@ -191,6 +201,7 @@ export default class Container extends React.Component {
   }
 
   render() {
+    window.mystate = this.state;
     return (
       <div className="Container">
         <RouteHandler

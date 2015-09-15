@@ -29,14 +29,34 @@ export const onSearch = ({searchText, locationText}, handleSearchResult) => {
         tourIds.forEach(tourId => {
           if (tourId in foundTours) return;
           foundTours[tourId] = true;
-          getTourById(tourId).then(tour => {
+          getTourById(tourId)
+          .then(tour => {
+            return Promise.all(tour.sites.map(site => {
+              return getSiteByKey(site);
+            }))
+            .then(sites => {
+              tour.sites = sites;
+              tour.categories = {};
+              tour.sites.forEach(site => {
+                Object.keys(site.category).forEach(key => {
+                  if (site.category[key]) {
+                    tour.categories[key] = true;
+                  }
+                });
+              });
+              tour.imageUrl = tour.sites[0].imageUrl;
+              return tour;
+            });
+          })
+          .then(tour => {
             tour.id = tourId;
             const {title, descriptions} = tour;
             const attributes = [title, descriptions].map(attr => attr.toLowerCase());
             if (attributes.some(attr => query.some(q => attr.indexOf(q) !== -1))) {
               handleSearchResult('tour', tour);
             }
-          });
+          })
+          .catch(error => console.error(error)); // eslint-disable-line no-console
         });
       });
 
@@ -55,10 +75,30 @@ export const onSearch = ({searchText, locationText}, handleSearchResult) => {
             tourIds.forEach(tourId => {
               if (tourId in foundTours) return;
               foundTours[tourId] = true;
-              getTourById(tourId).then(tour => {
+              getTourById(tourId)
+              .then(tour => {
+                return Promise.all(tour.sites.map(_site => {
+                  return getSiteByKey(_site);
+                }))
+                .then(sites => {
+                  tour.sites = sites;
+                  tour.categories = {};
+                  tour.sites.forEach(_site => {
+                    Object.keys(_site.category).forEach(key => {
+                      if (_site.category[key]) {
+                        tour.categories[key] = true;
+                      }
+                    });
+                  });
+                  tour.imageUrl = tour.sites[0].imageUrl;
+                  return tour;
+                });
+              })
+              .then(tour => {
                 tour.id = tourId;
                 handleSearchResult('tour', tour);
-              });
+              })
+              .catch(error => console.error(error)); // eslint-disable-line no-console
             });
           });
         }
