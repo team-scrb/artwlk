@@ -27,7 +27,6 @@ export default class TourList extends React.Component {
   render() {
     let tours = this.props.tours;
     let tourList = null;
-
     if (this.props.limit) {
       tours = tours.slice(0, parseInt(this.props.limit, 10));
     }
@@ -38,8 +37,7 @@ export default class TourList extends React.Component {
           <li key={index}>
             <h3 data-route={tour.id} onClick={this.handleTourClick.bind(null, tour.id)}>{tour.title}</h3>
             <img src={tour.imageUrl} />
-            <span>{tour.imgUrl}</span>
-            <ul>{Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>
+            <ul>{tour.categories && Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>
             <span>{distance.pretty(tour.distance)}</span>
             <span>{moment.duration(tour.duration, 'seconds').humanize()}</span>
             <span>{tour.sites.length} points of interest</span>
