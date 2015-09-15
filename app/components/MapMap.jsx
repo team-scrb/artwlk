@@ -176,7 +176,8 @@ export default class MapMap extends React.Component {
           ref="map"
           defaultZoom={12}
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
-          onClick={this.onMapClick}>
+          onClick={this.onMapClick}
+        >
           {this.props.params.siteId ? this.renderSingleSite() : null}
           {this.props.params.tourId ? this.renderSingleTour() : null}
           {this.props.path === '/nearby/map' ? this.renderAllSites() : null}
