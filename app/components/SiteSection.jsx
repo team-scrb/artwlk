@@ -36,7 +36,7 @@ export default class SiteSection extends React.Component {
     if (modalContent === 'filter') {
       this.setState({modalContent: <FilterSection />});
     } else {
-      this.setState({modalContent: <SearchSection />});
+      this.setState({modalContent: <SearchSection doSearch={this.props.doSearch} closeModal={this.closeModal} />});
     }
     this.setState({modalIsOpen: true});
   }
@@ -115,6 +115,7 @@ SiteSection.contextTypes = {
 SiteSection.propTypes = {
   getCurrSite: React.PropTypes.func.isRequired,
   currSite: React.PropTypes.object.isRequired,
+  doSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
   path: React.PropTypes.string.isRequired,
 };
