@@ -6,7 +6,6 @@ import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
 import TourList from './TourList';
-import {RouteHandler} from 'react-router';
 
 // styles
 import '../styles/components/TourSection';

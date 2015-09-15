@@ -4,8 +4,10 @@ import MapSection from '../components/MapSection';
 import NearbySection from '../components/NearbySection';
 import TourSection from '../components/TourSection';
 import TourDetail from '../components/TourDetail';
+import TourList from '../components/TourList';
 import SiteSection from '../components/SiteSection';
 import SiteDetail from '../components/SiteDetail';
+import SiteList from '../components/SiteList';
 import CreateSection from '../components/CreateSection';
 import FilterSection from '../components/FilterSection';
 import SearchSection from '../components/SearchSection';
@@ -23,10 +25,12 @@ export default (
     <Route name="tours" path="/tours" handler={TourSection}>
       <Route name="map-tour" path="/tours/map/:tourId" handler={MapMap} />
       <Route name="tours-detail" path="/tours/:tourId" handler={TourDetail} />
+      <DefaultRoute handler={TourList} />
     </Route>
     <Route name="sites" path="/sites" handler={SiteSection}>
       <Route name="map-site" path="/sites/map/:siteId" handler={MapMap} />
       <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
+      <DefaultRoute handler={SiteList} />
     </Route>
     <Route name="map" path="/nearby/map" handler={MapSection} />
     <Route name="create" handler={CreateSection} />

@@ -1,5 +1,4 @@
 @import "../utils/config";
 
 .TourSection { flex: 1; overflow-y: scroll; position: relative; flex-direction: column; display: flex; }
-.TourSection img { max-width: 100%; }
 .TourSection__TourList--hidden { display:none; }
