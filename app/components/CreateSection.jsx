@@ -3,6 +3,7 @@ import PhotoUpload from './PhotoUpload';
 import {uploadImage} from '../utils/photo';
 import {addSite} from '../utils/sites';
 import TopBarSection from './TopBarSection';
+import parseHashtags from 'parse-hashtags';
 
 // styles
 import '../styles/components/CreateSection';
@@ -33,8 +34,10 @@ export default class CreateSection extends React.Component {
         category: {
           streetArt: this.refs.streetArt.getDOMNode().checked,
           architecture: this.refs.architecture.getDOMNode().checked,
+          sculpture: this.refs.sculpture.getDOMNode().checked,
+          mural: this.refs.mural.getDOMNode().checked,
         },
-        tags: this.refs.tags.getDOMNode().value.split(' '),
+        tags: parseHashtags(this.refs.tags.getDOMNode().value),
         description: this.refs.description.getDOMNode().value,
         imageUrl,
       };
@@ -68,7 +71,9 @@ export default class CreateSection extends React.Component {
           <label>Category</label>
           <input type="checkbox" name="category" value="Street Art" ref="streetArt"/>Street Art
           <input type="checkbox" name="category" value="Architecture" ref="architecture"/>Architecture
-          <label>Tags
+          <input type="checkbox" name="category" value="Scuplture" ref="sculpture"/>Sculpture
+          <input type="checkbox" name="category" value="Mural" ref="mural"/>Mural
+          <label>Hash Tags
             <input type="text" name="tags" ref="tags"/>
           </label>
           <label>Description
@@ -85,6 +90,7 @@ CreateSection.propTypes = {
   location: React.PropTypes.object,
   childMapPosition: React.PropTypes.object,
 };
+
 CreateSection.contextTypes = {
   router: React.PropTypes.func.isRequired,
 };

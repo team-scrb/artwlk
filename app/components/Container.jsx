@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
-import {onSitesWithinRadius, getLocation} from '../utils/geo';
+import {onSitesWithinRadius, getLocation, latLngToAddress} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
@@ -23,8 +23,10 @@ export default class Container extends React.Component {
       childMapPosition: {},
       selectedSites: [],
       tourFormData: {},
+      address: '',
     };
 
+    this.convertToAddress = this.convertToAddress.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
     this.getCurrTour = this.getCurrTour.bind(this);
     this.getTours = this.getTours.bind(this);
@@ -198,6 +200,10 @@ export default class Container extends React.Component {
     this.setState({tourFormData});
   }
 
+  convertToAddress(coords) {
+    latLngToAddress(coords).then(address => this.setState({address}));
+  }
+
   render() {
     return (
       <div className="Container">
@@ -216,6 +222,7 @@ export default class Container extends React.Component {
           saveTourFormData={this.saveTourFormData}
           doSearch={this.doSearch}
           getCurrTour={this.getCurrTour}
+          convertToAddress={this.convertToAddress}
         />
         <ContainerNav />
       </div>

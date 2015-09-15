@@ -71,3 +71,27 @@ export const onSitesWithinRadius = (center, radius, handler) => {
  */
 export const addSiteLocation = (siteId, [latitude, longitude]) =>
   geoRef.set(siteId, [latitude, longitude]);
+
+export const latLngToAddress = coords => {
+  return new Promise((resolve, reject) => {
+    if (coords) {
+      const geocoder = new google.maps.Geocoder();
+      const {latitude, longitude} = coords;
+      const latLng = new google.maps.LatLng(latitude, longitude);
+
+      geocoder.geocode({'location': latLng}, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            resolve(results[1].formatted_address);
+          } else {
+            reject('Geocode: no results found');
+          }
+        } else {
+          reject(status);
+        }
+      });
+    } else {
+      reject('no coords');
+    }
+  });
+};
