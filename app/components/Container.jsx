@@ -18,6 +18,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       tours: [],
+      currMap: null,
       currSite: {},
       currTour: {},
       childMapPosition: null,
@@ -34,6 +35,7 @@ export default class Container extends React.Component {
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
+    this.setCurrMap = this.setCurrMap.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
     this.getCurrTour = this.getCurrTour.bind(this);
     this.getTours = this.getTours.bind(this);
@@ -89,6 +91,15 @@ export default class Container extends React.Component {
     }
   }
 
+  setCurrMap(currMap) {
+    return new Promise((resolve, reject) => {
+      this.setState({ currMap }, resolve);
+      setTimeout(() => {
+        reject('TIMEOUTTTTTT');
+      }, 30000);
+    });
+  }
+
   getTours() {
     getAllTours()
       .then(tours => {
@@ -136,14 +147,19 @@ export default class Container extends React.Component {
   }
 
   getCurrSite(siteId) {
-    if (siteId) {
-      getSiteByKey(siteId)
-      .then(currSite => {
-        this.setState({ currSite });
-      });
-    } else {
-      this.setState({ currSite: {} });
-    }
+    return new Promise((resolve) => {
+      if (siteId) {
+        getSiteByKey(siteId)
+          .then(currSite => {
+            this.setState({
+              currSite,
+              sites: [currSite],
+            }, resolve);
+          });
+      } else {
+        this.setState({ currSite: {} }, resolve);
+      }
+    });
   }
 
   getCurrTour(tourId) {
@@ -262,7 +278,9 @@ export default class Container extends React.Component {
         <RouteHandler
           {...this.state}
           {...this.props}
+          setCurrMap={this.setCurrMap}
           getCurrSite={this.getCurrSite}
+          getCurrTour={this.getCurrTour}
           getSites={this.getSites}
           getTours={this.getTours}
           onMarkerClick={this.onMarkerClick}

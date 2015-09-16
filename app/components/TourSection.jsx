@@ -56,29 +56,29 @@ export default class TourSection extends React.Component {
     const topBarRoutes = {
       'mapTour': (
         <TopBarSection
-          title = "Tours"
-          leftName = "Filter"
-          leftClick = {this.openModal.bind(this, 'filter')}
-          rightName = "Map"
-          rightRoute = "/map"
+          title="Tours"
+          leftName="Filter"
+          leftClick={this.openModal.bind(this, 'filter')}
+          rightName="Map"
+          rightRoute="/tours/map"
         />
       ),
       'mapTourDetail': (
         <TopBarSection
-          title = {this.props.currTour.title}
-          leftName = "Back"
-          leftRoute = "tours"
-          rightName = "Details"
-          rightRoute = {mapTourDetailRoute}
+          title={this.props.currTour.title}
+          leftName="Back"
+          leftRoute="tours"
+          rightName="Details"
+          rightRoute={mapTourDetailRoute}
         />
       ),
       'tourDetail': (
         <TopBarSection
-          title = {this.props.currTour.title}
-          leftName = "Back"
-          leftRoute = "tours"
-          rightName = "Map"
-          rightRoute = {tourDetailRoute}
+          title={this.props.currTour.title}
+          leftName="Back"
+          leftRoute="tours"
+          rightName="Map"
+          rightRoute={tourDetailRoute}
         />
       ),
     };
