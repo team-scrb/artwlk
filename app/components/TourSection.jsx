@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
-import TourList from './TourList';
+// import TourList from './TourList';
 
 // styles
 import '../styles/components/TourSection';
@@ -51,7 +51,7 @@ export default class TourSection extends React.Component {
   }
 
   render() {
-    const styles = this.props.params.tourId ? 'TourSection__TourList--hidden' : 'TourSection__TourList';
+    // const styles = this.props.params.tourId ? 'TourSection__TourList--hidden' : 'TourSection__TourList';
     const mapTourDetailRoute = `/tours/${this.props.params.tourId}`;
     const tourDetailRoute = `/tours/map/${this.props.params.tourId}`;
     const topBarRoutes = {
@@ -103,6 +103,7 @@ export default class TourSection extends React.Component {
           {...this.state}
           {...this.props}
         />
+        {/*
         <h2 className={styles}>Make me a tour please!</h2>
         <div className={styles}>
           <TourList
@@ -110,6 +111,7 @@ export default class TourSection extends React.Component {
             {...this.props}
           />
         </div>
+        */}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

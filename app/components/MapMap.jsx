@@ -48,15 +48,15 @@ export default class MapMap extends React.Component {
   renderAllSites() {
     return this.props.sites.map((site, index) => {
       console.log(site, index);
-      const {category} = site.siteInfo;
+      const {category} = site;
       const marker = {
-        siteInfo: site.siteInfo,
+        siteInfo: site,
         icon: this.props.iconSets(category),
         position: {
-          lat: site.siteInfo.coords.latitude,
-          lng: site.siteInfo.coords.longitude,
+          lat: site.coords.latitude,
+          lng: site.coords.longitude,
         },
-        key: site.siteId,
+        key: site.id,
         defaultAnimation: 2,
         showInfo: site.showInfo,
       };
@@ -80,7 +80,7 @@ export default class MapMap extends React.Component {
     }
     const site = this.props.currSite;
     const marker = {
-      siteInfo: site.siteInfo,
+      siteInfo: site,
       position: {
         lat: site.coords.latitude,
         lng: site.coords.longitude,
@@ -132,7 +132,7 @@ export default class MapMap extends React.Component {
             directions: result,
           });
         } else {
-          console.error(`error fetching directions ${ result }`);
+          console.error(`error fetching directions ${ status }`);
         }
       });
     }
