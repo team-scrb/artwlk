@@ -31,7 +31,7 @@ export default class TourDetail extends React.Component {
     }
     return (
       <div className="TourDetail">
-        <img src="" />
+        <img src={tour.imageUrl} />
         <h3>{tour.title}</h3><br/>
         <span>Duration: {moment.duration(tour.duration, 'seconds').humanize()}</span><br/>
         <span>Distance: {distance.pretty(tour.distance)}</span><br/>
