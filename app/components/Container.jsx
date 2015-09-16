@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
-import {onSitesWithinRadius, getLocation, latLngToAddress} from '../utils/geo';
+import {onSitesWithinRadius, latLngToAddress} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
@@ -32,6 +32,7 @@ export default class Container extends React.Component {
       searchProps: {},
       filterProps: {},
       userlocation: null,
+      makers: [],
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -53,10 +54,12 @@ export default class Container extends React.Component {
     this.resetCreateSiteForm = this.resetCreateSiteForm.bind(this);
     this.handleCreateSiteFormInputChange = this.handleCreateSiteFormInputChange.bind(this);
     this.doFilterSearch = this.doFilterSearch.bind(this);
+    this.setMarkers = this.setMarkers.bind(this);
   }
 
   componentDidMount() {
-    getLocation().then(this.getSites);
+    // getLocation().then(this.getSites);
+    this.doSearch({});
   }
 
   onMarkerClick(clickedMarker) {
@@ -133,6 +136,10 @@ export default class Container extends React.Component {
       .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
+  setMarkers(markers) {
+    this.setState({markers});
+  }
+
   getSites(location) {
     this.setState({sites: []}, () => {
       onSitesWithinRadius(location, 5, (siteId) => {
@@ -153,7 +160,7 @@ export default class Container extends React.Component {
           .then(currSite => {
             this.setState({
               currSite,
-              sites: [currSite],
+              // sites: [currSite],
             }, resolve);
           });
       } else {
@@ -298,6 +305,7 @@ export default class Container extends React.Component {
           resetCreateSiteForm={this.resetCreateSiteForm}
           uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
+          setMarkers={this.setMarkers}
         />
         <ContainerNav />
       </div>

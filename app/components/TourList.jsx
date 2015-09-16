@@ -14,7 +14,7 @@ export default class TourList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getTours();
+    // this.props.getTours();
   }
 
   handleTourClick(tourId) {

@@ -13,7 +13,6 @@ export default class MapMap extends React.Component {
     this.state = {
       directions: null,
       markers: null,
-      needRenderMap: false,
     };
 
     // this.onMapClick = this.onMapClick.bind(this);
@@ -25,19 +24,6 @@ export default class MapMap extends React.Component {
   //   this.renderMap();
   // }
 
-  componentWillMount() {
-    console.log('[MapMap] Will Mount', this.props.currMap);
-    this.renderMap();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currMap !== this.props.currMap) {
-      this.setState({
-        needRenderMap: true,
-      });
-    }
-  }
-
   // onMapClick(event) {
   //   this.props.getSites({
   //     coords: {
@@ -48,36 +34,34 @@ export default class MapMap extends React.Component {
   // }
 
   renderMap() {
+    let markers = [];
     if (this.props.currMap === 'allSites' || this.props.currMap === 'singleSite') {
       const sites = this.props.currMap === 'singleSite' ? [this.props.currSite] : this.props.sites;
-      console.log(sites);
 
-      this.setState({
-        markers: sites.map((site, index) => {
-          console.log('MARKER SITE!!!!', site);
-          const ref = `marker_${index}`;
-          const marker = {
-            showInfo: site.showInfo,
-            icon: this.props.iconSets(site.category),
-            position: {
-              lat: site.coords.latitude,
-              lng: site.coords.longitude,
-            },
-            id: site.id,
-            defaultAnimation: 2,
-          };
+      markers = sites.map((site, index) => {
+        // console.log('MARKER SITE!!!!', site);
+        const ref = `marker_${index}`;
+        const marker = {
+          showInfo: site.showInfo,
+          icon: this.props.iconSets(site.category),
+          position: {
+            lat: site.coords.latitude,
+            lng: site.coords.longitude,
+          },
+          id: site.id,
+          defaultAnimation: 2,
+        };
 
-          return (
-            <Marker
-              {...marker}
-              onClick={this.props.onMarkerClick.bind(this, site)}>
-              {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
-            </Marker>
-          );
-        }),
+        return (
+          <Marker
+            {...marker}
+            onClick={this.props.onMarkerClick.bind(this, site)}>
+            {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
+          </Marker>
+        );
       });
     }
-
+    return markers;
     // render a tour or all tours
     // if (currMap.tours.length) {
     //   let toursArr = [];
@@ -139,7 +123,7 @@ export default class MapMap extends React.Component {
   }
 
   renderAllTours() {
-    this.props.getTours();
+    // this.props.getTours();
 
     // TODO: render all the start points of the tours
   }
@@ -171,7 +155,7 @@ export default class MapMap extends React.Component {
             directions: result,
           });
         } else {
-          console.error(`error fetching directions ${ status }`);  // eslint-ignore-line no-console
+          console.error(`error fetching directions ${ status }`);  // eslint-disable-line no-console
         }
       });
     }
@@ -197,13 +181,7 @@ export default class MapMap extends React.Component {
   }
 
   render() {
-    if (this.state.needRenderMap) {
-      this.renderMap();
-      this.setState({
-        needRenderMap: false,
-      });
-    }
-
+    const markers = this.renderMap();
     return (
       <div className="MapSection">
         <GoogleMap
@@ -220,7 +198,7 @@ export default class MapMap extends React.Component {
           defaultZoom={12}
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
         >
-          {this.props.currMap ? this.state.markers : null}
+          {markers}
         </GoogleMap>
       </div>
     );
@@ -241,4 +219,5 @@ MapMap.propTypes = {
   currSite: React.PropTypes.object,
   currTour: React.PropTypes.object,
   currMap: React.PropTypes.object,
+  setMarkers: React.PropTypes.func.isRequired,
 };
