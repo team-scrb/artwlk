@@ -142,6 +142,7 @@ CreateSection.propTypes = {
   resetCreateSiteForm: React.PropTypes.func,
   address: React.PropTypes.string,
   imageData: React.PropTypes.string,
+  userLocation: React.PropTypes.object,
 };
 
 CreateSection.contextTypes = {
