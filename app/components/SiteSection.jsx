@@ -1,6 +1,5 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import {getLocation} from '../utils/geo';
 import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
@@ -28,7 +27,6 @@ export default class SiteSection extends React.Component {
   }
 
   componentDidMount() {
-    getLocation(); // TODO this should probably be deleted
     this.props.getCurrSite(this.props.params.siteId);
   }
 
