@@ -70,7 +70,7 @@ export const addTour = tourInfo => {
 export const findToursBySiteId = siteId => {
   return new Promise((resolve, reject) => {
     fireRef.child('toursBySite').child(siteId).once('value',
-      snap => resolve(Object.keys(snap.val())),
+      snap => resolve(snap.val() && Object.keys(snap.val())),
       reject
     );
   });
