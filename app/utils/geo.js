@@ -69,8 +69,11 @@ export const onSitesWithinRadius = (center, radius, handler) => {
  * @param  {[Number, Number]}   [latitude, longitude]
  * @return {Promise}            Then callback called when data synchronized with Firebase.
  */
-export const addSiteLocation = (siteId, [latitude, longitude]) =>
-  geoRef.set(siteId, [latitude, longitude]);
+export const addSiteLocation = (siteId, [latitude, longitude]) => {
+  const coords = new google.maps.LatLng(latitude, longitude);
+  console.log(coords.H, coords.L)
+  geoRef.set(siteId, [coords.H, coords.L]);
+};
 
 export const latLngToAddress = coords => {
   return new Promise((resolve, reject) => {

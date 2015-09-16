@@ -56,7 +56,7 @@ export default class CreateSection extends React.Component {
       this.openModal();
       throw new Error('imageData is null');
     }
-    if (!this.props.createFormLocation) {
+    if (!this.props.userLocation && !this.props.childMapPosition) {
       this.openModal();
       throw new Error('No location selected');
     }
