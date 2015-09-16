@@ -21,7 +21,7 @@ export default class CreateSection extends React.Component {
       modalIsOpen: false,
       modalContent: false,
     };
-    this._submit = this._submit.bind(this);
+    this.submit = this.submit.bind(this);
     this.selectLocationHandler = this.selectLocationHandler.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -50,7 +50,7 @@ export default class CreateSection extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
-  _submit(event) {
+  submit(event) {
     event.preventDefault();
     if (!this.props.imageData) {
       this.openModal();
@@ -97,7 +97,7 @@ export default class CreateSection extends React.Component {
           title="Create"
         />
         <h2>Create Site Here</h2>
-        <form onSubmit={this._submit}>
+        <form onSubmit={this.submit}>
           <PhotoUpload {...this.props} />
           <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>Location: {this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
           <h3>{this.props.address}</h3>
