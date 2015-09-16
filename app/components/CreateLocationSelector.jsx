@@ -20,12 +20,13 @@ export default class CreateLocationSelector extends React.Component {
   }
 
   addSite() {
-    const {G, K} = this.refs.map.state.map.center;
+    const {H, L} = this.refs.map.state.map.center;
 
     this.props.getLatLng({
-      lat: G,
-      lng: K,
+      lat: H,
+      lng: L,
     });
+    this.props.convertToAddress({latitude: H, longitude: L});
 
     this.context.router.transitionTo('create');
   }
@@ -67,6 +68,7 @@ CreateLocationSelector.propTypes = {
   sites: React.PropTypes.array.isRequired,
   onMarkerClick: React.PropTypes.func.isRequired,
   getLatLng: React.PropTypes.func.isRequired,
+  convertToAddress: React.PropTypes.func.isRequired,
 };
 
 CreateLocationSelector.contextTypes = {
