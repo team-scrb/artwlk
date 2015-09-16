@@ -13,7 +13,6 @@ export default class MapMap extends React.Component {
       directions: null,
     };
 
-    this.onMapClick = this.onMapClick.bind(this);
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
   }
 
@@ -31,15 +30,6 @@ export default class MapMap extends React.Component {
 
   componentWillUpdate() {
 
-  }
-
-  onMapClick() {
-    // this.props.getSites({
-    //   coords: {
-    //     latitude: event.latLng.H,
-    //     longitude: event.latLng.L,
-    //   },
-    // });
   }
 
   renderAllSites() {
