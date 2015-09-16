@@ -41,7 +41,7 @@ export default class Container extends React.Component {
     this.reorderSites = this.reorderSites.bind(this);
     this.saveTourFormData = this.saveTourFormData.bind(this);
     this.doSearch = this.doSearch.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleCreateSiteFormInputChange = this.handleCreateSiteFormInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -174,7 +174,7 @@ export default class Container extends React.Component {
     this.setState({sites});
   }
 
-  handleChange(event) {
+  handleCreateSiteFormInputChange(event) {
     const newCreate = this.state.createForm;
     newCreate[event.target.dataset.name] = event.target.value;
     this.setState({createForm: newCreate});
@@ -231,7 +231,7 @@ export default class Container extends React.Component {
           doSearch={this.doSearch}
           getCurrTour={this.getCurrTour}
           convertToAddress={this.convertToAddress}
-          handleChange={this.handleChange}
+          handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
         />
         <ContainerNav />
       </div>

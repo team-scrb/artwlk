@@ -66,21 +66,21 @@ export default class CreateSection extends React.Component {
           <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>Location: {this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
           <h3>{this.props.address}</h3>
           <label>Name
-            <input type="text" data-name="name" ref="name" onChange={this.props.handleChange} value={this.props.createForm.name} />
+            <input type="text" data-name="name" ref="name" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.name} />
           </label>
           <label>Artist
-            <input type="text" data-name="artist" ref="artist" onChange={this.props.handleChange} value={this.props.createForm.artist} />
+            <input type="text" data-name="artist" ref="artist" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.artist} />
           </label>
           <label>Category</label>
-          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.streetArt} ref="streetArt"/>Street Art
-          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.architecture} ref="architecture"/>Architecture
-          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.sculpture} ref="sculpture"/>Sculpture
-          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.mural} ref="mural"/>Mural
+          <input type="checkbox" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.streetArt} ref="streetArt"/>Street Art
+          <input type="checkbox" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.architecture} ref="architecture"/>Architecture
+          <input type="checkbox" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.sculpture} ref="sculpture"/>Sculpture
+          <input type="checkbox" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.mural} ref="mural"/>Mural
           <label>Hash Tags
-            <input type="text" data-name="tags" ref="tags" onChange={this.props.handleChange} value={this.props.createForm.tags} />
+            <input type="text" data-name="tags" ref="tags" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.tags} />
           </label>
           <label>Description
-            <input type="text" data-name="description" ref="description" onChange={this.props.handleChange} value={this.props.createForm.description} />
+            <input type="text" data-name="description" ref="description" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.description} />
           </label>
           <input type="submit" />
         </form>
@@ -92,7 +92,7 @@ export default class CreateSection extends React.Component {
 CreateSection.propTypes = {
   location: React.PropTypes.object,
   childMapPosition: React.PropTypes.object,
-  handleChange: React.PropTypes.func,
+  handleCreateSiteFormInputChange: React.PropTypes.func,
   createForm: React.PropTypes.object,
   createFormLocation: React.PropTypes.object,
   convertToAddress: React.PropTypes.func,
