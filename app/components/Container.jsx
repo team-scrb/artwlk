@@ -28,6 +28,8 @@ export default class Container extends React.Component {
       createFormLocation: null,
       imageData: null,
       photoUploadFile: null,
+      searchProps: {},
+      filterProps: {},
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -47,6 +49,7 @@ export default class Container extends React.Component {
     this.setImageData = this.setImageData.bind(this);
     this.resetCreateSiteForm = this.resetCreateSiteForm.bind(this);
     this.handleCreateSiteFormInputChange = this.handleCreateSiteFormInputChange.bind(this);
+    this.doFilterSearch = this.doFilterSearch.bind(this);
   }
 
   componentDidMount() {
@@ -169,8 +172,20 @@ export default class Container extends React.Component {
   }
 
   doSearch(searchProps) {
+    this.setState({sites: [], tours: [], searchProps});
+    onSearch(searchProps, {}, (resultType, result) => {
+      if (resultType === 'site') {
+        this.setState({sites: this.state.sites.concat(result)});
+      }
+      if (resultType === 'tour') {
+        this.setState({tours: this.state.tours.concat(result)});
+      }
+    });
+  }
+
+  doFilterSearch(filterProps) {
     this.setState({sites: [], tours: []});
-    onSearch(searchProps, (resultType, result) => {
+    onSearch(this.state.searchProps, filterProps, (resultType, result) => {
       if (resultType === 'site') {
         this.setState({sites: this.state.sites.concat(result)});
       }
@@ -257,6 +272,7 @@ export default class Container extends React.Component {
           selectSites={this.selectSites}
           saveTourFormData={this.saveTourFormData}
           doSearch={this.doSearch}
+          doFilterSearch={this.doFilterSearch}
           getCurrTour={this.getCurrTour}
           convertToAddress={this.convertToAddress}
           setImageData={this.setImageData}

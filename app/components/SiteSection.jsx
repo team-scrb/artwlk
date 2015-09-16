@@ -1,6 +1,5 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import {getLocation} from '../utils/geo';
 import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
@@ -28,13 +27,12 @@ export default class SiteSection extends React.Component {
   }
 
   componentDidMount() {
-    getLocation();
     this.props.getCurrSite(this.props.params.siteId);
   }
 
   openModal(modalContent) {
     if (modalContent === 'filter') {
-      this.setState({modalContent: <FilterSection />});
+      this.setState({modalContent: <FilterSection doFilterSearch={this.props.doFilterSearch} closeModal={this.closeModal}/>});
     } else {
       this.setState({modalContent: <SearchSection doSearch={this.props.doSearch} closeModal={this.closeModal} />});
     }
@@ -116,6 +114,7 @@ SiteSection.propTypes = {
   getCurrSite: React.PropTypes.func.isRequired,
   currSite: React.PropTypes.object.isRequired,
   doSearch: React.PropTypes.func.isRequired,
+  doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
   path: React.PropTypes.string.isRequired,
 };
