@@ -17,7 +17,7 @@ export default class PhotoUpload extends React.Component {
 
     reader.onload = (encodedImage) => {
       const imageData = encodedImage.target.result.split(',')[1];
-      this.props._setImageData(imageData);
+      this.props.setImageData(imageData);
     };
 
     reader.readAsDataURL(file[0]);
@@ -40,7 +40,6 @@ export default class PhotoUpload extends React.Component {
 PhotoUpload.propTypes = {
   setImageData: React.PropTypes.func.isRequired,
   uploadPhotoPreview: React.PropTypes.func.isRequired,
-  _setImageData: React.PropTypes.func.isRequired,
   imageData: React.PropTypes.string,
   photoUploadFile: React.PropTypes.object,
 };
