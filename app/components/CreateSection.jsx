@@ -18,9 +18,11 @@ export default class CreateSection extends React.Component {
     this._setImageData = this._setImageData.bind(this);
     this.selectLocationHandler = this.selectLocationHandler.bind(this);
   }
+
   _setImageData(imageData, userLocation) {
     this.setState({imageData, userLocation});
   }
+
   _submit(event) {
     event.preventDefault();
     if (!this.state.imageData) throw new Error('imageData is null');
@@ -61,23 +63,23 @@ export default class CreateSection extends React.Component {
         <h2>Create Site Here</h2>
         <form onSubmit={this._submit}>
           <PhotoUpload setImageData={this._setImageData}/>
-          <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>Select Location</h1>
+          <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>{this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
           <label>Name
-            <input type="text" name="name" ref="name" />
+            <input type="text" data-name="name" ref="name" onChange={this.props.handleChange} value={this.props.createForm.name} />
           </label>
           <label>Artist
-            <input type="text" name="artist" ref="artist"/>
+            <input type="text" data-name="artist" ref="artist" onChange={this.props.handleChange} value={this.props.createForm.artist} />
           </label>
           <label>Category</label>
-          <input type="checkbox" name="category" value="Street Art" ref="streetArt"/>Street Art
-          <input type="checkbox" name="category" value="Architecture" ref="architecture"/>Architecture
-          <input type="checkbox" name="category" value="Scuplture" ref="sculpture"/>Sculpture
-          <input type="checkbox" name="category" value="Mural" ref="mural"/>Mural
+          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.streetArt} ref="streetArt"/>Street Art
+          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.architecture} ref="architecture"/>Architecture
+          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.sculpture} ref="sculpture"/>Sculpture
+          <input type="checkbox" data-name="category" onChange={this.props.handleChange} value={this.props.createForm.mural} ref="mural"/>Mural
           <label>Hash Tags
-            <input type="text" name="tags" ref="tags"/>
+            <input type="text" data-name="tags" ref="tags" onChange={this.props.handleChange} value={this.props.createForm.tags} />
           </label>
           <label>Description
-            <input type="text" name="description" ref="description"/>
+            <input type="text" data-name="description" ref="description" onChange={this.props.handleChange} value={this.props.createForm.description} />
           </label>
           <input type="submit" />
         </form>
@@ -89,6 +91,9 @@ export default class CreateSection extends React.Component {
 CreateSection.propTypes = {
   location: React.PropTypes.object,
   childMapPosition: React.PropTypes.object,
+  handleChange: React.PropTypes.func,
+  createForm: React.PropTypes.object,
+  createFormLocation: React.PropTypes.object,
 };
 
 CreateSection.contextTypes = {
