@@ -253,7 +253,7 @@ export default class Container extends React.Component {
 
   resetCreateSiteForm() {
     const resetForm = { name: '', artist: '', description: '', category: '', tags: '' };
-    this.setState({ createForm: resetForm, imageData: null, photoUploadFile: null, childMapPosition: {} });
+    this.setState({ createForm: resetForm, imageData: null, photoUploadFile: null, childMapPosition: null });
   }
 
   render() {
