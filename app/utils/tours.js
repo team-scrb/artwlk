@@ -1,4 +1,6 @@
 import {fireRef} from '../../config';
+import {getSiteByKey} from './sites';
+
 /**
  * Add tourInfo object to database.
  * @param {Object} tourInfo Must contain Google directions object.
@@ -104,7 +106,12 @@ export const getTourByKey = key => {
     fireRef.child('tours').child(key).once('value', snap => {
       const tour = snap.val();
       tour.id = snap.key();
-      resolve(tour);
+      Promise.all(tour.sites.map(siteId => {
+        return getSiteByKey(siteId)
+        .then(site => tour.sites[tour.sites.indexOf(siteId)] = site);
+      }))
+      .then(() => tour.imageUrl = tour.sites[0].imageUrl)
+      .then(() => resolve(tour));
     }, reject);
   });
 };

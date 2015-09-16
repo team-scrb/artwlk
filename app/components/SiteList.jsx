@@ -12,6 +12,7 @@ export default class SiteList extends React.Component {
 
   siteDetailClick(event) {
     const router = this.context.router;
+    this.props.getCurrSite(event.target.dataset.route);
     router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
   }
 
@@ -25,13 +26,13 @@ export default class SiteList extends React.Component {
     const siteList = sites.map((data, index) => {
       return (
         <li key={index}>
-          {data.siteInfo.imageUrl && <img src={data.siteInfo.imageUrl}/>}
-          {data.siteInfo.name && <h3 data-route={data.siteId} onClick={this.siteDetailClick}>{data.siteInfo.name}</h3>}
-          {data.siteInfo.artist && <h5>{data.siteInfo.artist}</h5>}
-          {data.siteInfo.coords && <h5>{data.siteInfo.coords}</h5>}
-          {data.siteInfo.architecture && <h6>{data.siteInfo.architecture}</h6>}
-          {data.siteInfo.streetArt && <h6>{data.siteInfo.streetArt}</h6>}
-          {data.siteInfo.description && <p>{data.siteInfo.description}</p>}
+          {data.imageUrl && <img src={data.imageUrl}/>}
+          {data.name && <h3 data-route={data.id} onClick={this.siteDetailClick}>{data.name}</h3>}
+          {data.artist && <h5>{data.artist}</h5>}
+          {data.coords && <h5>{data.coords}</h5>}
+          {data.architecture && <h6>{data.architecture}</h6>}
+          {data.streetArt && <h6>{data.streetArt}</h6>}
+          {data.description && <p>{data.description}</p>}
         </li>
       );
     });
@@ -51,5 +52,6 @@ SiteList.contextTypes = {
 SiteList.propTypes = {
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
+  getCurrSite: React.PropTypes.func.isRequired,
   limit: React.PropTypes.string,
 };

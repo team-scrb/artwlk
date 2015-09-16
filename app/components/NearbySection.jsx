@@ -3,7 +3,6 @@ import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
-import {getLocation} from '../utils/geo';
 import SiteList from './SiteList';
 import TourList from './TourList';
 
@@ -24,11 +23,6 @@ export default class NearbySection extends React.Component {
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  componentDidMount() {
-    getLocation().then(this.props.getSites);
-    this.props.getCurrSite(this.props.params.siteId);
   }
 
   openModal(modalContent) {

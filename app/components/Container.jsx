@@ -108,9 +108,7 @@ export default class Container extends React.Component {
         getSiteByKey(siteId)
         .then(siteInfo => {
           this.setState({
-            sites: this.state.sites.concat([{
-              siteInfo, siteId,
-            }]),
+            sites: this.state.sites.concat(siteInfo),
           });
         });
       });
@@ -153,7 +151,7 @@ export default class Container extends React.Component {
     this.setState({sites: [], tours: []});
     onSearch(searchProps, (resultType, result) => {
       if (resultType === 'site') {
-        this.setState({sites: this.state.sites.concat({siteId: result.id, siteInfo: result})});
+        this.setState({sites: this.state.sites.concat(result)});
       }
       if (resultType === 'tour') {
         this.setState({tours: this.state.tours.concat(result)});
