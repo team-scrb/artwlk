@@ -8,10 +8,17 @@ import '../styles/components/TourDetail';
 export default class TourDetail extends React.Component {
   constructor(props) {
     super(props);
+
+    this.siteDetailClick = this.siteDetailClick.bind(this);
   }
 
   componentDidMount() {
     this.props.getCurrTour(this.props.params.tourId);
+  }
+
+  siteDetailClick(siteInfo) {
+    this.props.getCurrSite(siteInfo.id);
+    this.context.router.transitionTo('sites-detail', { siteId: siteInfo.id });
   }
 
   render() {
@@ -22,7 +29,7 @@ export default class TourDetail extends React.Component {
       if (_tour) {
         sites = _tour.sites.map(site => (
           <div>
-            <li>{site.name}</li>
+            <li onClick={this.siteDetailClick.bind(null, site)}>{site.name}</li>
             <li><img src={site.imageUrl}></img></li>
             <li>Artist: {site.artist}</li>
           </div>
@@ -51,6 +58,10 @@ export default class TourDetail extends React.Component {
   }
 }
 
+TourDetail.contextTypes = {
+  router: React.PropTypes.func.isRequired,
+};
+
 TourDetail.propTypes = {
   getTours: React.PropTypes.func.isRequired,
   getCurrTour: React.PropTypes.func.isRequired,
@@ -59,4 +70,5 @@ TourDetail.propTypes = {
   currSite: React.PropTypes.sting,
   currTour: React.PropTypes.object,
   params: React.PropTypes.object,
+  getCurrSite: React.PropTypes.func.isRequired,
 };
