@@ -13,14 +13,10 @@ export default class MapMap extends React.Component {
       directions: null,
     };
 
-    this.onMapClick = this.onMapClick.bind(this);
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
   }
 
   componentWillMount() {
-    console.log('this.props.path:', this.props.path);
-    console.log('this.props.params:', this.props.params);
-
     // render all sites if on /nearby/map
     if (this.props.path === '/nearby/map') {
       getLocation().then(this.renderAllSites);
@@ -36,18 +32,8 @@ export default class MapMap extends React.Component {
 
   }
 
-  onMapClick(event) {
-    this.props.getSites({
-      coords: {
-        latitude: event.latLng.G,
-        longitude: event.latLng.K,
-      },
-    });
-  }
-
   renderAllSites() {
-    return this.props.sites.map((site, index) => {
-      console.log(site, index);
+    return this.props.sites.map(site => {
       const {category} = site;
       const marker = {
         siteInfo: site,
@@ -60,13 +46,11 @@ export default class MapMap extends React.Component {
         defaultAnimation: 2,
         showInfo: site.showInfo,
       };
-      const ref = `marker_${index}`;
-
       return (
         <Marker
           {...marker}
           onClick={this.props.onMarkerClick.bind(this, site)}>
-          {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
+          {marker.showInfo ? this.renderInfoWindow(site) : null}
         </Marker>
       );
     });
@@ -89,18 +73,17 @@ export default class MapMap extends React.Component {
       defaultAnimation: 2,
       showInfo: site.showInfo,
     };
+
     return (
       <Marker {...marker}
         onClick={this.props.onMarkerClick.bind(this, site)}>
-        {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
+        {marker.showInfo ? this.renderInfoWindow(site) : null}
       </Marker>
     );
   }
 
   renderAllTours() {
     this.props.getTours();
-
-    console.log(this.props.tours);
 
     // TODO: render all the start points of the tours
   }
@@ -132,26 +115,26 @@ export default class MapMap extends React.Component {
             directions: result,
           });
         } else {
-          console.error(`error fetching directions ${ status }`);
+          console.error(`error fetching directions ${ status }`);  // eslint-ignore-line no-console
         }
       });
     }
   }
 
-  renderInfoWindow(ref, marker) {
+  renderInfoWindow(marker) {
     return (
       <InfoWindow
-        key={`${ref}_info_window`}
+        key={`${marker.id}_info_window`}
         onCloseclick={this.props.handleCloseClick.bind(this, marker)}
         onBlur={this.props.handleCloseClick.bind(this, marker)}
       >
         <div>
-          <strong>{marker.siteInfo.name}</strong>
+          <strong>{marker.name}</strong>
           <br />
-          <img src={marker.siteInfo.imageUrl}></img>
-          <p>by {marker.siteInfo.artist}</p>
-          <p>{marker.siteInfo.description}</p>
-          <p>{marker.siteInfo.imageUrl}</p>
+          <img src={marker.imageUrl}></img>
+          <p>by {marker.artist}</p>
+          <p>{marker.description}</p>
+          <p>{marker.imageUrl}</p>
         </div>
       </InfoWindow>
     );

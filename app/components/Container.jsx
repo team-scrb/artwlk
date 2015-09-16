@@ -51,6 +51,7 @@ export default class Container extends React.Component {
   onMarkerClick(clickedMarker) {
     const sites = this.state.sites;
 
+    // close all open infoBoxes
     let index = sites.findIndex(site => site.showInfo);
     let site = sites[index];
     if (site && site.showInfo) {
@@ -60,7 +61,8 @@ export default class Container extends React.Component {
       sites.splice(index, 1, site);
     }
 
-    index = sites.indexOf(clickedMarker);
+    // open the clicked marker
+    index = sites.findIndex(s => s.id === clickedMarker.id);
     site = sites[index];
     if (site) {
       site = React.addons.update(site, {
@@ -68,8 +70,14 @@ export default class Container extends React.Component {
       });
       sites.splice(index, 1, site);
     }
-
     this.setState({sites});
+
+    if (this.state.currSite.id === clickedMarker.id) {
+      const marker = React.addons.update(clickedMarker, {
+        showInfo: {$set: !clickedMarker.showInfo},
+      });
+      this.setState({currSite: marker});
+    }
   }
 
   getTours() {
@@ -165,13 +173,15 @@ export default class Container extends React.Component {
 
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
-    const index = sites.indexOf(currentMarker);
+    const index = sites.findIndex(s => s.id === currentMarker.id);
     let site = sites[index];
-    site = React.addons.update(site, {
-      showInfo: {$set: false},
-    });
-    sites.splice(index, 1, site);
-    this.setState({sites});
+    if (site.showInfo) {
+      site = React.addons.update(site, {
+        showInfo: {$set: false},
+      });
+      sites.splice(index, 1, site);
+      this.setState({sites});
+    }
   }
 
   handleCreateSiteFormInputChange(event) {
