@@ -56,13 +56,14 @@ export default class CreateSection extends React.Component {
       this.openModal();
       throw new Error('imageData is null');
     }
-    if (!this.props.createFormLocation) {
+    if (!this.props.userLocation && !this.props.childMapPosition) {
       this.openModal();
       throw new Error('No location selected');
     }
     uploadImage(this.props.imageData)
     .then(imageUrl => {
-      const {latitude, longitude} = this.props.childMapPosition || this.state.userLocation.coords;
+      const {latitude, longitude} = this.props.childMapPosition || this.props.userLocation;
+
       const siteInfo = {
         authData: isLoggedIn(),
         coords: {latitude, longitude},
@@ -142,6 +143,7 @@ CreateSection.propTypes = {
   resetCreateSiteForm: React.PropTypes.func,
   address: React.PropTypes.string,
   imageData: React.PropTypes.string,
+  userLocation: React.PropTypes.object,
 };
 
 CreateSection.contextTypes = {
