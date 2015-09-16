@@ -20,9 +20,9 @@ export default class Container extends React.Component {
       tours: [],
       currSite: {},
       currTour: {},
-      childMapPosition: {},
+      childMapPosition: null,
       selectedSites: [],
-      tourFormData: {},
+      tourFormData: null,
       address: '',
       createForm: { name: 'Untitled', artist: 'Unknown', description: '', category: '', tags: '' },
       createFormLocation: null,
@@ -30,6 +30,7 @@ export default class Container extends React.Component {
       photoUploadFile: null,
       searchProps: {},
       filterProps: {},
+      userlocation: null,
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -252,7 +253,7 @@ export default class Container extends React.Component {
 
   resetCreateSiteForm() {
     const resetForm = { name: '', artist: '', description: '', category: '', tags: '' };
-    this.setState({ createForm: resetForm, imageData: null, photoUploadFile: null });
+    this.setState({ createForm: resetForm, imageData: null, photoUploadFile: null, childMapPosition: {} });
   }
 
   render() {

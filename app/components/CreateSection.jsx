@@ -62,7 +62,8 @@ export default class CreateSection extends React.Component {
     }
     uploadImage(this.props.imageData)
     .then(imageUrl => {
-      const {latitude, longitude} = this.props.childMapPosition || this.state.userLocation.coords;
+      const {latitude, longitude} = this.props.childMapPosition || this.props.userLocation;
+
       const siteInfo = {
         authData: isLoggedIn(),
         coords: {latitude, longitude},

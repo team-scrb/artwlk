@@ -27,7 +27,6 @@ export default class CreateLocationSelector extends React.Component {
       lng: L,
     });
     this.props.convertToAddress({latitude: H, longitude: L});
-
     this.context.router.transitionTo('create');
   }
 

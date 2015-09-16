@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import {getLocation} from '../utils/geo';
 
 // styles
 import '../styles/components/PhotoUpload';
@@ -17,7 +18,10 @@ export default class PhotoUpload extends React.Component {
 
     reader.onload = (encodedImage) => {
       const imageData = encodedImage.target.result.split(',')[1];
-      this.props.setImageData(imageData);
+      getLocation().then(userLocation => {
+        const location = userLocation.coords;
+        this.props.setImageData(imageData, location);
+      });
     };
 
     reader.readAsDataURL(file[0]);
