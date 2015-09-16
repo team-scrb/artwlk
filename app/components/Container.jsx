@@ -209,7 +209,7 @@ export default class Container extends React.Component {
   }
 
   convertToAddress(coords) {
-    latLngToAddress(coords).then(address => this.setState({address}));
+    return latLngToAddress(coords).then(address => this.setState({address}));
   }
 
   render() {

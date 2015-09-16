@@ -63,7 +63,8 @@ export default class CreateSection extends React.Component {
         <h2>Create Site Here</h2>
         <form onSubmit={this._submit}>
           <PhotoUpload setImageData={this._setImageData}/>
-          <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>{this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
+          <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>Location: {this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
+          <h3>{this.props.address}</h3>
           <label>Name
             <input type="text" data-name="name" ref="name" onChange={this.props.handleChange} value={this.props.createForm.name} />
           </label>
@@ -94,6 +95,8 @@ CreateSection.propTypes = {
   handleChange: React.PropTypes.func,
   createForm: React.PropTypes.object,
   createFormLocation: React.PropTypes.object,
+  convertToAddress: React.PropTypes.func,
+  address: React.PropTypes.string,
 };
 
 CreateSection.contextTypes = {
