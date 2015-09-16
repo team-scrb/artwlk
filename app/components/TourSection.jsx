@@ -51,7 +51,6 @@ export default class TourSection extends React.Component {
   }
 
   render() {
-    // const styles = this.props.params.tourId ? 'TourSection__TourList--hidden' : 'TourSection__TourList';
     const mapTourDetailRoute = `/tours/${this.props.params.tourId}`;
     const tourDetailRoute = `/tours/map/${this.props.params.tourId}`;
     const topBarRoutes = {
@@ -103,15 +102,6 @@ export default class TourSection extends React.Component {
           {...this.state}
           {...this.props}
         />
-        {/*
-        <h2 className={styles}>Make me a tour please!</h2>
-        <div className={styles}>
-          <TourList
-            {...this.state}
-            {...this.props}
-          />
-        </div>
-        */}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
