@@ -46,6 +46,7 @@
     "karma-webpack": "^1.7.0",
     "moment": "^2.10.6",
     "node-sass": "^3.3.2",
+    "parse-hashtags": "^1.0.0",
     "phantomjs": "^1.9.18",
     "react": "^0.13.3",
     "react-dnd": "^1.1.5",
