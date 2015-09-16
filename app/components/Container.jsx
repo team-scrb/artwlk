@@ -26,6 +26,9 @@ export default class Container extends React.Component {
       address: '',
       createForm: { name: '', artist: '', description: '', category: '', tags: '' },
       createFormLocation: null,
+      imageData: null,
+      photoUploadFile: null,
+      // userLocation
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -41,6 +44,9 @@ export default class Container extends React.Component {
     this.reorderSites = this.reorderSites.bind(this);
     this.saveTourFormData = this.saveTourFormData.bind(this);
     this.doSearch = this.doSearch.bind(this);
+    this.uploadPhotoPreview = this.uploadPhotoPreview.bind(this);
+    this._setImageData = this._setImageData.bind(this);
+    this.resetCreateSiteForm = this.resetCreateSiteForm.bind(this);
     this.handleCreateSiteFormInputChange = this.handleCreateSiteFormInputChange.bind(this);
   }
 
@@ -222,6 +228,19 @@ export default class Container extends React.Component {
     return latLngToAddress(coords).then(address => this.setState({address}));
   }
 
+  uploadPhotoPreview(file) {
+    this.setState({photoUploadFile: file});
+  }
+
+  _setImageData(imageData, userLocation) {
+    this.setState({imageData, userLocation});
+  }
+
+  resetCreateSiteForm() {
+    const resetForm = { name: '', artist: '', description: '', category: '', tags: '' };
+    this.setState({ createForm: resetForm, imageData: null, photoUploadFile: null });
+  }
+
   render() {
     return (
       <div className="Container">
@@ -241,6 +260,9 @@ export default class Container extends React.Component {
           doSearch={this.doSearch}
           getCurrTour={this.getCurrTour}
           convertToAddress={this.convertToAddress}
+          _setImageData={this._setImageData}
+          resetCreateSiteForm={this.resetCreateSiteForm}
+          uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
         />
         <ContainerNav />

@@ -11,22 +11,14 @@ import '../styles/components/CreateSection';
 export default class CreateSection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      imageData: null,
-    };
     this._submit = this._submit.bind(this);
-    this._setImageData = this._setImageData.bind(this);
     this.selectLocationHandler = this.selectLocationHandler.bind(this);
-  }
-
-  _setImageData(imageData, userLocation) {
-    this.setState({imageData, userLocation});
   }
 
   _submit(event) {
     event.preventDefault();
-    if (!this.state.imageData) throw new Error('imageData is null');
-    uploadImage(this.state.imageData)
+    if (!this.props.imageData) throw new Error('imageData is null');
+    uploadImage(this.props.imageData)
     .then(imageUrl => {
       const {latitude, longitude} = this.props.childMapPosition || this.state.userLocation.coords;
       const siteInfo = {
@@ -45,6 +37,7 @@ export default class CreateSection extends React.Component {
       };
       return addSite(siteInfo).then(() => {
         this.context.router.transitionTo('map');
+        this.props.resetCreateSiteForm();
       });
     })
     .catch(error => console.error(error)); // eslint-disable-line no-console
@@ -62,7 +55,7 @@ export default class CreateSection extends React.Component {
         />
         <h2>Create Site Here</h2>
         <form onSubmit={this._submit}>
-          <PhotoUpload setImageData={this._setImageData}/>
+          <PhotoUpload {...this.props} />
           <h1 className="CreateSection__selectLocationBtn" onClick={this.selectLocationHandler}>Location: {this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
           <h3>{this.props.address}</h3>
           <label>Name
@@ -96,7 +89,9 @@ CreateSection.propTypes = {
   createForm: React.PropTypes.object,
   createFormLocation: React.PropTypes.object,
   convertToAddress: React.PropTypes.func,
+  resetCreateSiteForm: React.PropTypes.func,
   address: React.PropTypes.string,
+  imageData: React.PropTypes.string,
 };
 
 CreateSection.contextTypes = {
