@@ -12,14 +12,19 @@ const geocode = locationText => {
   });
 };
 
-export const onSearch = ({searchText, locationText}, handleSearchResult) => {
+export const onSearch = ({searchText, locationText}, filterSettings, handleSearchResult) => {
   // for all nearby sites, filter sites by search text and display those sites and tours that contain them.
-  const query = searchText.toLowerCase().split(' ');
+  let query = searchText ? searchText.toLowerCase().split(' ') : [];
   const location = locationText ? geocode(locationText) : getLocation();
+  const {distance} = filterSettings;
+  query = query.concat(Object.keys(filterSettings).filter(key => {
+    const val = filterSettings[key];
+    return typeof val === 'boolean' && val;
+  }));
   location.then((center) => {
     const foundSites = {};
     const foundTours = {};
-    onSitesWithinRadius(center, 10, siteId => {
+    onSitesWithinRadius(center, distance || 10, siteId => {
       if (siteId in foundSites) return;
       foundSites[siteId] = true;
 
@@ -51,7 +56,9 @@ export const onSearch = ({searchText, locationText}, handleSearchResult) => {
           .then(tour => {
             tour.id = tourId;
             const {title, descriptions} = tour;
-            const attributes = [title, descriptions].map(attr => attr.toLowerCase());
+            const attributes = [title, descriptions]
+            .concat(Object.keys(tour.categories)).filter(key => tour.categories[key])
+            .map(attr => attr.toLowerCase());
             if (attributes.some(attr => !query.length || query.some(q => attr.indexOf(q) !== -1))) {
               handleSearchResult('tour', tour);
             }
