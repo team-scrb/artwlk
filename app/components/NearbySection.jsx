@@ -27,7 +27,7 @@ export default class NearbySection extends React.Component {
 
   openModal(modalContent) {
     if (modalContent === 'filter') {
-      this.setState({modalContent: <FilterSection />});
+      this.setState({modalContent: <FilterSection doFilterSearch={this.props.doFilterSearch} closeModal={this.closeModal}/>});
     } else {
       this.setState({modalContent: <SearchSection doSearch={this.props.doSearch} closeModal={this.closeModal} />});
     }
@@ -88,5 +88,6 @@ NearbySection.propTypes = {
   getSites: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   doSearch: React.PropTypes.func.isRequired,
+  doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
 };
