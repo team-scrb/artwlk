@@ -27,27 +27,18 @@ export default class SiteSection extends React.Component {
   }
 
   componentWillMount() {
-    console.log('[SiteSection] WILL MOUNT! ON THIS PATH:', this.props.path);
-
     // if on /sites/map
     if (this.props.path === '/sites'
       || this.props.path === '/sites/map'
       || this.props.path === '/sites/map/') {
-      this.props.setCurrMap('allSites')
-        .then(() => {
-          console.log('[SiteSection] SET CURR MAP: allSites');
-        })
-        .catch(err => console.log('ERROR', err));
+      this.props.setCurrMap('allSites');
     }
 
     // if on /sites/map/:siteId
     if (this.props.params.siteId) {
       this.props.getCurrSite(this.props.params.siteId)
         .then(() => {
-          this.props.setCurrMap('singleSite')
-            .then(() => {
-              console.log('[SiteSection] SET CURR MAP: singleSite');
-            });
+          this.props.setCurrMap('singleSite');
         });
     }
 
