@@ -93,11 +93,9 @@ export default class Container extends React.Component {
   }
 
   setCurrMap(currMap) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.setState({ currMap }, resolve);
-      setTimeout(() => {
-        reject('TIMEOUTTTTTT');
-      }, 30000);
+      // TODO the resolve callback isn't always being called and we have no reject.  improve.
     });
   }
 
