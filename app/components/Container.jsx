@@ -32,7 +32,6 @@ export default class Container extends React.Component {
       searchProps: {},
       filterProps: {},
       userlocation: null,
-      makers: [],
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -58,7 +57,6 @@ export default class Container extends React.Component {
   }
 
   componentDidMount() {
-    // getLocation().then(this.getSites);
     this.doSearch({});
   }
 
@@ -158,10 +156,7 @@ export default class Container extends React.Component {
       if (siteId) {
         getSiteByKey(siteId)
           .then(currSite => {
-            this.setState({
-              currSite,
-              // sites: [currSite],
-            }, resolve);
+            this.setState({currSite}, resolve);
           });
       } else {
         this.setState({ currSite: {} }, resolve);
