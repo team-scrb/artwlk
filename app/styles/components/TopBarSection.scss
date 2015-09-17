@@ -1,3 +1,15 @@
 @import "../utils/config";
 
-.TopBarSection { background: red; }
+.TopBarSection { display: flex; flex: 1; justify-content: space-between; position: fixed; width: 100vw; background: $brand-primary; color: $brand-text; }
+.TopBarSection__centerContainer,
+.TopBarSection__leftContainer,
+.TopBarSection__rightContainer { display: flex; align-items: center; justify-content: center; }
+.TopBarSection__leftContainer,
+.TopBarSection__rightContainer { flex: 1; }
+.TopBarSection__centerContainer { flex: 2; font-size: 10px; text-align: center; }
+.TopBarSection__leftContainer { justify-content: flex-start; }
+.TopBarSection__rightContainer { justify-content: flex-end; }
+
+// TopBarButton
+.TopBarButton--left,
+.TopBarButton--right { min-height: 44px; padding: 4px 8px; margin: 8px 16px; border: 1px solid darken($brand-primary, 5%); border-radius: 4px; background: $brand-secondary; font-size: 10px; font-weight: 700; text-transform: uppercase; }

@@ -74,7 +74,7 @@ export default class SiteSection extends React.Component {
       'mapDetail': (
         <TopBarSection
           title={this.props.currSite.name}
-          leftName="Back"
+          leftName="All Sites"
           leftRoute="sites"
           rightName="Details"
           rightRoute={mapDetailRoute}
@@ -83,7 +83,7 @@ export default class SiteSection extends React.Component {
       'siteDetail': (
         <TopBarSection
           title={this.props.currSite.name}
-          leftName="Back"
+          leftName="All Sites"
           leftRoute="sites"
           rightName="Map"
           rightRoute={siteDetailRoute}

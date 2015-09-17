@@ -52,29 +52,31 @@ export default class NearbySection extends React.Component {
           rightName="Map"
           rightRoute="map"
         />
-        <button onClick={this.openModal}>Search me</button>
-        <div>
-          <button onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
-          <button onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
+        <div className="NearbySection__content">
+          <button onClick={this.openModal}>Search me</button>
+          <div>
+            <button onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
+            <button onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
+          </div>
+          <h2>Sites</h2>
+          <SiteList
+            limit="2"
+            {...this.state}
+            {...this.props}
+          />
+          <h2>Tours</h2>
+          <TourList
+            limit="2"
+            {...this.state}
+            {...this.props}
+          />
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+          >
+            {this.state.modalContent}
+          </Modal>
         </div>
-        <h2>Sites</h2>
-        <SiteList
-          limit="2"
-          {...this.state}
-          {...this.props}
-        />
-        <h2>Tours</h2>
-        <TourList
-          limit="2"
-          {...this.state}
-          {...this.props}
-        />
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-        >
-          {this.state.modalContent}
-        </Modal>
       </div>
     );
   }

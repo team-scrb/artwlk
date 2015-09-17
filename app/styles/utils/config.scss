@@ -1,6 +1,17 @@
 @import "normalize";
 
 // colors
+$licorice: #33364D;
+$oxford-blue: #3A4259;
+$dark-electric-blue: #586A80;
+$cadet-gray: #8EA6B0;
+$conch: #CDD9D5;
+
+$brand-primary: $licorice;
+$brand-secondary: $oxford-blue;
+$brand-tertiary: $dark-electric-blue;
+$brand-highlight: $cadet-gray;
+$brand-text: $conch;
 
 // @media queries
 $tablet: "only screen and (min-width : 321px)";
