@@ -13,6 +13,7 @@ export default class SiteList extends React.Component {
   siteDetailClick(event) {
     const router = this.context.router;
     this.props.getCurrSite(event.target.dataset.route);
+    this.props.setCurrMap('singleSite');
     router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
   }
 
@@ -53,5 +54,6 @@ SiteList.propTypes = {
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
+  setCurrMap: React.PropTypes.func.isRequired,
   limit: React.PropTypes.string,
 };

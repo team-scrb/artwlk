@@ -19,15 +19,30 @@ export default class SiteSection extends React.Component {
 
     this.state = {
       modalIsOpen: false,
-      modalContent: false,
+      modalContent: null,
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getCurrSite(this.props.params.siteId);
+  componentWillMount() {
+    // if on /sites/map
+    if (this.props.path === '/sites'
+      || this.props.path === '/sites/map'
+      || this.props.path === '/sites/map/') {
+      this.props.setCurrMap('allSites');
+    }
+
+    // if on /sites/map/:siteId
+    if (this.props.params.siteId) {
+      this.props.getCurrSite(this.props.params.siteId)
+        .then(() => {
+          this.props.setCurrMap('singleSite');
+        });
+    }
+
+    // if on /sites/:siteId
   }
 
   openModal(modalContent) {
@@ -49,35 +64,36 @@ export default class SiteSection extends React.Component {
     const topBarRoutes = {
       'map': (
         <TopBarSection
-          title = "Sites"
-          leftName = "Filter"
-          leftClick = {this.openModal.bind(this, 'filter')}
-          rightName = "Map"
-          rightRoute = "/map"
+          title="Sites"
+          leftName="Filter"
+          leftClick={this.openModal.bind(this, 'filter')}
+          rightName="Map"
+          rightRoute="/sites/map"
         />
       ),
       'mapDetail': (
         <TopBarSection
-          title = {this.props.currSite.name}
-          leftName = "Back"
-          leftRoute = "sites"
-          rightName = "Details"
-          rightRoute = {mapDetailRoute}
+          title={this.props.currSite.name}
+          leftName="Back"
+          leftRoute="sites"
+          rightName="Details"
+          rightRoute={mapDetailRoute}
         />
       ),
       'siteDetail': (
         <TopBarSection
-          title = {this.props.currSite.name}
-          leftName = "Back"
-          leftRoute = "sites"
-          rightName = "Map"
-          rightRoute = {siteDetailRoute}
+          title={this.props.currSite.name}
+          leftName="Back"
+          leftRoute="sites"
+          rightName="Map"
+          rightRoute={siteDetailRoute}
         />
       ),
     };
 
     const parsedUrl = () => {
       const url = this.props.path.split('/');
+
       if (url[2] === 'map' ) {
         return 'mapDetail';
       } else if (url[2]) {
@@ -111,8 +127,10 @@ SiteSection.contextTypes = {
 };
 
 SiteSection.propTypes = {
+  setCurrMap: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   currSite: React.PropTypes.object.isRequired,
+  sites: React.PropTypes.array.isRequired,
   doSearch: React.PropTypes.func.isRequired,
   doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,

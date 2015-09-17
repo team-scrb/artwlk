@@ -23,11 +23,13 @@ export default (
   <Route name="app" path="/" handler={Container}>
     <Route name="nearby" handler={NearbySection} />
     <Route name="tours" path="/tours" handler={TourSection}>
+      <Route name="map-tours" path="/tours/map" handler={MapMap} />
       <Route name="map-tour" path="/tours/map/:tourId" handler={MapMap} />
       <Route name="tours-detail" path="/tours/:tourId" handler={TourDetail} />
       <DefaultRoute handler={TourList} />
     </Route>
     <Route name="sites" path="/sites" handler={SiteSection}>
+      <Route name="map-sites" path="/sites/map" handler={MapMap} />
       <Route name="map-site" path="/sites/map/:siteId" handler={MapMap} />
       <Route name="sites-detail" path="/sites/:siteId" handler={SiteDetail} />
       <DefaultRoute handler={SiteList} />

@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
-import {onSitesWithinRadius, getLocation, latLngToAddress} from '../utils/geo';
+import {onSitesWithinRadius, latLngToAddress} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
@@ -18,6 +18,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       tours: [],
+      currMap: null,
       currSite: {},
       currTour: {},
       childMapPosition: null,
@@ -34,6 +35,7 @@ export default class Container extends React.Component {
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
+    this.setCurrMap = this.setCurrMap.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
     this.getCurrTour = this.getCurrTour.bind(this);
     this.getTours = this.getTours.bind(this);
@@ -51,10 +53,11 @@ export default class Container extends React.Component {
     this.resetCreateSiteForm = this.resetCreateSiteForm.bind(this);
     this.handleCreateSiteFormInputChange = this.handleCreateSiteFormInputChange.bind(this);
     this.doFilterSearch = this.doFilterSearch.bind(this);
+    this.setMarkers = this.setMarkers.bind(this);
   }
 
   componentDidMount() {
-    getLocation().then(this.getSites);
+    this.doSearch({});
   }
 
   onMarkerClick(clickedMarker) {
@@ -87,6 +90,13 @@ export default class Container extends React.Component {
       });
       this.setState({currSite: marker});
     }
+  }
+
+  setCurrMap(currMap) {
+    return new Promise((resolve) => {
+      this.setState({ currMap }, resolve);
+      // TODO the resolve callback isn't always being called and we have no reject.  improve.
+    });
   }
 
   getTours() {
@@ -122,6 +132,10 @@ export default class Container extends React.Component {
       .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
+  setMarkers(markers) {
+    this.setState({markers});
+  }
+
   getSites(location) {
     this.setState({sites: []}, () => {
       onSitesWithinRadius(location, 5, (siteId) => {
@@ -136,14 +150,16 @@ export default class Container extends React.Component {
   }
 
   getCurrSite(siteId) {
-    if (siteId) {
-      getSiteByKey(siteId)
-      .then(currSite => {
-        this.setState({ currSite });
-      });
-    } else {
-      this.setState({ currSite: {} });
-    }
+    return new Promise((resolve) => {
+      if (siteId) {
+        getSiteByKey(siteId)
+          .then(currSite => {
+            this.setState({currSite}, resolve);
+          });
+      } else {
+        this.setState({ currSite: {} }, resolve);
+      }
+    });
   }
 
   getCurrTour(tourId) {
@@ -262,7 +278,9 @@ export default class Container extends React.Component {
         <RouteHandler
           {...this.state}
           {...this.props}
+          setCurrMap={this.setCurrMap}
           getCurrSite={this.getCurrSite}
+          getCurrTour={this.getCurrTour}
           getSites={this.getSites}
           getTours={this.getTours}
           onMarkerClick={this.onMarkerClick}
@@ -280,6 +298,7 @@ export default class Container extends React.Component {
           resetCreateSiteForm={this.resetCreateSiteForm}
           uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
+          setMarkers={this.setMarkers}
         />
         <ContainerNav />
       </div>
