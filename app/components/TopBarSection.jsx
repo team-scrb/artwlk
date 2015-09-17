@@ -6,22 +6,36 @@ import '../styles/components/TopBarSection';
 
 export default class TopBarSection extends React.Component {
   render() {
+    const title = this.props.title ? (
+      <h2>{this.props.title}</h2>
+    ) : null;
+    const leftBtn = this.props.leftName ? (
+      <TopBarButton
+        name={this.props.leftName}
+        click={this.props.leftClick}
+        route={this.props.leftRoute}
+        left
+      />
+    ) : null;
+    const rightBtn = this.props.rightName ? (
+      <TopBarButton
+        name={this.props.rightName}
+        click={this.props.rightClick}
+        route={this.props.rightRoute}
+        right
+      />
+    ) : null;
+
     return (
       <div className="TopBarSection">
-        <div>
-          <TopBarButton
-            name={this.props.leftName}
-            click={this.props.leftClick}
-            route={this.props.leftRoute}
-            left
-          />
-          <h2>{this.props.title}</h2>
-          <TopBarButton
-            name={this.props.rightName}
-            click={this.props.rightClick}
-            route={this.props.rightRoute}
-            right
-          />
+        <div className="TopBarSection__leftContainer">
+          {leftBtn}
+        </div>
+        <div className="TopBarSection__centerContainer">
+          {title}
+        </div>
+        <div className="TopBarSection__rightContainer">
+          {rightBtn}
         </div>
       </div>
     );

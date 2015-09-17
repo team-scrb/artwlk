@@ -7,4 +7,6 @@ h4,
 h5,
 h6 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
 
+#app { overflow: hidden; }
+
 .Container { display: flex; flex-direction: column; width: 100vw; height: 100vh; }
