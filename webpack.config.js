@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const sassLoaders = [
   'css-loader',
   'autoprefixer-loader?browsers=last 2 version',
-  'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, './app'),
+  'sass-loader?includePaths[]=' + path.resolve(__dirname, './app'),
 ];
 
 const config = {

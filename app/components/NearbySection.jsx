@@ -2,8 +2,6 @@ import React from 'react';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
-import SiteList from './SiteList';
-import TourList from './TourList';
 
 // styles
 import '../styles/components/NearbySection';
@@ -43,6 +41,11 @@ export default class NearbySection extends React.Component {
         click: this.openModal,
       },
     });
+  }
+
+  componentDidMount() {
+    this.props.getTours();
+    this.props.getSites();
   }
 
   openModal(modalContent) {
@@ -106,20 +109,12 @@ export default class NearbySection extends React.Component {
   render() {
     return (
       <div className="NearbySection">
-        <h2 className="NearbySection__h2">Sites</h2>
-        <SiteList
-          limit="3"
-          {...this.state}
-          {...this.props}
-          renderTopBar={this.renderTopBar}
-        />
-        <h2 className="NearbySection__h2">Tours</h2>
-        <TourList
-          limit="3"
-          {...this.state}
-          {...this.props}
-          renderTopBar={this.renderTopBar}
-        />
+        <div className="NearbySection__heroBtnContainer">
+          <button className="NearbySection__toursBtn" onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
+          <button className="NearbySection__sitesBtn" onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
+        </div>
+        {this.props.nearbySitesLoader}
+        {this.props.nearbyToursLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -138,8 +133,11 @@ NearbySection.contextTypes = {
 NearbySection.propTypes = {
   setTopBar: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
+  getTours: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   doSearch: React.PropTypes.func.isRequired,
   doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
+  nearbySitesLoader: React.PropTypes.node,
+  nearbyToursLoader: React.PropTypes.node,
 };

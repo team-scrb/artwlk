@@ -57,6 +57,7 @@
     "react-google-maps": "^2.0.3",
     "react-modal": "^0.3.0",
     "react-router": "^0.13.3",
+    "react-spinkit": "^1.1.4",
     "sass-loader": "^2.0.1",
     "style-loader": "^0.10.2",
     "webpack": "^1.8.5",
