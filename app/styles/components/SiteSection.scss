@@ -1,4 +1,4 @@
 @import "../utils/config";
 
-.SiteSection { flex: 1; overflow-y: scroll; position: relative; flex-direction: column; display: flex; }
+.SiteSection { flex: 1; position: relative; flex-direction: column; display: flex; overflow-y: scroll; }
 .SiteSection__SiteList--hidden { display:none; }

@@ -1,5 +1,9 @@
 @import "../utils/config";
 
-.NearbySection { flex: 1; overflow-y: scroll; }
+.NearbySection { display: flex; flex-direction: column; flex: 1; overflow-y: scroll; background: lighten($brand-highlight, 20%); color: $brand-primary; }
 .NearbySection img { max-width: 100%; }
-.NearbySection__content { margin: 82px 0 0; }
+
+.NearbySection__heroBtnContainer { margin: 16px 0 0; }
+.NearbySection__toursBtn,
+.NearbySection__sitesBtn { width: 100%; min-height: 44px; border: 1px solid $brand-border; background: white; }
+.NearbySection__h2 { margin: 24px 16px 0; }

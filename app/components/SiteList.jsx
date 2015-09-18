@@ -19,27 +19,43 @@ export default class SiteList extends React.Component {
 
   render() {
     let sites = this.props.sites;
+    let siteList = null;
 
     if (this.props.limit) {
       sites = sites.slice(0, parseInt(this.props.limit, 10));
     }
 
-    const siteList = sites.map((data, index) => {
-      return (
-        <li key={index}>
-          {data.imageUrl && <img src={data.imageUrl}/>}
-          {data.name && <h3 data-route={data.id} onClick={this.siteDetailClick}>{data.name}</h3>}
-          {data.artist && <h5>{data.artist}</h5>}
-          {data.coords && <h5>{data.coords}</h5>}
-          {data.architecture && <h6>{data.architecture}</h6>}
-          {data.streetArt && <h6>{data.streetArt}</h6>}
-          {data.description && <p>{data.description}</p>}
-        </li>
-      );
-    });
+    if (sites) {
+      siteList = sites.map((data, index) => {
+        const imageStyle = {
+          backgroundImage: `url(${data.imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '120px',
+        };
+
+        return (
+          <li
+            className="SiteList__site"
+            key={index}
+            data-route={data.id}
+            onClick={this.siteDetailClick}
+          >
+            {data.imageUrl && (<div
+              className="SiteList__site-hero-img"
+              style={imageStyle}
+            />)}
+            <span className="SiteList__site-meta">
+              {data.name && (<h3 className="SiteList__site-title">{data.name}</h3>)}
+              {data.artist && (<span className="SiteList__site-artist">{data.artist}</span>)}
+            </span>
+          </li>
+        );
+      });
+    }
 
     return (
-      <ul>
+      <ul className="SiteList__sites">
         {siteList}
       </ul>
     );

@@ -1,5 +1,4 @@
 import React from 'react';
-import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
@@ -17,12 +16,32 @@ Modal.injectCSS();
 export default class NearbySection extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       modalIsOpen: false,
       modalContent: false,
     };
+
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.setTopBar({
+      title: 'Nearby',
+      leftBtn: {
+        name: 'Filter',
+        click: this.openModal.bind(this, 'filter'),
+      },
+      rightBtn: {
+        name: 'Map',
+        route: 'map',
+      },
+      bottomBtn: {
+        name: 'Search',
+        click: this.openModal,
+      },
+    });
   }
 
   openModal(modalContent) {
@@ -45,38 +64,28 @@ export default class NearbySection extends React.Component {
   render() {
     return (
       <div className="NearbySection">
-        <TopBarSection
-          title="Nearby"
-          leftName="Filter"
-          leftClick={this.openModal.bind(this, 'filter')}
-          rightName="Map"
-          rightRoute="map"
-        />
-        <div className="NearbySection__content">
-          <button onClick={this.openModal}>Search me</button>
-          <div>
-            <button onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
-            <button onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
-          </div>
-          <h2>Sites</h2>
-          <SiteList
-            limit="2"
-            {...this.state}
-            {...this.props}
-          />
-          <h2>Tours</h2>
-          <TourList
-            limit="2"
-            {...this.state}
-            {...this.props}
-          />
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            onRequestClose={this.closeModal}
-          >
-            {this.state.modalContent}
-          </Modal>
+        <div className="NearbySection__heroBtnContainer">
+          <button className="NearbySection__toursBtn" onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
+          <button className="NearbySection__sitesBtn" onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
         </div>
+        <h2 className="NearbySection__h2">Sites</h2>
+        <SiteList
+          limit="3"
+          {...this.state}
+          {...this.props}
+        />
+        <h2 className="NearbySection__h2">Tours</h2>
+        <TourList
+          limit="3"
+          {...this.state}
+          {...this.props}
+        />
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+        >
+          {this.state.modalContent}
+        </Modal>
       </div>
     );
   }
@@ -87,6 +96,7 @@ NearbySection.contextTypes = {
 };
 
 NearbySection.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   doSearch: React.PropTypes.func.isRequired,

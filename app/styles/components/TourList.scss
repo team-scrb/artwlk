@@ -1,3 +1,16 @@
 @import "../utils/config";
 
 .TourList { flex: 1; }
+
+.TourList__tours { margin: 0; padding: 0; }
+
+.TourList__tour { list-style: none; margin: 0 0 16px; border-top: 1px solid $brand-border; border-bottom: 1px solid $brand-border; }
+.TourList__tour-hero-img { position: relative; }
+.TourList__tour-meta { display: block; padding: 8px 16px; background: white; }
+.TourList__site-title { margin: 0; font-size: 12px; font-family: $font-roboto; }
+.TourList__tour-distance,
+.TourList__tour-duration,
+.TourList__tour-num-sites,
+.TourList__tour-categories { font-size: 12px; }
+.TourList__tour-distance,
+.TourList__tour-duration { position: absolute; bottom: 0; }

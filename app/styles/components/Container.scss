@@ -5,8 +5,8 @@ h2,
 h3,
 h4,
 h5,
-h6 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+h6 { font-family: $font-montserrat; text-transform: uppercase; }
 
-#app { overflow: hidden; }
+#app { overflow: hidden; font-family: $font-roboto; }
 
 .Container { display: flex; flex-direction: column; width: 100vw; height: 100vh; }

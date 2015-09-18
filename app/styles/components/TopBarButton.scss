@@ -1,4 +1,4 @@
 @import "../utils/config";
-// 
-// .TopBarButton--left { display:-webkit-flex; display:flex; justify-content: flex-start; flex-direction: row; align-self: flex-start; }
-// .TopBarButton--right { display:-webkit-flex; display:flex; justify-content: flex-end; flex-direction: row; align-self: flex-end; }
+
+.TopBarButton--left,
+.TopBarButton--right { min-height: 44px; padding: 4px 8px; margin: 8px 16px; border: 1px solid darken($brand-primary, 5%); border-radius: 4px; background: $brand-secondary; font-size: 10px; font-weight: 700; text-transform: uppercase; }

@@ -1,6 +1,7 @@
 import React from 'react/addons';
 import {RouteHandler} from 'react-router';
 import ContainerNav from './ContainerNav';
+import TopBarSection from './TopBarSection';
 import {onSitesWithinRadius, latLngToAddress} from '../utils/geo';
 import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
@@ -32,6 +33,7 @@ export default class Container extends React.Component {
       searchProps: {},
       filterProps: {},
       userlocation: null,
+      topBar: null,
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -54,6 +56,7 @@ export default class Container extends React.Component {
     this.handleCreateSiteFormInputChange = this.handleCreateSiteFormInputChange.bind(this);
     this.doFilterSearch = this.doFilterSearch.bind(this);
     this.setMarkers = this.setMarkers.bind(this);
+    this.setTopBar = this.setTopBar.bind(this);
   }
 
   componentDidMount() {
@@ -90,6 +93,12 @@ export default class Container extends React.Component {
       });
       this.setState({currSite: marker});
     }
+  }
+
+  setTopBar(topBarObj) {
+    this.setState({
+      topBar: topBarObj,
+    });
   }
 
   setCurrMap(currMap) {
@@ -273,11 +282,20 @@ export default class Container extends React.Component {
   }
 
   render() {
+    const topBar = this.state.topBar ? (
+      <TopBarSection
+        {...this.props}
+        {...this.state}
+      />
+    ) : null;
+
     return (
       <div className="Container">
+        {topBar}
         <RouteHandler
           {...this.state}
           {...this.props}
+          setTopBar={this.setTopBar}
           setCurrMap={this.setCurrMap}
           getCurrSite={this.getCurrSite}
           getCurrTour={this.getCurrTour}
