@@ -16,7 +16,7 @@ Art Wlk allows users to share and discover the location of public art pieces thr
 * [Babel](https://babeljs.io/)
 * [Firebase](https://www.firebase.com/)
 * [Google Maps APIs](https://developers.google.com/maps/?hl=en/)
-* [Imgur API] (https://imgur.com/)
+* [Imgur API](https://imgur.com/)
 
 ####To start contributing to the Art Wlk codebase:
 
@@ -32,7 +32,7 @@ Art Wlk allows users to share and discover the location of public art pieces thr
 #####Facebook API:
   * **Facebook API for Auth** - Set up a FB API through their dev dashboard and paste the api key into Firebase’s dashboard
   
-#####Starting up the project environment
+#####Starting up the project environment:
   1. Fork the repo
   2. Clone your fork locally
   3. Input your Google Maps API key in the appropriate file (found in the tree diagram below)
