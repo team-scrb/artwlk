@@ -27,27 +27,48 @@ export default class TourList extends React.Component {
   render() {
     let tours = this.props.tours;
     let tourList = null;
+
+    console.log(tours);
+
     if (this.props.limit) {
       tours = tours.slice(0, parseInt(this.props.limit, 10));
     }
 
     if (tours) {
       tourList = tours.map((tour, index) => {
+        const imageStyle = {
+          backgroundImage: `url(${tour.imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '120px',
+        };
+
         return (
-          <li key={index}>
-            <h3 data-route={tour.id} onClick={this.handleTourClick.bind(null, tour.id)}>{tour.title}</h3>
-            <img src={tour.imageUrl} />
-            <ul>{tour.categories && Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>
-            <span>{distance.pretty(tour.distance)}</span>
-            <span>{moment.duration(tour.duration, 'seconds').humanize()}</span>
-            <span>{tour.sites.length} points of interest</span>
+          <li
+            className="TourList__tour"
+            key={index}
+            data-route={tour.id}
+            onClick={this.handleTourClick.bind(null, tour.id)}
+          >
+            {tour.imageUrl && tour.sites && tour.duration && (<div
+              className="TourList__tour-hero-img"
+              style={imageStyle}
+            >
+            {tour.distance && <span className="TourList__tour-distance">{distance.pretty(tour.distance)}</span>}
+            {tour.duration && <span className="TourList__tour-duration">{moment.duration(tour.duration, 'seconds').humanize()}</span>}
+            </div>)}
+            {tour.title && tour.categories && tour.sites && <span className="TourList__tour-meta">
+              {tour.title && <h3 className="TourList__site-title">{tour.title}</h3>}
+              {tour.categories && <ul className="TourList__tour-categories">{tour.categories && Object.keys(tour.categories).map(key => <li>{key}</li>)}</ul>}
+              {tour.sites && <span className="TourList__tour-num-sites">{tour.sites.length} points of interest</span>}
+            </span>}
           </li>
         );
       });
     }
 
     return (
-      <ul>
+      <ul className="TourList__tours">
         {tourList}
       </ul>
     );

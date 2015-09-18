@@ -1,6 +1,5 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
@@ -27,6 +26,8 @@ export default class SiteSection extends React.Component {
   }
 
   componentWillMount() {
+    this.renderTopBar();
+
     // if on /sites/map
     if (this.props.path === '/sites'
       || this.props.path === '/sites/map'
@@ -58,55 +59,63 @@ export default class SiteSection extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+  renderTopBar() {
+    const path = this.props.path;
+    const pathArr = path.split('/');
+
+    // sites/:siteId
+    if (pathArr[1] === 'sites' && pathArr[2] !== 'map' && this.props.params.siteId) {
+      this.props.setTopBar({
+        title: this.props.currSite.name,
+        leftBtn: {
+          name: 'Sites',
+          route: 'sites',
+        },
+        rightBtn: {
+          name: 'Map',
+          route: `/sites/map/${this.props.params.siteId}`,
+        },
+      });
+    }
+
+    // sites/map/:siteId
+    if (pathArr[1] === 'sites' && pathArr[2] === 'map' && this.props.params.siteId) {
+      this.props.setTopBar({
+        title: this.props.currSite.name,
+        leftBtn: {
+          name: 'Sites',
+          route: 'sites',
+        },
+        rightBtn: {
+          name: 'Details',
+          route: `/sites/${this.props.params.siteId}`,
+        },
+      });
+    }
+
+    // sites/
+    if (pathArr[1] === 'sites') {
+      this.props.setTopBar({
+        title: 'Sites',
+        leftBtn: {
+          name: 'Filter',
+          click: this.openModal.bind(this, 'filter'),
+        },
+        rightBtn: {
+          name: 'Map',
+          route: '/sites/map',
+        },
+        bottomBtn: {
+          name: 'Search',
+          click: this.openModal,
+        },
+      });
+    }
+  }
+
   render() {
-    const mapDetailRoute = `/sites/${this.props.params.siteId}`;
-    const siteDetailRoute = `/sites/map/${this.props.params.siteId}`;
-    const topBarRoutes = {
-      'map': (
-        <TopBarSection
-          title="Sites"
-          leftName="Filter"
-          leftClick={this.openModal.bind(this, 'filter')}
-          rightName="Map"
-          rightRoute="/sites/map"
-        />
-      ),
-      'mapDetail': (
-        <TopBarSection
-          title={this.props.currSite.name}
-          leftName="All Sites"
-          leftRoute="sites"
-          rightName="Details"
-          rightRoute={mapDetailRoute}
-        />
-      ),
-      'siteDetail': (
-        <TopBarSection
-          title={this.props.currSite.name}
-          leftName="All Sites"
-          leftRoute="sites"
-          rightName="Map"
-          rightRoute={siteDetailRoute}
-        />
-      ),
-    };
-
-    const parsedUrl = () => {
-      const url = this.props.path.split('/');
-
-      if (url[2] === 'map' ) {
-        return 'mapDetail';
-      } else if (url[2]) {
-        return 'siteDetail';
-      } else if (url[1] === 'sites') {
-        return 'map';
-      }
-    };
-
     return (
       <div className="SiteSection">
-        {topBarRoutes[parsedUrl()]}
-        <button onClick={this.openModal}>Search me</button>
         <RouteHandler
           {...this.state}
           {...this.props}
@@ -127,6 +136,7 @@ SiteSection.contextTypes = {
 };
 
 SiteSection.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   setCurrMap: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   currSite: React.PropTypes.object.isRequired,

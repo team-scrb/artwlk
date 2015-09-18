@@ -3,7 +3,6 @@ import PhotoUpload from './PhotoUpload';
 import {uploadImage} from '../utils/photo';
 import {addSite} from '../utils/sites';
 import {isLoggedIn} from '../utils/auth';
-import TopBarSection from './TopBarSection';
 import parseHashtags from 'parse-hashtags';
 import Modal from 'react-modal';
 
@@ -25,6 +24,12 @@ export default class CreateSection extends React.Component {
     this.selectLocationHandler = this.selectLocationHandler.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.setTopBar({
+      title: 'Create',
+    });
   }
 
   openModal() {
@@ -94,9 +99,6 @@ export default class CreateSection extends React.Component {
   render() {
     return (
       <div className="CreateSection">
-        <TopBarSection
-          title="Create"
-        />
         <h2>Create Site Here</h2>
         <form onSubmit={this.submit}>
           <PhotoUpload {...this.props} />
@@ -134,6 +136,7 @@ export default class CreateSection extends React.Component {
 }
 
 CreateSection.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   location: React.PropTypes.object,
   childMapPosition: React.PropTypes.object,
   handleCreateSiteFormInputChange: React.PropTypes.func,

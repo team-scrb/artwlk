@@ -1,3 +1,4 @@
 @import "../utils/config";
 
-.ContainerNav { display: flex; order: 1; align-items: center; justify-content: space-around; padding: 24px; background: green; }
+.ContainerNav { display: flex; order: 1; align-items: center; justify-content: space-around; background: $brand-primary; color: $brand-text; }
+.ContainerNav__btn { min-height: 44px; padding: 4px 8px; margin: 8px; border: 0; background: $brand-primary; font-size: 10px; font-weight: 700; text-transform: uppercase; }

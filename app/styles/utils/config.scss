@@ -12,6 +12,11 @@ $brand-secondary: $oxford-blue;
 $brand-tertiary: $dark-electric-blue;
 $brand-highlight: $cadet-gray;
 $brand-text: $conch;
+$brand-border: $brand-highlight;
+
+// fonts
+$font-roboto: 'Roboto', sans-serif;
+$font-montserrat: 'Montserrat', sans-serif;
 
 // @media queries
 $tablet: "only screen and (min-width : 321px)";
@@ -24,3 +29,11 @@ $susy: (
     rem: true
   )
 );
+
+// box-sizing
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}

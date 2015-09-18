@@ -1,11 +1,9 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
 import {getLocation} from '../utils/geo';
-// import TourList from './TourList';
 
 // styles
 import '../styles/components/TourSection';
@@ -18,13 +16,19 @@ Modal.injectCSS();
 export default class TourSection extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       modalIsOpen: false,
       modalContent: false,
     };
+
     this.siteDetailClick = this.siteDetailClick.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentWillMount() {
+    this.renderTopBar();
   }
 
   componentDidMount() {
@@ -50,54 +54,63 @@ export default class TourSection extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+  renderTopBar() {
+    const path = this.props.path;
+    const pathArr = path.split('/');
+
+    // tours/:tourId
+    if (pathArr[1] === 'tours' && pathArr[2] !== 'map' && this.props.params.tourId) {
+      this.props.setTopBar({
+        title: this.props.currTour.title,
+        leftBtn: {
+          name: 'Tours',
+          route: 'tours',
+        },
+        rightBtn: {
+          name: 'Map',
+          route: `/tours/map/${this.props.params.tourId}`,
+        },
+      });
+    }
+
+    // tours/map/:tourId
+    if (pathArr[1] === 'tours' && pathArr[2] === 'map' && this.props.params.tourId) {
+      this.props.setTopBar({
+        title: this.props.currTour.title,
+        leftBtn: {
+          name: 'Tours',
+          route: 'tours',
+        },
+        rightBtn: {
+          name: 'Details',
+          route: `/tours/${this.props.params.tourId}`,
+        },
+      });
+    }
+
+    // tours/
+    if (pathArr[1] === 'tours') {
+      this.props.setTopBar({
+        title: 'Tours',
+        leftBtn: {
+          name: 'Filter',
+          click: this.openModal.bind(this, 'filter'),
+        },
+        rightBtn: {
+          name: 'Map',
+          route: '/tours/map',
+        },
+        bottomBtn: {
+          name: 'Search',
+          click: this.openModal,
+        },
+      });
+    }
+  }
+
   render() {
-    const mapTourDetailRoute = `/tours/${this.props.params.tourId}`;
-    const tourDetailRoute = `/tours/map/${this.props.params.tourId}`;
-    const topBarRoutes = {
-      'mapTour': (
-        <TopBarSection
-          title="Tours"
-          leftName="Filter"
-          leftClick={this.openModal.bind(this, 'filter')}
-          rightName="Map"
-          rightRoute="/tours/map"
-        />
-      ),
-      'mapTourDetail': (
-        <TopBarSection
-          title={this.props.currTour.title}
-          leftName="Back"
-          leftRoute="tours"
-          rightName="Details"
-          rightRoute={mapTourDetailRoute}
-        />
-      ),
-      'tourDetail': (
-        <TopBarSection
-          title={this.props.currTour.title}
-          leftName="Back"
-          leftRoute="tours"
-          rightName="Map"
-          rightRoute={tourDetailRoute}
-        />
-      ),
-    };
-
-    const parsedUrl = () => {
-      const url = this.props.path.split('/');
-      if (url[2] === 'map' ) {
-        return 'mapTourDetail';
-      } else if (url[2]) {
-        return 'tourDetail';
-      } else if (url[1] === 'tours') {
-        return 'mapTour';
-      }
-    };
-
     return (
       <div className="TourSection">
-        {topBarRoutes[parsedUrl()]}
-        <button onClick={this.openModal}>Search me</button>
         <RouteHandler
           {...this.state}
           {...this.props}
@@ -114,6 +127,7 @@ export default class TourSection extends React.Component {
 }
 
 TourSection.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,

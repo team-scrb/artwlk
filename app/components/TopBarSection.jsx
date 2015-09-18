@@ -6,48 +6,48 @@ import '../styles/components/TopBarSection';
 
 export default class TopBarSection extends React.Component {
   render() {
-    const title = this.props.title ? (
-      <h2>{this.props.title}</h2>
+    const title = this.props.topBar.title ? (
+      <h2>{this.props.topBar.title}</h2>
     ) : null;
-    const leftBtn = this.props.leftName ? (
+    const leftBtn = this.props.topBar.leftBtn ? (
       <TopBarButton
-        name={this.props.leftName}
-        click={this.props.leftClick}
-        route={this.props.leftRoute}
+        name={this.props.topBar.leftBtn.name}
+        click={this.props.topBar.leftBtn.click}
+        route={this.props.topBar.leftBtn.route}
         left
       />
     ) : null;
-    const rightBtn = this.props.rightName ? (
+    const rightBtn = this.props.topBar.rightBtn ? (
       <TopBarButton
-        name={this.props.rightName}
-        click={this.props.rightClick}
-        route={this.props.rightRoute}
+        name={this.props.topBar.rightBtn.name}
+        click={this.props.topBar.rightBtn.click}
+        route={this.props.topBar.rightBtn.route}
         right
       />
     ) : null;
+    const bottomBtn = this.props.topBar.bottomBtn ? (
+      <button className="TopBarBottomBtn" onClick={this.props.topBar.bottomBtn.click}>Search</button>
+    ) : null;
 
     return (
-      <div className="TopBarSection">
-        <div className="TopBarSection__leftContainer">
-          {leftBtn}
+      <div>
+        <div className="TopBarSection">
+          <div className="TopBarSection__leftContainer">
+            {leftBtn}
+          </div>
+          <div className="TopBarSection__centerContainer">
+            {title}
+          </div>
+          <div className="TopBarSection__rightContainer">
+            {rightBtn}
+          </div>
         </div>
-        <div className="TopBarSection__centerContainer">
-          {title}
-        </div>
-        <div className="TopBarSection__rightContainer">
-          {rightBtn}
-        </div>
+        {bottomBtn}
       </div>
     );
   }
 }
 
 TopBarSection.propTypes = {
-  title: React.PropTypes.string,
-  rightRoute: React.PropTypes.string,
-  rightClick: React.PropTypes.func,
-  rightName: React.PropTypes.string,
-  leftRoute: React.PropTypes.string,
-  leftClick: React.PropTypes.func,
-  leftName: React.PropTypes.string,
+  topBar: React.PropTypes.object.isRequired,
 };
