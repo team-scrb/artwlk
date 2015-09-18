@@ -10,6 +10,12 @@ export default class CreateTour extends React.Component {
     this.selectSites = this.selectSites.bind(this);
   }
 
+  componentWillMount() {
+    this.props.setTopBar({
+      title: 'Create',
+    });
+  }
+
   onDrop(targetId, {site: droppedId}) {
     const sites = this.props.selectedSites.slice();
     const droppedIndex = sites.findIndex(site => site.id === droppedId);
@@ -81,6 +87,7 @@ export default class CreateTour extends React.Component {
 }
 
 CreateTour.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   selectedSites: React.PropTypes.array.isRequired,
   reorderSites: React.PropTypes.func.isRequired,
   saveTourFormData: React.PropTypes.func.isRequired,

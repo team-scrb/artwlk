@@ -6,43 +6,43 @@ import '../styles/components/TopBarSection';
 
 export default class TopBarSection extends React.Component {
   render() {
-    const title = this.props.topBar.title ? (
+    const title = this.props.topBar.title && (
       <h2>{this.props.topBar.title}</h2>
-    ) : null;
-    const leftBtn = this.props.topBar.leftBtn ? (
+    );
+    const leftBtn = this.props.topBar.leftBtn && (
       <TopBarButton
         name={this.props.topBar.leftBtn.name}
         click={this.props.topBar.leftBtn.click}
         route={this.props.topBar.leftBtn.route}
         left
       />
-    ) : null;
-    const rightBtn = this.props.topBar.rightBtn ? (
+    );
+    const rightBtn = this.props.topBar.rightBtn && (
       <TopBarButton
         name={this.props.topBar.rightBtn.name}
         click={this.props.topBar.rightBtn.click}
         route={this.props.topBar.rightBtn.route}
         right
       />
-    ) : null;
-    const bottomBtn = this.props.topBar.bottomBtn ? (
+    );
+    const bottomBtn = this.props.topBar.bottomBtn && (
       <button className="TopBarBottomBtn" onClick={this.props.topBar.bottomBtn.click}>Search</button>
-    ) : null;
+    );
 
     return (
       <div>
         <div className="TopBarSection">
           <div className="TopBarSection__leftContainer">
-            {leftBtn}
+            {this.props.topBar ? leftBtn : null}
           </div>
           <div className="TopBarSection__centerContainer">
-            {title}
+            {this.props.topBar ? title : null}
           </div>
           <div className="TopBarSection__rightContainer">
-            {rightBtn}
+            {this.props.topBar ? rightBtn : null}
           </div>
         </div>
-        {bottomBtn}
+        {this.props.topBar ? bottomBtn : null}
       </div>
     );
   }
