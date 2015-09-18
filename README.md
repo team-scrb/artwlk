@@ -48,8 +48,8 @@ Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel a
 ```
 .
 ├── README.md
-├── app //Main app directory
-│   ├── components //React Components
+├── app [Main app directory]
+│   ├── components [React Component]
 │   │   ├── Container.jsx
 │   │   ├── ContainerNav.jsx
 │   │   ├── CreateLocationSelector.jsx
@@ -72,16 +72,16 @@ Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel a
 │   │   ├── TourSection.jsx
 │   │   └── login-signup
 │   ├── config 
-│   │   └── routes.js //React Router routes
+│   │   └── routes.js [React Router routes]
 │   ├── main.jsx //Root react component. Loads in all of the routes from routes.js
 │   ├── styles
 │   │   ├── components
 │   │   └── utils
-│   └── utils //Javascript (non-React) utility/helper functions
+│   └── utils [Javascript (non-React) utility/helper functions]
 │       ├── auth.js
 │       ├── geo.js
 │       ├── movement.js
-│       ├── photo.js  //IMGUR CLIENT ID HERE
+│       ├── photo.js  [IMGUR CLIENT ID HERE]
 │       ├── search.js
 │       ├── sites.js
 │       ├── tours.js
@@ -91,7 +91,7 @@ Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel a
 ├── karma.conf.js
 ├── package.json
 ├── public
-│   ├── index.html  //GOOGLE MAPS API KEY HERE
+│   ├── index.html  [GOOGLE MAPS API KEY HERE]
 │   └── src
 │       ├── fonts
 │       └── images
