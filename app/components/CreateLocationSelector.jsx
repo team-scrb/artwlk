@@ -1,6 +1,5 @@
 import React from 'react';
 import {GoogleMap} from 'react-google-maps';
-import TopBarSection from './TopBarSection';
 
 // styles
 import '../styles/components/MapSection';
@@ -19,6 +18,10 @@ export default class CreateLocationSelector extends React.Component {
     this.addSite = this.addSite.bind(this);
   }
 
+  componentWillMount() {
+    this.renderTopBar();
+  }
+
   addSite() {
     const {H, L} = this.refs.map.state.map.center;
 
@@ -30,16 +33,23 @@ export default class CreateLocationSelector extends React.Component {
     this.context.router.transitionTo('create');
   }
 
+  renderTopBar() {
+    this.props.setTopBar({
+      title: 'Select Location',
+      leftBtn: {
+        name: 'Cancel',
+        route: 'create',
+      },
+      rightBtn: {
+        name: 'Select',
+        click: this.addSite,
+      },
+    });
+  }
+
   render() {
     return (
       <div className="MapSection__createLocation-container">
-        <TopBarSection
-          title="Select Location"
-          leftName="Back"
-          leftRoute="create"
-          rightName="Select"
-          rightClick={this.addSite}
-        />
         <GoogleMap
           containerProps={{
             ...this.props,
@@ -63,6 +73,7 @@ export default class CreateLocationSelector extends React.Component {
 }
 
 CreateLocationSelector.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
   onMarkerClick: React.PropTypes.func.isRequired,

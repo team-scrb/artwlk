@@ -11,6 +11,12 @@ export default class CreateTourSiteSelector extends React.Component {
     this.done = this.done.bind(this);
   }
 
+  componentWillMount() {
+    this.props.setTopBar({
+      title: 'Create',
+    });
+  }
+
   componentDidMount() {
     getAllSites().then(sites => {
       this.setState({sites}, () => {
@@ -47,6 +53,7 @@ export default class CreateTourSiteSelector extends React.Component {
 }
 
 CreateTourSiteSelector.propTypes = {
+  setTopBar: React.PropTypes.func.isRequired,
   selectSites: React.PropTypes.func.isRequired,
   selectedSites: React.PropTypes.array.isRequired,
 };
