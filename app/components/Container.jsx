@@ -140,9 +140,12 @@ export default class Container extends React.Component {
         return tours;
       })
       .then(tours => {
-        console.log('3', tours);
         this.setState({
-          tours,
+          tours: tours,
+        });
+      })
+      .then(() => {
+        this.setState({
           nearbyToursLoader: (
             <div>
               <h2 className="NearbySection__h2">Tours</h2>

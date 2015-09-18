@@ -140,4 +140,6 @@ NearbySection.propTypes = {
   params: React.PropTypes.object.isRequired,
   nearbySitesLoader: React.PropTypes.node,
   nearbyToursLoader: React.PropTypes.node,
+  tours: React.PropTypes.array.isRequired,
+  limit: React.PropTypes.string,
 };

@@ -138,6 +138,7 @@ export default class SiteSection extends React.Component {
           {...this.props}
           renderTopBar={this.renderTopBar}
         />
+      {this.props.sites.length ? null : this.props.nearbySitesLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -163,4 +164,6 @@ SiteSection.propTypes = {
   doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
   path: React.PropTypes.string.isRequired,
+  sites: React.PropTypes.array.isRequired,
+  nearbySitesLoader: React.PropTypes.node,
 };
