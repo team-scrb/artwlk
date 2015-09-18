@@ -1,0 +1,10 @@
+@import "../utils/config";
+
+[data-reactid=".0.2.1.0.0"] { margin-bottom: 10px; }
+[data-reactid=".0.2.1.0.1"] { margin-bottom: 6px; }
+.Conatiner__ContainerNavFabButton { position: absolute; bottom: 100px; right: 50px; color: white; font-size:12px; }
+.ContainerNavFabButton { display: flex; position: relative; }
+.ContainerNavFabButton--Open { transform: rotate(135deg)!important; -webkit-transform: rotate(135deg); -ms-transform: rotate(135deg); -webkit-transition: all .25s ease; transition: all .25s ease; }
+.ContainerNavFabButton__miniSite,
+.ContainerNavFabButton__miniTour { display: flex!important; position: absolute; height: 0; overflow: hidden; }
+.ContainerNavFabButton__miniSite--Open { display: flex!important; flex-direction: column; position: relative; align-items: center; padding: 5px 0; -webkit-transition: all .25s ease; transition: all .25s ease; }
