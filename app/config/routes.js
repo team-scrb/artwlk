@@ -51,3 +51,4 @@ export default (
 // Authorized routes
 import {willTransitionTo} from '../utils/auth';
 CreateSection.willTransitionTo = willTransitionTo;
+CreateTour.willTransitionTo = willTransitionTo;
