@@ -9,12 +9,7 @@ import '../styles/components/TourList';
 export default class TourList extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleTourClick = this.handleTourClick.bind(this);
-  }
-
-  componentDidMount() {
-    // this.props.getTours();
   }
 
   handleTourClick(tourId) {
@@ -28,14 +23,12 @@ export default class TourList extends React.Component {
     let tours = this.props.tours;
     let tourList = null;
 
-    console.log(tours);
-
     if (this.props.limit) {
       tours = tours.slice(0, parseInt(this.props.limit, 10));
     }
 
     if (tours) {
-      tourList = tours.map((tour, index) => {
+      tourList = tours.filter(tour => tour.sites.length > 1).map((tour, index) => {
         const imageStyle = {
           backgroundImage: `url(${tour.imageUrl})`,
           backgroundSize: 'cover',
