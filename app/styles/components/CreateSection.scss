@@ -14,4 +14,4 @@
 .CreateSection__form-location,
 .CreateSection__form-submit { width: 100vw; height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; }
 .CreateSection__form-location:hover,
-.CreateSection__form-submit:hover { background-color: $brand-text; color: $brand-tertiary; }
+.CreateSection__form-submit:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }

@@ -1,0 +1,9 @@
+@import "../utils/config";
+
+.CreateTourSiteSelector { flex: 1; overflow-y: scroll; }
+.CreateTourSiteSelector__button { width: 100vw; height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; margin: 1em 0; }
+.CreateTourSiteSelector__button:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }
+.CreateTourSiteSelector__button:focus { outline: none; }
+.CreateTourSiteSelector__form-checkbox { flex-direction: row; width: 100%; }
+.CreateTourSiteSelector__form-checkbox-item { margin-bottom: 5px; list-style: none;}
+.CreateTourSiteSelector__form-checkbox-item-input { margin-right: 5px;}

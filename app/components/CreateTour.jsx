@@ -2,6 +2,9 @@ import React from 'react';
 import {Draggable, Droppable} from 'react-drag-and-drop';
 import {addTour} from '../utils/tours';
 
+// styles
+import '../styles/components/CreateTour';
+
 export default class CreateTour extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +28,8 @@ export default class CreateTour extends React.Component {
     this.props.reorderSites(sites);
   }
 
-  save() {
+  save(event) {
+    event.preventDefault();
     addTour({
       title: this.refs.title.getDOMNode().value,
       descriptions: this.refs.description.getDOMNode().value,
@@ -44,6 +48,7 @@ export default class CreateTour extends React.Component {
   }
 
   selectSites() {
+    event.preventDefault();
     this.props.saveTourFormData({
       title: this.refs.title.getDOMNode().value,
       description: this.refs.description.getDOMNode().value,
@@ -66,21 +71,25 @@ export default class CreateTour extends React.Component {
     });
 
     return (
-      <div>
+      <div className="CreateTour">
         <h1>Create Tour</h1>
-        <label>
-          Title
-          <input type="text" ref="title" defaultValue={this.props.tourFormData && this.props.tourFormData.title} />
-        </label>
-        <label>
-          Description
-          <input type="text" ref="description" defaultValue={this.props.tourFormData && this.props.tourFormData.description} />
-        </label>
-        <ul>
-          {list}
-        </ul>
-        <button onClick={this.selectSites}>Select Sites</button>
-        <button onClick={this.save}>Save</button>
+        <form className="CreateTour__form" onSubmit={this.save}>
+          <div className="CreateSection__form-container">
+            <label className="CreateTour__form-label">
+              Title
+              <input className="CreateTour__form-input" type="text" ref="title" defaultValue={this.props.tourFormData && this.props.tourFormData.title} />
+            </label>
+            <label className="CreateTour__form-label">
+              Description
+              <input className="CreateTour__form-input" type="text" ref="description" defaultValue={this.props.tourFormData && this.props.tourFormData.description} />
+            </label>
+            <ul>
+              {list}
+            </ul>
+          </div>
+          <button onClick={this.selectSites} className="CreateTour__form-submit">Select Sites</button>
+          <input type="submit" name="Save" className="CreateTour__form-submit" />
+        </form>
       </div>
     );
   }

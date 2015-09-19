@@ -106,10 +106,6 @@ export default class NearbySection extends React.Component {
   render() {
     return (
       <div className="NearbySection">
-        <div className="NearbySection__heroBtnContainer">
-          <button className="NearbySection__toursBtn" onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
-          <button className="NearbySection__sitesBtn" onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
-        </div>
         <h2 className="NearbySection__h2">Sites</h2>
         <SiteList
           limit="3"
