@@ -34,7 +34,6 @@ export default class TourSection extends React.Component {
 
   componentDidMount() {
     getLocation().then(this.props.getSites);
-    this.props.getCurrSite(this.props.params.siteId);
   }
 
   siteDetailClick(event) {
