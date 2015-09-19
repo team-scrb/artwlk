@@ -3,11 +3,15 @@
 .CreateSection { flex: 1; overflow-y: scroll; }
 .CreateSection__selectLocationBtn { color: red; }
 .CreateSection__form { display: flex; flex-direction: column; }
-.CreateSection__form-input { -webkit-order: 2; -ms-flex-order: 2; order: 2; display: block; margin-top: auto; background: none; padding-top: 2px; padding-bottom: 1px; padding-left: 2px; padding-right: 2px; border-width: 0 0 1px 0; line-height: 26px; -ms-flex-preferred-size: 26px; border-radius: 0; width: auto; font-size: 16px; color: $brand-primary; }
+.CreateSection__form-container { padding:0 10px; flex-wrap: wrap; }
+.CreateSection__form-input { -webkit-order: 2; -ms-flex-order: 2; order: 2; display: block; margin-top: auto; background: none; padding-top: 2px; padding-bottom: 1px; padding-left: 2px; padding-right: 2px; border-width: 0 0 1px 0; line-height: 26px; -ms-flex-preferred-size: 26px; border-radius: 0; width: auto; font-size: 16px; color: $brand-primary; width: 100%; margin-bottom:.5em; }
 .CreateSection__form-input:focus { outline:none; border-bottom: 1px solid $brand-highlight; -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1);}
 .CreateSection__form-label { font-size: 10px; color: $brand-highlight; margin: 1em 0; }
 .CreateSection__form-label:first-of-type { margin: 0; }
-.CreateSection__form-checkbox { flex-direction: row; }
-.CreateSection__form-checkbox-item { margin: 0 5px 0 15px; }
+.CreateSection__form-checkbox { flex-direction: row; width: 100%; }
+.CreateSection__form-checkbox-item { margin: 0 5px 0 15px; margin-bottom: 1em; }
 .CreateSection__form-checkbox-item:first-of-type { margin: 0 5px 0 0px; }
-.CreateSection__form-submit { background-color: $brand-highlight!important; }
+.CreateSection__form-location,
+.CreateSection__form-submit { width: 100vw; height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; }
+.CreateSection__form-location:hover,
+.CreateSection__form-submit:hover { background-color: $brand-text; color: $brand-tertiary; }

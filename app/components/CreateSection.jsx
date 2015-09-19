@@ -5,20 +5,15 @@ import {addSite} from '../utils/sites';
 import {isLoggedIn} from '../utils/auth';
 import parseHashtags from 'parse-hashtags';
 import Modal from 'react-modal';
-import mui, { RaisedButton } from 'material-ui';
 
 // styles
 import '../styles/components/CreateSection';
-const ThemeManager = new mui.Styles.ThemeManager();
 
 const appElement = document.getElementById('app');
 Modal.setAppElement(appElement);
 Modal.injectCSS();
 
 export default class CreateSection extends React.Component {
-  static get childContextTypes() {
-    return { muiTheme: React.PropTypes.object };
-  }
 
   constructor(props) {
     super(props);
@@ -30,10 +25,6 @@ export default class CreateSection extends React.Component {
     this.selectLocationHandler = this.selectLocationHandler.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  getChildContext() {
-    return { muiTheme: ThemeManager.getCurrentTheme() };
   }
 
   componentWillMount() {
@@ -112,28 +103,34 @@ export default class CreateSection extends React.Component {
         <h2>Create Site Here</h2>
         <form onSubmit={this.submit} className="CreateSection__form">
           <PhotoUpload {...this.props} />
-          <h1 className="CreateSection__form-selectLocationBtn" onClick={this.selectLocationHandler}>Location: {this.props.createFormLocation ? 'Update Location' : 'Select Location'}</h1>
-          <h3>{this.props.address}</h3>
-          <label className="CreateSection__form-label">Name
-            <input type="text" className="CreateSection__form-input" data-name="name" ref="name" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.name} />
-          </label>
-          <label className="CreateSection__form-label">Artist
-            <input type="text" className="CreateSection__form-input" data-name="artist" ref="artist" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.artist} defaultValue="Unknown" />
-          </label>
-          <label className="CreateSection__form-label">Category</label>
-          <div className="CreateSection__form-checkbox">
-            <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.streetArt} ref="streetArt"/>Street Art
-            <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.architecture} ref="architecture"/>Architecture
-            <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.sculpture} ref="sculpture"/>Sculpture
-            <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.mural} ref="mural"/>Mural
+          <button className="CreateSection__form-location" onClick={this.selectLocationHandler}>{this.props.createFormLocation ? 'Update Location' : 'Select Location'}</button>
+          <div className="CreateSection__form-container">
+            <h3>{this.props.address ? this.props.address : this.props.userLocation}</h3>
+            <label className="CreateSection__form-label">Name
+              <input type="text" className="CreateSection__form-input" data-name="name" ref="name" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.name} />
+            </label>
+            <label className="CreateSection__form-label">Artist
+              <input type="text" className="CreateSection__form-input" data-name="artist" ref="artist" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.artist} defaultValue="Unknown" />
+            </label>
           </div>
-          <label className="CreateSection__form-label">Hash Tags
-            <input type="text" className="CreateSection__form-input" data-name="tags" ref="tags" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.tags} />
-          </label>
-          <label className="CreateSection__form-label">Description
-            <input type="text" className="CreateSection__form-input" data-name="description" ref="description" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.description} />
-          </label>
-          <RaisedButton type="submit" className="CreateSection__form-submit">Submit</RaisedButton>
+          <div className="CreateSection__form-container">
+            <label className="CreateSection__form-label">Category</label>
+            <div className="CreateSection__form-checkbox">
+              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.streetArt} ref="streetArt"/>Street Art
+              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.architecture} ref="architecture"/>Architecture
+            </div>
+            <div className="CreateSection__form-checkbox">
+              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.sculpture} ref="sculpture"/>Sculpture
+              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.mural} ref="mural"/>Mural
+            </div>
+            <label className="CreateSection__form-label">Hash Tags
+              <input type="text" className="CreateSection__form-input" data-name="tags" ref="tags" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.tags} />
+            </label>
+            <label className="CreateSection__form-label">Description
+              <input type="text" className="CreateSection__form-input" data-name="description" ref="description" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.description} />
+            </label>
+          </div>
+          <input type="submit" name="Submit" className="CreateSection__form-submit" />
         </form>
         <Modal
           isOpen={this.state.modalIsOpen}

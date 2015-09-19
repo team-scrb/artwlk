@@ -44,6 +44,13 @@ export default class SiteSection extends React.Component {
           });
       }
     }
+
+    if (this.props.params.siteId) {
+      this.props.getCurrSite(this.props.params.siteId)
+        .then(() => {
+          this.props.setCurrMap('singleSite');
+        });
+    }
   }
 
   openModal(modalContent) {
