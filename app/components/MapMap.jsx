@@ -1,6 +1,6 @@
 import React from 'react';
 import {GoogleMap, Marker, InfoWindow, DirectionsRenderer} from 'react-google-maps';
-// import {getLocation} from '../utils/geo';
+import {getLocation} from '../utils/geo';
 
 // styles
 import '../styles/components/MapSection';
@@ -33,9 +33,12 @@ export default class MapMap extends React.Component {
     ) this.renderMap(props);
   }
 
-
   onComponentDidMount() {
     this.renderMap(this.props);
+
+    getLocation().then(location => {
+      this.props.getUserLocation(location);
+    });
   }
 
   renderMap(props) {
@@ -122,6 +125,22 @@ export default class MapMap extends React.Component {
     );
   }
 
+  renderUserMarker() {
+    const marker = {
+      icon: '../src/images/blue.png',
+      position: {
+        lat: this.props.userLocation.coords.latitude,
+        lng: this.props.userLocation.coords.longitude,
+      },
+      defaultAnimation: 1,
+      showInfo: true,
+    };
+
+    return (
+      <Marker {...marker} />
+    );
+  }
+
   render() {
     return (
       <div className="MapSection">
@@ -141,6 +160,7 @@ export default class MapMap extends React.Component {
         >
           {this.state.markers}
           {this.state.directions}
+          {this.props.userLocation ? this.renderUserMarker() : null}
         </GoogleMap>
       </div>
     );
@@ -163,4 +183,6 @@ MapMap.propTypes = {
   currMap: React.PropTypes.string,
   setMarkers: React.PropTypes.func.isRequired,
   renderTopBar: React.PropTypes.func.isRequired,
+  getUserLocation: React.PropTypes.func.isRequired,
+  userLocation: React.PropTypes.object,
 };

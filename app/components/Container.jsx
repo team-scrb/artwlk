@@ -36,6 +36,8 @@ export default class Container extends React.Component {
       topBar: null,
     };
 
+
+    this.getUserLocation = this.getUserLocation.bind(this);
     this.convertToAddress = this.convertToAddress.bind(this);
     this.setCurrMap = this.setCurrMap.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -65,6 +67,7 @@ export default class Container extends React.Component {
       this.context.router.transitionTo('nearby');
     }
   }
+
 
   onMarkerClick(clickedMarker) {
     const sites = this.state.sites;
@@ -100,6 +103,12 @@ export default class Container extends React.Component {
       });
       this.setState({currSite: marker});
     }
+  }
+
+  getUserLocation(userLocation) {
+    this.setState({
+      userLocation: userLocation,
+    });
   }
 
   setTopBar(topBarObj) {
@@ -326,6 +335,7 @@ export default class Container extends React.Component {
           uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
           setMarkers={this.setMarkers}
+          getUserLocation={this.getUserLocation}
         />
         <ContainerNav />
       </div>
