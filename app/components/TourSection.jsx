@@ -61,35 +61,21 @@ export default class TourSection extends React.Component {
     switch (path) {
     case '/tours':
     case '/tours/':
-      if (props.params.tourId) {
-        this.props.setTopBar({
-          title: this.props.currTour.title,
-          leftBtn: {
-            name: 'Tours',
-            route: 'tours',
-          },
-          rightBtn: {
-            name: 'Map',
-            route: `/tours/map/${this.props.params.tourId}`,
-          },
-        });
-      } else {
-        this.props.setTopBar({
-          title: 'Tours',
-          leftBtn: {
-            name: 'Filter',
-            click: this.openModal.bind(this, 'filter'),
-          },
-          rightBtn: {
-            name: 'Map',
-            route: '/tours/map',
-          },
-          bottomBtn: {
-            name: 'Search',
-            click: this.openModal,
-          },
-        });
-      }
+      this.props.setTopBar({
+        title: 'Tours',
+        leftBtn: {
+          name: 'Filter',
+          click: this.openModal.bind(this, 'filter'),
+        },
+        rightBtn: {
+          name: 'Map',
+          route: '/tours/map',
+        },
+        bottomBtn: {
+          name: 'Search',
+          click: this.openModal,
+        },
+      });
       break;
     case '/tours/map':
     case '/tours/map/':
@@ -120,6 +106,19 @@ export default class TourSection extends React.Component {
       }
       break;
     default:
+      if (props.params.tourId) {
+        this.props.setTopBar({
+          title: this.props.currTour.title,
+          leftBtn: {
+            name: 'Tours',
+            route: 'tours',
+          },
+          rightBtn: {
+            name: isMap ? 'Details' : 'Map',
+            route: `/tours${isMap ? '' : '/map'}/${this.props.params.tourId}`,
+          },
+        });
+      }
     }
   }
 

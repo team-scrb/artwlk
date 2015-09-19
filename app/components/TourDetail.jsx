@@ -14,6 +14,7 @@ export default class TourDetail extends React.Component {
 
   componentDidMount() {
     this.props.getCurrTour(this.props.params.tourId);
+    this.props.renderTopBar();
   }
 
   siteDetailClick(siteInfo) {
@@ -58,6 +59,7 @@ TourDetail.contextTypes = {
 };
 
 TourDetail.propTypes = {
+  renderTopBar: React.PropTypes.func.isRequired,
   getTours: React.PropTypes.func.isRequired,
   getCurrTour: React.PropTypes.func.isRequired,
   getLocation: React.PropTypes.func.isRequired,
