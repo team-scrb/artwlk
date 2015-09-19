@@ -21,6 +21,7 @@ export default class MapMap extends React.Component {
 
   componentWillMount() {
     this.props.renderTopBar();
+    this.renderMap(this.props);
   }
 
   componentWillReceiveProps(props) {
