@@ -65,7 +65,6 @@ export default class Container extends React.Component {
 
   onMarkerClick(clickedMarker) {
     const sites = this.state.sites;
-
     // close all open infoBoxes
     let index = sites.findIndex(site => site.showInfo);
     let site = sites[index];
@@ -77,15 +76,20 @@ export default class Container extends React.Component {
     }
 
     // open the clicked marker
-    index = sites.findIndex(s => s.id === clickedMarker.id);
+    index = sites.findIndex(s => {
+      return s.id === clickedMarker.id;
+    });
+
     site = sites[index];
+
     if (site) {
       site = React.addons.update(site, {
         showInfo: {$set: true},
       });
       sites.splice(index, 1, site);
+      this.setState({sites});
     }
-    this.setState({sites});
+
 
     if (this.state.currSite.id === clickedMarker.id) {
       const marker = React.addons.update(clickedMarker, {
@@ -223,7 +227,9 @@ export default class Container extends React.Component {
 
   handleCloseClick(currentMarker) {
     const sites = this.state.sites;
-    const index = sites.findIndex(s => s.id === currentMarker.id);
+    const index = sites.findIndex(s => {
+      return s.id === currentMarker.id;
+    });
     let site = sites[index];
     if (site.showInfo) {
       site = React.addons.update(site, {
