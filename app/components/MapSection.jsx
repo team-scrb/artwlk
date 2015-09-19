@@ -15,10 +15,13 @@ Modal.injectCSS();
 export default class MapSection extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       modalIsOpen: false,
       modalContent: false,
     };
+
+    this.renderTopBar = this.renderTopBar.bind(this);
     this.siteDetailClick = this.siteDetailClick.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -66,6 +69,7 @@ export default class MapSection extends React.Component {
         <MapMap
           {...this.props}
           {...this.state}
+          renderTopBar={this.renderTopBar}
         />
         <Modal
           isOpen={this.state.modalIsOpen}

@@ -21,6 +21,7 @@ export default class SiteSection extends React.Component {
       modalContent: null,
     };
 
+    this.renderTopBar = this.renderTopBar.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
@@ -28,22 +29,22 @@ export default class SiteSection extends React.Component {
   componentWillMount() {
     this.renderTopBar();
 
-    // if on /sites/map
-    if (this.props.path === '/sites'
-      || this.props.path === '/sites/map'
-      || this.props.path === '/sites/map/') {
+    switch (this.props.path) {
+    case '/sites':
+    case '/sites/':
+    case '/sites/map':
+    case '/sites/map/':
       this.props.setCurrMap('allSites');
-    }
 
-    // if on /sites/map/:siteId
-    if (this.props.params.siteId) {
-      this.props.getCurrSite(this.props.params.siteId)
-        .then(() => {
-          this.props.setCurrMap('singleSite');
-        });
+      if (this.props.params.siteId) {
+        this.props.getCurrSite(this.props.params.siteId)
+          .then(() => {
+            this.props.setCurrMap('singleSite');
+          });
+      }
+      break;
+    default:
     }
-
-    // if on /sites/:siteId
   }
 
   openModal(modalContent) {
@@ -60,42 +61,13 @@ export default class SiteSection extends React.Component {
   }
 
   renderTopBar() {
-    const path = this.props.path;
-    const pathArr = path.split('/');
+    const props = this.props;
+    const path = props.path;
 
-    // sites/:siteId
-    if (pathArr[1] === 'sites' && pathArr[2] !== 'map' && this.props.params.siteId) {
-      this.props.setTopBar({
-        title: this.props.currSite.name,
-        leftBtn: {
-          name: 'Sites',
-          route: 'sites',
-        },
-        rightBtn: {
-          name: 'Map',
-          route: `/sites/map/${this.props.params.siteId}`,
-        },
-      });
-    }
-
-    // sites/map/:siteId
-    if (pathArr[1] === 'sites' && pathArr[2] === 'map' && this.props.params.siteId) {
-      this.props.setTopBar({
-        title: this.props.currSite.name,
-        leftBtn: {
-          name: 'Sites',
-          route: 'sites',
-        },
-        rightBtn: {
-          name: 'Details',
-          route: `/sites/${this.props.params.siteId}`,
-        },
-      });
-    }
-
-    // sites/
-    if (pathArr[1] === 'sites') {
-      this.props.setTopBar({
+    switch (path) {
+    case '/sites':
+    case '/sites/':
+      props.setTopBar({
         title: 'Sites',
         leftBtn: {
           name: 'Filter',
@@ -110,6 +82,36 @@ export default class SiteSection extends React.Component {
           click: this.openModal,
         },
       });
+      break;
+    case '/sites/map':
+    case '/sites/map/':
+      if (props.params.siteId) {
+        props.setTopBar({
+          title: props.currSite.name,
+          leftBtn: {
+            name: 'Sites',
+            route: 'sites',
+          },
+          rightBtn: {
+            name: 'Details',
+            route: `/sites/${props.params.siteId}`,
+          },
+        });
+      } else {
+        props.setTopBar({
+          title: 'Sites',
+          leftBtn: {
+            name: 'Filter',
+            click: this.openModal.bind(this, 'filter'),
+          },
+          rightBtn: {
+            name: 'List',
+            route: 'sites',
+          },
+        });
+      }
+      break;
+    default:
     }
   }
 
@@ -119,6 +121,7 @@ export default class SiteSection extends React.Component {
         <RouteHandler
           {...this.state}
           {...this.props}
+          renderTopBar={this.renderTopBar}
         />
         <Modal
           isOpen={this.state.modalIsOpen}

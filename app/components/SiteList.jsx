@@ -10,11 +10,15 @@ export default class SiteList extends React.Component {
     this.siteDetailClick = this.siteDetailClick.bind(this);
   }
 
-  siteDetailClick(site) {
+  componentWillMount() {
+    this.props.renderTopBar();
+  }
+
+  siteDetailClick(siteId) {
     const router = this.context.router;
-    this.props.getCurrSite(site);
+    this.props.getCurrSite(siteId);
     this.props.setCurrMap('singleSite');
-    router.transitionTo('sites-detail', { siteId: site });
+    router.transitionTo('sites-detail', { siteId });
   }
 
   render() {
@@ -26,9 +30,9 @@ export default class SiteList extends React.Component {
     }
 
     if (sites) {
-      siteList = sites.map((data, index) => {
+      siteList = sites.map((site, index) => {
         const imageStyle = {
-          backgroundImage: `url(${data.imageUrl})`,
+          backgroundImage: `url(${site.imageUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: '120px',
@@ -38,16 +42,15 @@ export default class SiteList extends React.Component {
           <li
             className="SiteList__site"
             key={index}
-            data-route={data.id}
-            onClick={this.siteDetailClick.bind(null, data.id)}
+            onClick={this.siteDetailClick.bind(null, site.id)}
           >
-            {data.imageUrl && (<div
+            {site.imageUrl && (<div
               className="SiteList__site-hero-img"
               style={imageStyle}
             />)}
             <span className="SiteList__site-meta">
-              {data.name && (<h3 className="SiteList__site-title">{data.name}</h3>)}
-              {data.artist && (<span className="SiteList__site-artist">{data.artist}</span>)}
+              {site.name && (<h3 className="SiteList__site-title">{site.name}</h3>)}
+              {site.artist && (<span className="SiteList__site-artist">{site.artist}</span>)}
             </span>
           </li>
         );
@@ -67,6 +70,7 @@ SiteList.contextTypes = {
 };
 
 SiteList.propTypes = {
+  renderTopBar: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,

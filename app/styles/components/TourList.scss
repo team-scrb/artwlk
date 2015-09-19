@@ -4,7 +4,7 @@
 
 .TourList__tours { margin: 0; padding: 0; }
 
-.TourList__tour { list-style: none; margin: 0 0 16px; border-top: 1px solid $brand-border; border-bottom: 1px solid $brand-border; }
+.TourList__tour { list-style: none; margin: 0 0 16px; border-top: 1px solid $brand-border; border-bottom: 1px solid $brand-border; cursor: pointer; }
 .TourList__tour-hero-img { position: relative; }
 .TourList__tour-meta { display: block; padding: 8px 16px; background: white; }
 .TourList__site-title { margin: 0; font-size: 12px; font-family: $font-roboto; }
