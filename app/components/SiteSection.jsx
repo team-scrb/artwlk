@@ -27,23 +27,22 @@ export default class SiteSection extends React.Component {
   }
 
   componentWillMount() {
-    this.renderTopBar();
-
     switch (this.props.path) {
     case '/sites':
     case '/sites/':
     case '/sites/map':
     case '/sites/map/':
       this.props.setCurrMap('allSites');
-
+      this.renderTopBar();
+      break;
+    default:
       if (this.props.params.siteId) {
         this.props.getCurrSite(this.props.params.siteId)
           .then(() => {
             this.props.setCurrMap('singleSite');
+            this.renderTopBar();
           });
       }
-      break;
-    default:
     }
   }
 
@@ -85,33 +84,34 @@ export default class SiteSection extends React.Component {
       break;
     case '/sites/map':
     case '/sites/map/':
-      if (props.params.siteId) {
+      props.setTopBar({
+        title: 'Sites',
+        leftBtn: {
+          name: 'Filter',
+          click: this.openModal.bind(this, 'filter'),
+        },
+        rightBtn: {
+          name: 'List',
+          route: 'sites',
+        },
+      });
+      break;
+    default:
+      if (this.props.params.siteId) {
+        const isMap = path.indexOf('map') > -1;
+
         props.setTopBar({
-          title: props.currSite.name,
+          title: this.props.currSite.name,
           leftBtn: {
             name: 'Sites',
             route: 'sites',
           },
           rightBtn: {
-            name: 'Details',
-            route: `/sites/${props.params.siteId}`,
-          },
-        });
-      } else {
-        props.setTopBar({
-          title: 'Sites',
-          leftBtn: {
-            name: 'Filter',
-            click: this.openModal.bind(this, 'filter'),
-          },
-          rightBtn: {
-            name: 'List',
-            route: 'sites',
+            name: isMap ? 'Details' : 'Map',
+            route: `/sites${isMap ? '' : '/map'}/${this.props.currSite.id}`,
           },
         });
       }
-      break;
-    default:
     }
   }
 

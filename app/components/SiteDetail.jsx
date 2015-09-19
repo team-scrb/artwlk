@@ -8,6 +8,10 @@ export default class SiteDetail extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.renderTopBar();
+  }
+
   render() {
     const site = this.props.currSite;
     let hashTags;
@@ -52,6 +56,7 @@ export default class SiteDetail extends React.Component {
 }
 
 SiteDetail.propTypes = {
+  renderTopBar: React.PropTypes.func.isRequired,
   currSite: React.PropTypes.object.isRequired,
   params: React.PropTypes.object.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
