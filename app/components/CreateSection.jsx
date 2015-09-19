@@ -84,8 +84,8 @@ export default class CreateSection extends React.Component {
         description: this.refs.description.getDOMNode().value,
         imageUrl,
       };
-      return addSite(siteInfo).then(() => {
-        this.context.router.transitionTo('map');
+      return addSite(siteInfo).then(siteId => {
+        this.context.router.transitionTo('sites-detail', {siteId});
         this.props.resetCreateSiteForm();
       });
     })
