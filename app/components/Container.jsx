@@ -26,7 +26,7 @@ export default class Container extends React.Component {
       selectedSites: [],
       tourFormData: null,
       address: '',
-      createForm: { name: 'Untitled', artist: 'Unknown', description: '', category: '', tags: '' },
+      createForm: { name: '', artist: '', description: '', streetArt: '', architecture: '', mural: '', sculpture: '', tags: '' },
       createFormLocation: null,
       imageData: null,
       photoUploadFile: null,

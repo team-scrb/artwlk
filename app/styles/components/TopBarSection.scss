@@ -11,3 +11,5 @@
 .TopBarSection__rightContainer { justify-content: flex-end; }
 
 .TopBarBottomBtn { width: 100vw; height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; }
+.TopBarBottomBtn:focus { outline: none; }
+.TopBarBottomBtn:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }

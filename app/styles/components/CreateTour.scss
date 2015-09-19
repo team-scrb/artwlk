@@ -1,0 +1,11 @@
+@import "../utils/config";
+
+.CreateTour { flex: 1; overflow-y: scroll; }
+.CreateTour__form { display: flex; flex-direction: column; }
+.CreateTour__form-container { padding:0 10px; flex-wrap: wrap; }
+.CreateTour__form-submit { width: 100vw; height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; margin: 1em 0; }
+.CreateTour__form-submit:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }
+.CreateTour__form-input { -webkit-order: 2; -ms-flex-order: 2; order: 2; display: block; margin-top: auto; background: none; padding-top: 2px; padding-bottom: 1px; padding-left: 2px; padding-right: 2px; border-width: 0 0 1px 0; line-height: 26px; -ms-flex-preferred-size: 26px; border-radius: 0; width: auto; font-size: 16px; color: $brand-primary; width: 100%; margin-bottom:.5em; }
+.CreateTour__form-input:focus { outline:none; border-bottom: 1px solid $brand-highlight; -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1);}
+.CreateTour__form-label { font-size: 10px; color: $brand-highlight; margin: .5em 0; }
+.CreateTour__form-label:first-of-type { margin: 0; }

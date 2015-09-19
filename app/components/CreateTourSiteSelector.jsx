@@ -1,6 +1,8 @@
 import React from 'react';
 import {getAllSites} from '../utils/sites';
 
+import '../styles/components/CreateTourSiteSelector';
+
 export default class CreateTourSiteSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -40,13 +42,15 @@ export default class CreateTourSiteSelector extends React.Component {
 
   render() {
     const list = this.state.sites.map((n, i) =>
-      <label><input type="checkbox" ref={'site' + i}/>{n.name}</label>
+      <li className="CreateTourSiteSelector__form-checkbox-item"><label><input type="checkbox" className="CreateTourSiteSelector__form-checkbox-item-input" ref={'site' + i}/>{n.name}</label></li>
     );
 
     return (
-      <div>
-        {list}
-        <button onClick={this.done}>Done</button>
+      <div className="CreateTourSiteSelector">
+        <ul className="CreateTourSiteSelector__form-checkbox">
+          {list}
+        </ul>
+        <button className="CreateTourSiteSelector__button" onClick={this.done}>Done</button>
       </div>
     );
   }

@@ -44,6 +44,7 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-webpack": "^1.7.0",
+    "material-ui": "^0.11.1",
     "moment": "^2.10.6",
     "node-sass": "^3.3.2",
     "parse-hashtags": "^1.0.0",
