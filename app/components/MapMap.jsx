@@ -37,9 +37,7 @@ export default class MapMap extends React.Component {
     if (this.props.currMap === 'allSites' || this.props.currMap === 'singleSite') {
       const sites = this.props.currMap === 'singleSite' ? [this.props.currSite] : this.props.sites;
 
-      markers = sites.map((site, index) => {
-        // console.log('MARKER SITE!!!!', site);
-        const ref = `marker_${index}`;
+      markers = sites.map((site) => {
         const marker = {
           showInfo: site.showInfo,
           icon: this.props.iconSets(site.category),
@@ -48,14 +46,13 @@ export default class MapMap extends React.Component {
             lng: site.coords.longitude,
           },
           id: site.id,
-          defaultAnimation: 2,
         };
 
         return (
           <Marker
             {...marker}
             onClick={this.props.onMarkerClick.bind(this, site)}>
-            {marker.showInfo ? this.renderInfoWindow(ref, site) : null}
+            {marker.showInfo ? this.renderInfoWindow(site) : null}
           </Marker>
         );
       });
