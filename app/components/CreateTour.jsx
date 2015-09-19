@@ -47,7 +47,7 @@ export default class CreateTour extends React.Component {
     });
   }
 
-  selectSites() {
+  selectSites(event) {
     event.preventDefault();
     this.props.saveTourFormData({
       title: this.refs.title.getDOMNode().value,
