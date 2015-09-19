@@ -9,6 +9,7 @@ import {addSiteLocation} from './geo';
 export const addSite = siteInfo => {
   return new Promise((resolve, reject) => {
     let {coords: {latitude, longitude}} = siteInfo;
+    const google = google || null;
     if (google && google.maps) {
       const {H, L} = new google.maps.LatLng(latitude, longitude);
       latitude = H;
