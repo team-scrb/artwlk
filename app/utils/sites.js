@@ -9,9 +9,12 @@ import {addSiteLocation} from './geo';
 export const addSite = siteInfo => {
   return new Promise((resolve, reject) => {
     let {coords: {latitude, longitude}} = siteInfo;
-    const coords = new google.maps.LatLng(latitude, longitude);
-    latitude = coords.H;
-    longitude = coords.L;
+    if (google && google.maps) {
+      const {H, L} = new google.maps.LatLng(latitude, longitude);
+      latitude = H;
+      longitude = L;
+      siteInfo.coords = {latitude: H, longitude: L};
+    }
     const key = fireRef.child('sites').push(siteInfo, error => {
       if (error) return reject(error);
       addSiteLocation(key, [latitude, longitude])
