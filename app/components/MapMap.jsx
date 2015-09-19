@@ -21,16 +21,11 @@ export default class MapMap extends React.Component {
 
   componentWillMount() {
     this.props.renderTopBar();
-    this.renderMap(this.props);
+    // this.renderMap(this.props);
   }
 
   componentWillReceiveProps(props) {
-    if (
-      this.props.sites.length !== props.sites.length ||
-      this.props.tours.length !== props.tours.length ||
-      this.props.currTour !== props.currTour ||
-      this.props.currSite !== props.currSite
-    ) this.renderMap(props);
+    this.renderMap(props);
   }
 
   onComponentDidMount() {
@@ -61,11 +56,10 @@ export default class MapMap extends React.Component {
         lat: site.coords.latitude,
         lng: site.coords.longitude,
       },
-      key: site.siteId,
+      key: site.id,
       defaultAnimation: 2,
       showInfo: site.showInfo,
     };
-
     return (
       <Marker {...marker}
         onClick={this.props.onMarkerClick.bind(this, site)}>
@@ -157,10 +151,11 @@ export default class MapMap extends React.Component {
           ref="map"
           defaultZoom={12}
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
+          onClick={() => this.props.onMarkerClick(null)}
         >
-          {this.state.markers}
+          {/* this.props.userLocation ? this.renderUserMarker() : null */}
           {this.state.directions}
-          {this.props.userLocation ? this.renderUserMarker() : null}
+          {this.state.markers}
         </GoogleMap>
       </div>
     );
