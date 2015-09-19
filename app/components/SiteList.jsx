@@ -10,11 +10,11 @@ export default class SiteList extends React.Component {
     this.siteDetailClick = this.siteDetailClick.bind(this);
   }
 
-  siteDetailClick(event) {
+  siteDetailClick(site) {
     const router = this.context.router;
-    this.props.getCurrSite(event.target.dataset.route);
+    this.props.getCurrSite(site);
     this.props.setCurrMap('singleSite');
-    router.transitionTo('sites-detail', { siteId: event.target.dataset.route });
+    router.transitionTo('sites-detail', { siteId: site });
   }
 
   render() {
@@ -39,7 +39,7 @@ export default class SiteList extends React.Component {
             className="SiteList__site"
             key={index}
             data-route={data.id}
-            onClick={this.siteDetailClick}
+            onClick={this.siteDetailClick.bind(null, data.id)}
           >
             {data.imageUrl && (<div
               className="SiteList__site-hero-img"

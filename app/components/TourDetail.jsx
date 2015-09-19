@@ -48,11 +48,6 @@ export default class TourDetail extends React.Component {
           <strong>Sites</strong>
           {sites}
         </ul>
-        <ul>
-          <li><strong>Comments</strong></li>
-          <li>Comment One</li>
-          <li>Comment Two</li>
-        </ul>
       </div>
     );
   }
