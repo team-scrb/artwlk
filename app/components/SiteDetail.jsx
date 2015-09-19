@@ -47,11 +47,6 @@ export default class SiteDetail extends React.Component {
         <span>Location: {showAddress}</span><br/>
         <p>{this.props.currSite.description ? this.props.currSite.description : null}</p>
         <button>View on map</button><br/>
-        <ul>
-          <li><strong>Comments</strong></li>
-          <li>Comment One</li>
-          <li>Comment Two</li>
-        </ul>
       </div>
     );
   }
