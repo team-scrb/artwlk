@@ -19,10 +19,9 @@ export default class MapMap extends React.Component {
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
   }
 
-  // componentWillMount() {
-  //   console.log('[MapMap] WILL MOUNT', this.props.currMap);
-  //   this.renderMap();
-  // }
+  componentWillMount() {
+    this.props.renderTopBar();
+  }
 
   // onMapClick(event) {
   //   this.props.getSites({
@@ -206,6 +205,8 @@ export default class MapMap extends React.Component {
 }
 
 MapMap.propTypes = {
+  renderTopBar: React.PropTypes.func.isRequired,
+  setTopBar: React.PropTypes.func.isRequired,
   params: React.PropTypes.object,
   path: React.PropTypes.string,
   getTours: React.PropTypes.func.isRequired,

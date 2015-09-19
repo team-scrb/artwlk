@@ -22,6 +22,7 @@ export default class NearbySection extends React.Component {
       modalContent: false,
     };
 
+    this.renderTopBar = this.renderTopBar.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
@@ -61,6 +62,47 @@ export default class NearbySection extends React.Component {
     this.context.router.transitionTo(route);
   }
 
+  renderTopBar() {
+    const props = this.props;
+    const path = props.path;
+
+    switch (path) {
+    case '/nearby':
+    case '/nearby/':
+      props.setTopBar({
+        title: 'Nearby',
+        leftBtn: {
+          name: 'Filter',
+          click: this.openModal.bind(this, 'filter'),
+        },
+        rightBtn: {
+          name: 'Map',
+          route: 'map',
+        },
+        bottomBtn: {
+          name: 'Search',
+          click: this.openModal,
+        },
+      });
+      break;
+    case '/nearby/map':
+    case '/nearby/map/':
+      props.setTopBar({
+        title: 'Map',
+        leftBtn: {
+          name: 'Filter',
+          click: this.openModal.bind(this, 'filter'),
+        },
+        rightBtn: {
+          name: 'List',
+          route: 'nearby',
+        },
+      });
+      break;
+    default:
+    }
+  }
+
   render() {
     return (
       <div className="NearbySection">
@@ -73,12 +115,14 @@ export default class NearbySection extends React.Component {
           limit="3"
           {...this.state}
           {...this.props}
+          renderTopBar={this.renderTopBar}
         />
         <h2 className="NearbySection__h2">Tours</h2>
         <TourList
           limit="3"
           {...this.state}
           {...this.props}
+          renderTopBar={this.renderTopBar}
         />
         <Modal
           isOpen={this.state.modalIsOpen}
