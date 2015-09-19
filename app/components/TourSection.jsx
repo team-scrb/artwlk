@@ -107,6 +107,8 @@ export default class TourSection extends React.Component {
       break;
     default:
       if (props.params.tourId) {
+        const isMap = path.indexOf('map') > -1;
+
         this.props.setTopBar({
           title: this.props.currTour.title,
           leftBtn: {
