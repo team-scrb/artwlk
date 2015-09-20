@@ -36,7 +36,6 @@ export default class Container extends React.Component {
       topBar: null,
     };
 
-
     this.getUserLocation = this.getUserLocation.bind(this);
     this.convertToAddress = this.convertToAddress.bind(this);
     this.setCurrMap = this.setCurrMap.bind(this);
@@ -67,7 +66,6 @@ export default class Container extends React.Component {
       this.context.router.transitionTo('nearby');
     }
   }
-
 
   onMarkerClick(clickedMarker) {
     const sites = this.state.sites;
