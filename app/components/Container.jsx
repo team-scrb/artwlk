@@ -19,7 +19,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       tours: [],
-      currMap: null,
+      currMap: 'all',
       currSite: {},
       currTour: {},
       childMapPosition: null,
@@ -36,6 +36,7 @@ export default class Container extends React.Component {
       topBar: null,
     };
 
+    this.getUserLocation = this.getUserLocation.bind(this);
     this.convertToAddress = this.convertToAddress.bind(this);
     this.setCurrMap = this.setCurrMap.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -61,6 +62,9 @@ export default class Container extends React.Component {
 
   componentDidMount() {
     this.doSearch({});
+    if (this.props.path === '/') {
+      this.context.router.transitionTo('nearby');
+    }
   }
 
   onMarkerClick(clickedMarker) {
@@ -81,6 +85,12 @@ export default class Container extends React.Component {
       }
       return site;
     })});
+  }
+
+  getUserLocation(userLocation) {
+    this.setState({
+      userLocation: userLocation,
+    });
   }
 
   setTopBar(topBarObj) {
@@ -322,6 +332,7 @@ export default class Container extends React.Component {
           uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
           setMarkers={this.setMarkers}
+          getUserLocation={this.getUserLocation}
         />
         <ContainerNav />
       </div>
@@ -331,4 +342,8 @@ export default class Container extends React.Component {
 
 Container.propTypes = {
   path: React.PropTypes.string,
+};
+
+Container.contextTypes = {
+  router: React.PropTypes.func.isRequired,
 };
