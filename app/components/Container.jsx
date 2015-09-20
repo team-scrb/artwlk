@@ -19,7 +19,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       tours: [],
-      currMap: 'all',
+      currMap: null,
       currSite: {},
       currTour: {},
       childMapPosition: null,
@@ -36,7 +36,6 @@ export default class Container extends React.Component {
       topBar: null,
     };
 
-    this.getUserLocation = this.getUserLocation.bind(this);
     this.convertToAddress = this.convertToAddress.bind(this);
     this.setCurrMap = this.setCurrMap.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -62,9 +61,6 @@ export default class Container extends React.Component {
 
   componentDidMount() {
     this.doSearch({});
-    if (this.props.path === '/') {
-      this.context.router.transitionTo('nearby');
-    }
   }
 
   onMarkerClick(clickedMarker) {
@@ -85,12 +81,6 @@ export default class Container extends React.Component {
       }
       return site;
     })});
-  }
-
-  getUserLocation(userLocation) {
-    this.setState({
-      userLocation: userLocation,
-    });
   }
 
   setTopBar(topBarObj) {
@@ -246,10 +236,22 @@ export default class Container extends React.Component {
   markerIconHandler(category) {
     // Temporary fix until we finalize how we will do categories
     const iconSets = {
-      mural: '/src/images/paint-brush-2-icon.png',
-      sculpture: '/src/images/paint-brush-2-icon.png',
-      streetArt: '/src/images/paint-brush-2-icon.png',
-      architectureArt: '/src/images/paint-brush-2-icon.png',
+      mural: {
+        url: '../src/images/cpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
+      sculpture: {
+        url: '../src/images/lpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
+      streetArt: {
+        url: '../src/images/bpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
+      architectureArt: {
+        url: '../src/images/wpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
     };
 
     for (const genre in category) {
@@ -320,7 +322,6 @@ export default class Container extends React.Component {
           uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
           setMarkers={this.setMarkers}
-          getUserLocation={this.getUserLocation}
         />
         <ContainerNav />
       </div>
@@ -330,8 +331,4 @@ export default class Container extends React.Component {
 
 Container.propTypes = {
   path: React.PropTypes.string,
-};
-
-Container.contextTypes = {
-  router: React.PropTypes.func.isRequired,
 };

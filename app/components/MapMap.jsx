@@ -63,6 +63,7 @@ export default class MapMap extends React.Component {
       key: site.id,
       defaultAnimation: 2,
       showInfo: site.showInfo,
+      clickable: true,
     };
     return (
       <Marker {...marker}
