@@ -39,6 +39,11 @@ export default class MapMap extends React.Component {
     });
   }
 
+  infoWindowClick(marker) {
+    marker.showInfo = false;
+    this.context.router.transitionTo('sites-detail', {siteId: marker.id});
+  }
+
   renderMap(props) {
     const route = props.routes[props.routes.length - 1];
     if (route.path.match('nearby') || route.path.match('sites')) {
@@ -106,6 +111,13 @@ export default class MapMap extends React.Component {
   }
 
   renderInfoWindow(marker) {
+    const imageStyle = {
+      backgroundImage: `url(${marker.imageUrl})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      height: '200px',
+    };
+
     return (
       <InfoWindow
         key={`${marker.id}_info_window`}
@@ -113,12 +125,10 @@ export default class MapMap extends React.Component {
         onBlur={this.props.handleCloseClick.bind(this, marker)}
       >
         <div>
-          <strong>{marker.name}</strong>
-          <br />
-          <img src={marker.imageUrl}></img>
-          <p>by {marker.artist}</p>
-          <p>{marker.description}</p>
-          <p>{marker.imageUrl}</p>
+          <h2 className="InfoWindow__title">{marker.name}</h2>
+          <p className="InfoWindow__artist">by {marker.artist}</p>
+          <div className="InfoWindow__imageContainer" style={imageStyle} onClick={this.infoWindowClick.bind(this, marker)}></div>
+          <p className="InfoWindow__description">{marker.description}</p>
         </div>
       </InfoWindow>
     );
@@ -140,6 +150,60 @@ export default class MapMap extends React.Component {
   }
 
   render() {
+    const mapStyle = [{
+      'featureType': 'administrative',
+      'elementType': 'labels.text.fill',
+      'stylers': [{
+        'color': '#444444',
+      }],
+    }, {
+      'featureType': 'landscape',
+      'elementType': 'all',
+      'stylers': [{
+        'color': '#f2f2f2',
+      }],
+    }, {
+      'featureType': 'poi',
+      'elementType': 'all',
+      'stylers': [{
+        'visibility': 'off',
+      }],
+    }, {
+      'featureType': 'road',
+      'elementType': 'all',
+      'stylers': [{
+        'saturation': -100,
+      }, {
+        'lightness': 45,
+      }],
+    }, {
+      'featureType': 'road.highway',
+      'elementType': 'all',
+      'stylers': [{
+        'visibility': 'simplified',
+      }],
+    }, {
+      'featureType': 'road.arterial',
+      'elementType': 'labels.icon',
+      'stylers': [{
+        'visibility': 'off',
+      }],
+    }, {
+      'featureType': 'transit',
+      'elementType': 'all',
+      'stylers': [{
+        'visibility': 'off',
+      }],
+    }, {
+      'featureType': 'water',
+      'elementType': 'all',
+      'stylers': [{
+        'color': '#6e8088',
+      }, {
+        'visibility': 'on',
+      }],
+    }];
+
     return (
       <div className="MapSection">
         <GoogleMap
@@ -157,6 +221,9 @@ export default class MapMap extends React.Component {
           defaultZoom={12}
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
           onClick={() => this.props.onMarkerClick(null)}
+          defaultOptions={{
+            styles: mapStyle,
+          }}
         >
           {this.props.userLocation ? this.renderUserMarker() : null}
           {this.state.directions}
@@ -166,6 +233,10 @@ export default class MapMap extends React.Component {
     );
   }
 }
+
+MapMap.contextTypes = {
+  router: React.PropTypes.func.isRequired,
+};
 
 MapMap.propTypes = {
   params: React.PropTypes.object,

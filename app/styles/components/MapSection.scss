@@ -11,3 +11,11 @@
 
 // click through current position marker
 .gmnoprint { display: none; pointer-events: none; }
+
+// MapMap.jsx
+
+.InfoWindow__imageContainer { max-width: 100%; }
+.InfoWindow__title { width: 100%; height: 100%; margin: 0; padding: 0; }
+.InfoWindow__artist { width: 100%; height: 100%; margin: 0; padding-bottom: 1em; }
+.InfoWindow__description { width: 100%; height: 100%; }
+.InfoWindow__url { width: 100%; height: 100%; }
