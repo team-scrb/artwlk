@@ -31,11 +31,13 @@ export default class ContainerNavFabButton extends React.Component {
   handleMiniSiteFabClick() {
     const router = this.context.router;
     router.transitionTo('create');
+    this.handleFabClick();
   }
 
   handleMiniTourFabClick() {
     const router = this.context.router;
     router.transitionTo('create-tour');
+    this.handleFabClick();
   }
 
   render() {
