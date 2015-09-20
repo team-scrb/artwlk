@@ -302,7 +302,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    window.___ = this;
     const topBar = this.state.topBar ? (
       <TopBarSection
         {...this.props}
