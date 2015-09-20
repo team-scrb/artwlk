@@ -7,8 +7,6 @@ import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
 import {getTourByKey} from '../utils/tours';
-// import SiteList from './SiteList';
-// import TourList from './TourList';
 
 // styles
 import '../styles/components/Container';
@@ -143,16 +141,6 @@ export default class Container extends React.Component {
           tours: tours,
         });
       })
-      // .then(() => {
-      //   this.setState({
-      //     nearbyToursLoader: (
-      //       <div>
-      //         <h2 className="NearbySection__h2">Tours</h2>
-      //         <TourList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar} />
-      //       </div>
-      //     ),
-      //   });
-      // })
       .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
@@ -169,16 +157,6 @@ export default class Container extends React.Component {
             sites: this.state.sites.concat(siteInfo),
           });
         });
-        // .then(() => {
-        //   this.setState({
-        //     nearbySitesLoader: (
-        //       <div>
-        //         <h2 className="NearbySection__h2">Sites</h2>
-        //         <SiteList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar}/>
-        //       </div>
-        //     ),
-        //   });
-        // });
       });
     });
   }
