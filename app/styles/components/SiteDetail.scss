@@ -1,3 +1,10 @@
 @import "../utils/config";
 
 .SiteDetail { flex: 1; }
+.SiteDetail__meta { padding: 16px; }
+.SiteDetail__meta-title { margin: 0 0 16px; }
+.SiteDetail__meta-artist,
+.SiteDetail__meta-categories,
+.SiteDetail__meta-tags,
+.SiteDetail__meta-location { display: block; font-size: 12px; }
+.SiteDetail__description { margin: 0; padding: 16px; }
