@@ -1,3 +1,19 @@
 @import "../utils/config";
 
 .TourDetail { flex: 1; }
+.TourDetail__title { margin: 0 0 16px; }
+.TourDetail__meta { padding: 16px; }
+.TourDetail__meta-duration,
+.TourDetail__meta-distance,
+.TourDetail__meta-num-sites { display: block; font-size: 12px; }
+.TourDetail__meta-description { margin: 0 0 24px; padding: 0 16px; font-size: 12px; }
+
+.TourDetail__sitesHeader { margin: 16px 16px 0; font-weight: 700; }
+
+.TourDetail__sites { margin: 0; padding: 0; background: lighten($brand-highlight, 20%); overflow: hidden; }
+.TourDetail__site { list-style: none; margin: 0 0 16px; border-top: 1px solid $brand-border; border-bottom: 1px solid $brand-border; background: white; cursor: pointer; }
+.TourDetail__site-meta { padding: 16px; }
+.TourDetail__site-title,
+.TourDetail__site-artist { display: block; }
+.TourDetail__site-title { margin: 0; font-size: 12px; font-weight: 700; font-family: $font-roboto; text-transform: uppercase; }
+.TourDetail__site-artist { font-size: 12px; }

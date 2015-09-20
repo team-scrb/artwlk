@@ -2,7 +2,7 @@
 
 .TourList { flex: 1; }
 
-.TourList__tours { margin: 0; padding: 0; }
+.TourList__tours { flex: 1; margin: 0; padding: 0; background: lighten($brand-highlight, 20%); }
 
 .TourList__tour { list-style: none; margin: 0 0 16px; border-top: 1px solid $brand-border; border-bottom: 1px solid $brand-border; cursor: pointer; }
 .TourList__tour-hero-img { position: relative; }
@@ -12,5 +12,6 @@
 .TourList__tour-duration,
 .TourList__tour-num-sites,
 .TourList__tour-categories { font-size: 12px; }
+.TourList__tour-categories { float: right; padding: 0; list-style: none; }
 .TourList__tour-distance,
 .TourList__tour-duration { position: absolute; bottom: 0; }

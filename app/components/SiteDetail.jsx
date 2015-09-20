@@ -43,13 +43,21 @@ export default class SiteDetail extends React.Component {
 
     return (
       <div className="SiteDetail">
-        <img src={this.props.currSite.imageUrl} />
-        <h3>{this.props.currSite.name}</h3>
-        <h5>By: {this.props.currSite.artist}</h5>
-        <span>Categories: {categories}</span><br/>
-        <span>Hash Tags: {hashTags}</span><br/>
-        <span>Location: {showAddress}</span><br/>
-        <p>{this.props.currSite.description ? this.props.currSite.description : null}</p>
+        {this.props.currSite.imageUrl && (<div
+          style={{
+            background: `url(${this.props.currSite.imageUrl}) center center/cover`,
+            width: '100%',
+            height: '240px',
+          }}
+        />)}
+        <div className="SiteDetail__meta">
+          {this.props.currSite.name && <h2 className="SiteDetail__meta-title">{this.props.currSite.name}</h2>}
+          {this.props.currSite.artist && <span className="SiteDetail__meta-artist"><strong>By</strong>: {this.props.currSite.artist}</span>}
+          {categories && <span className="SiteDetail__meta-categories"><strong>Categories</strong>: {categories}</span>}
+          {hashTags && <span className="SiteDetail__meta-tags"><strong>Tags</strong>: {hashTags}</span>}
+          {showAddress && <span className="SiteDetail__meta-location"><strong>Location</strong>: {showAddress}</span>}
+        </div>
+        {this.props.currSite.description && <p className="SiteDetail__description">this.props.currSite.description</p>}
       </div>
     );
   }
