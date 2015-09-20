@@ -52,8 +52,6 @@ export default class TourDetail extends React.Component {
           );
         });
       }
-
-      console.log(sites);
     }
 
     return (
