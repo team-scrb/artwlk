@@ -68,41 +68,23 @@ export default class Container extends React.Component {
   }
 
   onMarkerClick(clickedMarker) {
-    const sites = this.state.sites;
-    // close all open infoBoxes
-    let index = sites.findIndex(site => site.showInfo);
-    let site = sites[index];
-    let closed = null;
-    if (site && site.showInfo) {
-      closed = site;
-      site = React.addons.update(site, {
-        showInfo: {$set: false},
-      });
-      sites.splice(index, 1, site);
-      this.setState({sites});
+    let currSite = this.state.currSite;
+    if (clickedMarker && currSite.id === clickedMarker.id) {
+      currSite = React.addons.update(currSite, {showInfo: {$apply: b => !b}});
+    } else {
+      currSite = React.addons.update(currSite, {showInfo: {$set: false}});
     }
+    this.setState({currSite: currSite});
 
-    // open the clicked marker
-    index = sites.findIndex(s => {
-      return clickedMarker && s.id === clickedMarker.id;
-    });
-
-    site = sites[index];
-    if (site && closed !== clickedMarker) {
-      site = React.addons.update(site, {
-        showInfo: {$set: true},
-      });
-      sites.splice(index, 1, site);
-      this.setState({sites});
-    }
-
-    // toggle open marker if clicked
-    if (clickedMarker && this.state.currSite.id === clickedMarker.id) {
-      const marker = React.addons.update(clickedMarker, {
-        showInfo: {$set: !clickedMarker.showInfo},
-      });
-      this.setState({currSite: marker});
-    }
+    const sites = this.state.sites.slice();
+    this.setState({sites: sites.map(site => {
+      if (clickedMarker && site.id === clickedMarker.id) {
+        return React.addons.update(site, {showInfo: {$apply: b => !b}});
+      } else if (site.showInfo) {
+        return React.addons.update(site, {showInfo: {$set: false}});
+      }
+      return site;
+    })});
   }
 
   getUserLocation(userLocation) {
