@@ -71,7 +71,6 @@ SiteList.contextTypes = {
 
 SiteList.propTypes = {
   renderTopBar: React.PropTypes.func.isRequired,
-  getSites: React.PropTypes.func.isRequired,
   setCurrMap: React.PropTypes.func.isRequired,
   sites: React.PropTypes.array,
   getCurrSite: React.PropTypes.func,

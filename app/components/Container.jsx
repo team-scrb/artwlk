@@ -7,8 +7,8 @@ import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
 import {getTourByKey} from '../utils/tours';
-import SiteList from './SiteList';
-import TourList from './TourList';
+// import SiteList from './SiteList';
+// import TourList from './TourList';
 
 // styles
 import '../styles/components/Container';
@@ -106,7 +106,6 @@ export default class Container extends React.Component {
   setCurrMap(currMap) {
     return new Promise((resolve) => {
       this.setState({ currMap }, resolve);
-      // TODO the resolve callback isn't always being called and we have no reject.  improve.
     });
   }
 
@@ -144,16 +143,16 @@ export default class Container extends React.Component {
           tours: tours,
         });
       })
-      .then(() => {
-        this.setState({
-          nearbyToursLoader: (
-            <div>
-              <h2 className="NearbySection__h2">Tours</h2>
-              <TourList limit="3" {...this.state} {...this.props} />
-            </div>
-          ),
-        });
-      })
+      // .then(() => {
+      //   this.setState({
+      //     nearbyToursLoader: (
+      //       <div>
+      //         <h2 className="NearbySection__h2">Tours</h2>
+      //         <TourList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar} />
+      //       </div>
+      //     ),
+      //   });
+      // })
       .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
@@ -168,14 +167,18 @@ export default class Container extends React.Component {
         .then(siteInfo => {
           this.setState({
             sites: this.state.sites.concat(siteInfo),
-            nearbySitesLoader: (
-              <div>
-                <h2 className="NearbySection__h2">Sites</h2>
-                <SiteList limit="3" {...this.state} {...this.props} />
-              </div>
-            ),
           });
         });
+        // .then(() => {
+        //   this.setState({
+        //     nearbySitesLoader: (
+        //       <div>
+        //         <h2 className="NearbySection__h2">Sites</h2>
+        //         <SiteList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar}/>
+        //       </div>
+        //     ),
+        //   });
+        // });
       });
     });
   }
@@ -321,6 +324,7 @@ export default class Container extends React.Component {
   }
 
   render() {
+    window.___ = this;
     const topBar = this.state.topBar ? (
       <TopBarSection
         {...this.props}

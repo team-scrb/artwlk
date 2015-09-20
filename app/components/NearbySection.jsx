@@ -2,6 +2,8 @@ import React from 'react';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
+import SiteList from './SiteList';
+import TourList from './TourList';
 
 // styles
 import '../styles/components/NearbySection';
@@ -109,12 +111,16 @@ export default class NearbySection extends React.Component {
   render() {
     return (
       <div className="NearbySection">
-        <div className="NearbySection__heroBtnContainer">
-          <button className="NearbySection__toursBtn" onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
-          <button className="NearbySection__sitesBtn" onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
+        <div>
+          <h2 className="NearbySection__h2">Sites</h2>
+          <SiteList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar}/>
         </div>
-        {this.props.nearbySitesLoader}
-        {this.props.nearbyToursLoader}
+        {this.props.sites.length ? null : this.props.nearbySitesLoader}
+        <div>
+          <h2 className="NearbySection__h2">Tours</h2>
+          <TourList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar} />
+        </div>
+        {this.props.tours.length ? null : this.props.nearbyToursLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -141,5 +147,6 @@ NearbySection.propTypes = {
   nearbySitesLoader: React.PropTypes.node,
   nearbyToursLoader: React.PropTypes.node,
   tours: React.PropTypes.array.isRequired,
+  sites: React.PropTypes.array.isRequired,
   limit: React.PropTypes.string,
 };
