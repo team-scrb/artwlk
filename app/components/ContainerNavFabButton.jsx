@@ -45,8 +45,8 @@ export default class ContainerNavFabButton extends React.Component {
     return (
       <div className="Conatiner__ContainerNavFabButton">
         <div className={miniSiteFab}>
-          <FloatingActionButton mini={true} className={miniTourFab} name="miniSite" data-route="create" ref="miniSite" onClick={this.handleMiniSiteFabClick}>Site</FloatingActionButton>
-          <FloatingActionButton mini={true} className={miniTourFab} data-route="create-tour" ref="miniTour" onClick={this.handleMiniTourFabClick}>Tour</FloatingActionButton>
+          <FloatingActionButton mini className={miniTourFab} name="miniSite" data-route="create" ref="miniSite" onClick={this.handleMiniSiteFabClick}>Site</FloatingActionButton>
+          <FloatingActionButton mini className={miniTourFab} data-route="create-tour" ref="miniTour" onClick={this.handleMiniTourFabClick}>Tour</FloatingActionButton>
         </div>
         <FloatingActionButton className={mainFab} onClick={this.handleFabClick} ref="mainFab">
           <i className="material-icons">add</i>

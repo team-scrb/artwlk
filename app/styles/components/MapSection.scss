@@ -8,3 +8,6 @@
 .MapSection__createLocation-map { display: flex; flex: 1; flex-direction: 1; align-items: center; justify-content: center; }
 .MapSection__createLocation-map:before { z-index: 1; content: ""; border: 3px solid red; -webkit-border-radius: 30px; height: 18px; width: 18px; -webkit-animation: pulsate 1s ease-out; -webkit-animation-iteration-count: infinite; opacity: 0; background: pink; pointer-events: none; }
 @-webkit-keyframes pulsate { 0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;} 50% {opacity: 1.0;} 100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;} }
+
+// click through current position marker
+.gmnoprint { display: none; pointer-events: none; }

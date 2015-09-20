@@ -19,7 +19,7 @@ export default class Container extends React.Component {
       origin: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
       sites: [],
       tours: [],
-      currMap: null,
+      currMap: 'all',
       currSite: {},
       currTour: {},
       childMapPosition: null,
@@ -36,6 +36,7 @@ export default class Container extends React.Component {
       topBar: null,
     };
 
+    this.getUserLocation = this.getUserLocation.bind(this);
     this.convertToAddress = this.convertToAddress.bind(this);
     this.setCurrMap = this.setCurrMap.bind(this);
     this.getCurrSite = this.getCurrSite.bind(this);
@@ -61,6 +62,9 @@ export default class Container extends React.Component {
 
   componentDidMount() {
     this.doSearch({});
+    if (this.props.path === '/') {
+      this.context.router.transitionTo('nearby');
+    }
   }
 
   onMarkerClick(clickedMarker) {
@@ -68,21 +72,23 @@ export default class Container extends React.Component {
     // close all open infoBoxes
     let index = sites.findIndex(site => site.showInfo);
     let site = sites[index];
+    let closed = null;
     if (site && site.showInfo) {
+      closed = site;
       site = React.addons.update(site, {
         showInfo: {$set: false},
       });
       sites.splice(index, 1, site);
+      this.setState({sites});
     }
 
     // open the clicked marker
     index = sites.findIndex(s => {
-      return s.id === clickedMarker.id;
+      return clickedMarker && s.id === clickedMarker.id;
     });
 
     site = sites[index];
-
-    if (site) {
+    if (site && closed !== clickedMarker) {
       site = React.addons.update(site, {
         showInfo: {$set: true},
       });
@@ -90,13 +96,19 @@ export default class Container extends React.Component {
       this.setState({sites});
     }
 
-
-    if (this.state.currSite.id === clickedMarker.id) {
+    // toggle open marker if clicked
+    if (clickedMarker && this.state.currSite.id === clickedMarker.id) {
       const marker = React.addons.update(clickedMarker, {
         showInfo: {$set: !clickedMarker.showInfo},
       });
       this.setState({currSite: marker});
     }
+  }
+
+  getUserLocation(userLocation) {
+    this.setState({
+      userLocation: userLocation,
+    });
   }
 
   setTopBar(topBarObj) {
@@ -323,6 +335,7 @@ export default class Container extends React.Component {
           uploadPhotoPreview={this.uploadPhotoPreview}
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
           setMarkers={this.setMarkers}
+          getUserLocation={this.getUserLocation}
         />
         <ContainerNav />
       </div>
@@ -332,4 +345,8 @@ export default class Container extends React.Component {
 
 Container.propTypes = {
   path: React.PropTypes.string,
+};
+
+Container.contextTypes = {
+  router: React.PropTypes.func.isRequired,
 };
