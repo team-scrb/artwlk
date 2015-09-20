@@ -246,10 +246,22 @@ export default class Container extends React.Component {
   markerIconHandler(category) {
     // Temporary fix until we finalize how we will do categories
     const iconSets = {
-      mural: '/src/images/paint-brush-2-icon.png',
-      sculpture: '/src/images/paint-brush-2-icon.png',
-      streetArt: '/src/images/paint-brush-2-icon.png',
-      architectureArt: '/src/images/paint-brush-2-icon.png',
+      mural: {
+        url: '../src/images/cpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
+      sculpture: {
+        url: '../src/images/lpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
+      streetArt: {
+        url: '../src/images/bpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
+      architectureArt: {
+        url: '../src/images/wpin.svg',
+        anchor: new google.maps.Point(2, 22),
+      },
     };
 
     for (const genre in category) {
