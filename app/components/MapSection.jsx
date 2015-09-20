@@ -38,9 +38,9 @@ export default class MapSection extends React.Component {
 
   openModal(modalContent) {
     if (modalContent === 'filter') {
-      this.setState({modalContent: <FilterSection />});
+      this.setState({modalContent: <FilterSection doFilterSearch={this.props.doFilterSearch} closeModal={this.closeModal}/>});
     } else {
-      this.setState({modalContent: <SearchSection />});
+      this.setState({modalContent: <SearchSection doSearch={this.props.doSearch} closeModal={this.closeModal} />});
     }
     this.setState({modalIsOpen: true});
   }
@@ -59,6 +59,10 @@ export default class MapSection extends React.Component {
       rightBtn: {
         name: 'List',
         route: 'nearby',
+      },
+      bottomBtn: {
+        name: 'Search',
+        click: this.openModal,
       },
     });
   }
@@ -86,4 +90,6 @@ MapSection.propTypes = {
   sites: React.PropTypes.array.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
+  doSearch: React.PropTypes.func.isRequired,
+  doFilterSearch: React.PropTypes.func.isRequired,
 };

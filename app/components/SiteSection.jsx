@@ -101,6 +101,10 @@ export default class SiteSection extends React.Component {
           name: 'List',
           route: 'sites',
         },
+        bottomBtn: {
+          name: 'Search',
+          click: this.openModal,
+        },
       });
       break;
     default:
@@ -116,6 +120,10 @@ export default class SiteSection extends React.Component {
           rightBtn: {
             name: isMap ? 'Details' : 'Map',
             route: `/sites${isMap ? '' : '/map'}/${this.props.currSite.id}`,
+          },
+          bottomBtn: {
+            name: 'Search',
+            click: this.openModal,
           },
         });
       }

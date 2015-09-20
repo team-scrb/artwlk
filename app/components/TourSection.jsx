@@ -90,6 +90,10 @@ export default class TourSection extends React.Component {
             name: 'Details',
             route: `/tours/${this.props.params.tourId}`,
           },
+          bottomBtn: {
+            name: 'Search',
+            click: this.openModal,
+          },
         });
       } else {
         props.setTopBar({
@@ -101,6 +105,10 @@ export default class TourSection extends React.Component {
           rightBtn: {
             name: 'List',
             route: 'tours',
+          },
+          bottomBtn: {
+            name: 'Search',
+            click: this.openModal,
           },
         });
       }
@@ -118,6 +126,10 @@ export default class TourSection extends React.Component {
           rightBtn: {
             name: isMap ? 'Details' : 'Map',
             route: `/tours${isMap ? '' : '/map'}/${this.props.params.tourId}`,
+          },
+          bottomBtn: {
+            name: 'Search',
+            click: this.openModal,
           },
         });
       }
