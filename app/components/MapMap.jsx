@@ -21,6 +21,7 @@ export default class MapMap extends React.Component {
 
   componentWillMount() {
     this.props.renderTopBar();
+    this.renderMap(this.props);
   }
 
   componentWillReceiveProps(props) {
@@ -51,6 +52,7 @@ export default class MapMap extends React.Component {
   }
 
   renderSingleSite(site) {
+    if (!site || !site.coords) return null;
     const marker = {
       siteInfo: site,
       icon: this.props.iconSets(site.category),
