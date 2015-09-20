@@ -21,7 +21,7 @@ export const onSearch = ({searchText, locationText}, filterSettings, handleSearc
     const val = filterSettings[key];
     return typeof val === 'boolean' && val;
   }));
-  location.then((center) => {
+  return location.then((center) => {
     const foundSites = {};
     const foundTours = {};
     onSitesWithinRadius(center, distance || 10, siteId => {
@@ -111,5 +111,6 @@ export const onSearch = ({searchText, locationText}, filterSettings, handleSearc
         }
       });
     });
+    return center;
   });
 };

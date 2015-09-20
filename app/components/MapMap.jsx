@@ -24,6 +24,9 @@ export default class MapMap extends React.Component {
   }
 
   componentWillReceiveProps(props) {
+    if (props.origin !== this.props.origin) {
+      setTimeout(() => this.refs.map.panTo(props.origin), 10);
+    }
     this.renderMap(props);
   }
 
@@ -145,6 +148,7 @@ export default class MapMap extends React.Component {
               top: 0, bottom: 0, right: 0, left: 0,
             },
           }}
+          center={this.props.origin}
           className="MapSection__map"
           ref="map"
           defaultZoom={12}
@@ -178,4 +182,5 @@ MapMap.propTypes = {
   renderTopBar: React.PropTypes.func.isRequired,
   getUserLocation: React.PropTypes.func.isRequired,
   userLocation: React.PropTypes.object,
+  origin: React.PropTypes.instanceOf(google.maps.LatLng),
 };

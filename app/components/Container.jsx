@@ -222,6 +222,9 @@ export default class Container extends React.Component {
       if (resultType === 'tour') {
         this.setState({tours: this.state.tours.concat(result)});
       }
+    })
+    .then(location => {
+      this.setState({origin: new google.maps.LatLng(location.coords.latitude, location.coords.longitude)});
     });
   }
 
