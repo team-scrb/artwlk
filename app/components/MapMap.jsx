@@ -126,12 +126,11 @@ export default class MapMap extends React.Component {
         lat: this.props.userLocation.coords.latitude,
         lng: this.props.userLocation.coords.longitude,
       },
-      defaultAnimation: 1,
       showInfo: true,
     };
 
     return (
-      <Marker {...marker} />
+      <Marker ref="userLocationMarker" {...marker} />
     );
   }
 
@@ -153,7 +152,7 @@ export default class MapMap extends React.Component {
           defaultCenter={{lat: 34.0147601, lng: -118.4934095}}
           onClick={() => this.props.onMarkerClick(null)}
         >
-          {/* this.props.userLocation ? this.renderUserMarker() : null */}
+          {this.props.userLocation ? this.renderUserMarker() : null}
           {this.state.directions}
           {this.state.markers}
         </GoogleMap>
