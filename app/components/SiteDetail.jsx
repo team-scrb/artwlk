@@ -57,7 +57,7 @@ export default class SiteDetail extends React.Component {
           {hashTags && <span className="SiteDetail__meta-tags"><strong>Tags</strong>: {hashTags}</span>}
           {showAddress && <span className="SiteDetail__meta-location"><strong>Location</strong>: {showAddress}</span>}
         </div>
-        {this.props.currSite.description && <p className="SiteDetail__description">this.props.currSite.description</p>}
+        {this.props.currSite.description && <p className="SiteDetail__description">{this.props.currSite.description}</p>}
       </div>
     );
   }
