@@ -45,6 +45,11 @@ export default class NearbySection extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.props.getTours();
+    this.props.getSites();
+  }
+
   openModal(modalContent) {
     if (modalContent === 'filter') {
       this.setState({modalContent: <FilterSection doFilterSearch={this.props.doFilterSearch} closeModal={this.closeModal}/>});
@@ -106,20 +111,16 @@ export default class NearbySection extends React.Component {
   render() {
     return (
       <div className="NearbySection">
-        <h2 className="NearbySection__h2">Sites</h2>
-        <SiteList
-          limit="3"
-          {...this.state}
-          {...this.props}
-          renderTopBar={this.renderTopBar}
-        />
-        <h2 className="NearbySection__h2">Tours</h2>
-        <TourList
-          limit="3"
-          {...this.state}
-          {...this.props}
-          renderTopBar={this.renderTopBar}
-        />
+        <div>
+          <h2 className="NearbySection__h2">Sites</h2>
+          <SiteList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar}/>
+        </div>
+        {this.props.sites.length ? null : this.props.nearbySitesLoader}
+        <div>
+          <h2 className="NearbySection__h2">Tours</h2>
+          <TourList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar} />
+        </div>
+        {this.props.tours.length ? null : this.props.nearbyToursLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -138,8 +139,14 @@ NearbySection.contextTypes = {
 NearbySection.propTypes = {
   setTopBar: React.PropTypes.func.isRequired,
   getSites: React.PropTypes.func.isRequired,
+  getTours: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   doSearch: React.PropTypes.func.isRequired,
   doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
+  nearbySitesLoader: React.PropTypes.node,
+  nearbyToursLoader: React.PropTypes.node,
+  tours: React.PropTypes.array.isRequired,
+  sites: React.PropTypes.array.isRequired,
+  limit: React.PropTypes.string,
 };

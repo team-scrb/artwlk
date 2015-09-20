@@ -34,6 +34,8 @@ export default class Container extends React.Component {
       filterProps: {},
       userlocation: null,
       topBar: null,
+      nearbySitesLoader: <div className="load"><hr/><hr/><hr/><hr/></div>,
+      nearbyToursLoader: <div className="load"><hr/><hr/><hr/><hr/></div>,
     };
 
     this.getUserLocation = this.getUserLocation.bind(this);
@@ -102,7 +104,6 @@ export default class Container extends React.Component {
   setCurrMap(currMap) {
     return new Promise((resolve) => {
       this.setState({ currMap }, resolve);
-      // TODO the resolve callback isn't always being called and we have no reject.  improve.
     });
   }
 
@@ -135,7 +136,11 @@ export default class Container extends React.Component {
         });
         return tours;
       })
-      .then(tours => this.setState({tours}))
+      .then(tours => {
+        this.setState({
+          tours: tours,
+        });
+      })
       .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 

@@ -73,7 +73,7 @@ export default class TourList extends React.Component {
 }
 
 TourList.contextTypes = {
-  router: React.PropTypes.func.isRequired,
+  router: React.PropTypes.func,
 };
 
 TourList.propTypes = {
