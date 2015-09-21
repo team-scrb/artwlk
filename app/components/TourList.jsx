@@ -57,7 +57,7 @@ export default class TourList extends React.Component {
             {tour.title && tour.categories && tour.sites && <span className="TourList__tour-meta">
               {tour.title && <h3 className="TourList__site-title">{tour.title}</h3>}
               {tour.categories && <ul className="TourList__tour-categories">{tour.categories && Object.keys(tour.categories).map(key => <li className="TourList__tour-category">{key}</li>)}</ul>}
-              {tour.sites && <span className="TourList__tour-num-sites">{tour.sites.length} points of interest</span>}
+              {tour.sites && <span className="TourList__tour-num-sites">{tour.sites.length} sites</span>}
             </span>}
           </li>
         );
