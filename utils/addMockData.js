@@ -29,6 +29,11 @@ const addMockArts = () => {
     {imageUrl: 'http://i.imgur.com/KjiSYn4.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.034904, -118.231242]},
     {imageUrl: 'http://i.imgur.com/JKr0dAX.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.035175, -118.231272]},
     {imageUrl: 'http://i.imgur.com/YJ9fw9u.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.034594, -118.231357]},
+    {imageUrl: 'http://i.imgur.com/YBqXOtO.jpg', name: 'Rainbow Building', artist: '', category: {streetArt: true}, location: [34.044527, -118.236732]},
+    {imageUrl: 'http://i.imgur.com/J7KpWRl.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.043452, -118.236534]},
+    {imageUrl: 'http://i.imgur.com/udAVA7H.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.043139, -118.234383]},
+    {imageUrl: 'http://i.imgur.com/HGmXHjy.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.044689, -118.234962]},
+    {imageUrl: 'http://i.imgur.com/MbghtdH.jpg', name: '', artist: 'I never finish anyt...', category: {streetArt: true}, location: [34.043450, -118.236524]},
   ];
 
 
