@@ -25,7 +25,12 @@ const addMockArts = () => {
     {imageUrl: 'http://i.imgur.com/boPfPfg.jpg', name: 'Rear View', artist: 'D*Face x Branded Arts', category: {mural: true, streetArt: true}, location: [34.032996, -118.443642]},
     {imageUrl: 'http://i.imgur.com/GzQ6g97.jpg', name: 'Isle of California', artist: 'Los Angeles Fine Arts Squad', category: {mural: true}, location: [34.045288, -118.451485]},
     {imageUrl: 'http://i.imgur.com/GzQ6g97.jpg', name: 'Plastic Jesus Show', artist: 'Judith Baca', category: {mural: true}, location: [34.045288, -118.451485]},
+    {imageUrl: 'http://i.imgur.com/dfiDgW9.jpg', name: 'Bradbury Building - Charlie Chaplin Sculpture', artist: '', category: {sculpture: true}, location: [34.050536, -118.247861]},
+    {imageUrl: 'http://i.imgur.com/KjiSYn4.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.034904, -118.231242]},
+    {imageUrl: 'http://i.imgur.com/JKr0dAX.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.035175, -118.231272]},
+    {imageUrl: 'http://i.imgur.com/YJ9fw9u.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.034594, -118.231357]},
   ];
+
 
   /*
   const siteInfo = {
