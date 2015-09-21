@@ -124,7 +124,8 @@ export default class MapMap extends React.Component {
       backgroundImage: `url(${marker.imageUrl})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      height: '200px',
+      height: '240px',
+      width: '360px',
     };
 
     return (
@@ -133,7 +134,7 @@ export default class MapMap extends React.Component {
         onCloseclick={this.props.handleCloseClick.bind(this, marker)}
         onBlur={this.props.handleCloseClick.bind(this, marker)}
       >
-        <div>
+        <div className="InfoWindow">
           <h2 className="InfoWindow__title">{marker.name}</h2>
           <p className="InfoWindow__artist">by {marker.artist}</p>
           <div className="InfoWindow__imageContainer" style={imageStyle} onClick={this.infoWindowClick.bind(this, marker)}></div>

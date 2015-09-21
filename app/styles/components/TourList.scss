@@ -12,8 +12,12 @@
 .TourList__tour-distance,
 .TourList__tour-duration,
 .TourList__tour-num-sites,
-.TourList__tour-categories { font-size: 12px; }
+.TourList__tour-categories,
+.TourList__tour-category { font-size: 12px; }
 .TourList__tour-categories { float: right; padding: 0; list-style: none; }
+.TourList__tour-category { display: inline; }
+.TourList__tour-category:after { content: ", "; }
+.TourList__tour-category:last-child:after { content: ""; }
 .TourList__tour-distance,
 .TourList__tour-duration { position: absolute; bottom: 8px; font-size: 10px; color: white; }
 .TourList__tour-distance { left: 8px; }
