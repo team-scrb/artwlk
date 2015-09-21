@@ -45,13 +45,20 @@ Art Wlk allows users to share and discover the location of public art pieces thr
 ##Overview:
 Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel and is used throughout the majority of the codebase. Firebase is used to store site, tour, and user information and the Imgur API for photo hosting. We use Webpack as our module bundler and build system. Note that because of ES6 and Webpack, we are able to import npm modules into the front-end.
 
+##State Management:
+Container is the parent component for all other components and processes most setState calls. All other components are children of Container and are passed the application state through props. Children do not call setState directly to make changes to the application state; rather they use state handling methods passed down as props from Container. These state handling methods are bound to Container.
+
+This data-flow provides an extra layer of data immutability which helps developers narrow down where the data is being manipulated.
+
+##File Structure:
 ```
 .
 ├── README.md
-├── app [Main app directory]
-│   ├── components [React Component]
+├── app
+│   ├── components
 │   │   ├── Container.jsx
 │   │   ├── ContainerNav.jsx
+│   │   ├── ContainerNavFabButton.jsx
 │   │   ├── CreateLocationSelector.jsx
 │   │   ├── CreateSection.jsx
 │   │   ├── CreateTour.jsx
@@ -71,17 +78,17 @@ Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel a
 │   │   ├── TourList.jsx
 │   │   ├── TourSection.jsx
 │   │   └── login-signup
-│   ├── config 
-│   │   └── routes.js [React Router routes]
-│   ├── main.jsx //Root react component. Loads in all of the routes from routes.js
+│   ├── config
+│   │   └── routes.js
+│   ├── main.jsx
 │   ├── styles
 │   │   ├── components
 │   │   └── utils
-│   └── utils [Javascript (non-React) utility/helper functions]
+│   └── utils
 │       ├── auth.js
 │       ├── geo.js
 │       ├── movement.js
-│       ├── photo.js  [IMGUR CLIENT ID HERE]
+│       ├── photo.js  *** FILL OUT IMGUR ID - Authorization: 'Client-ID [IMGUR ID]' ***
 │       ├── search.js
 │       ├── sites.js
 │       ├── tours.js
@@ -89,15 +96,32 @@ Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel a
 ├── config.js
 ├── firebase.json
 ├── karma.conf.js
+├── node_modules
 ├── package.json
 ├── public
-│   ├── index.html  [GOOGLE MAPS API KEY HERE]
+│   ├── index.html  *** FILL OUT GOOGLE MAPS API KEY ***
 │   └── src
 │       ├── fonts
 │       └── images
 ├── server
 │   └── bundle.js
 ├── server.js
+├── spec
+│   ├── SpecHelper.js
+│   ├── app
+│   │   └── utils
+│   └── templates
+│       ├── CreateSection.html
+│       ├── MapSection.html
+│       ├── TourSection.html
+│       └── package.json
+├── utils
+│   ├── addMockData.js
+│   ├── clearDB.js
+│   ├── installGitHooks.sh
+│   ├── post-rewrite
+│   ├── pre-commit
+│   └── pre-push
 ├── webpack.config.js
 └── webpack.production.config.js
 ```
