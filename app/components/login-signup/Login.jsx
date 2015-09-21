@@ -37,7 +37,7 @@ export default class Login extends React.Component {
     return (
       <div className="Login" onClick={this.doLogin}>
         <img src="../src/images/FB-f-Logo__blue_50.png" className="Login__img" />
-        <span className="Login__span">Signin with Facebook</span>
+        <span className="Login__span">Sign in with Facebook</span>
       </div>
     );
   }
