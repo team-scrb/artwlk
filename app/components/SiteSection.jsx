@@ -53,6 +53,11 @@ export default class SiteSection extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    const node = React.findDOMNode(this);
+    node.scrollTop = 0;
+  }
+
   openModal(modalContent) {
     if (modalContent === 'filter') {
       this.setState({modalContent: <FilterSection doFilterSearch={this.props.doFilterSearch} closeModal={this.closeModal}/>});
