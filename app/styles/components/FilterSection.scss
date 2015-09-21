@@ -1,3 +1,22 @@
 @import "../utils/config";
 
-.FilterSection { flex: 1; overflow-y: scroll; }
+.FilterSection { flex: 1; overflow-y: scroll; display: flex; flex-direction: column;}
+.FilterSelector { flex: 1; overflow-y: scroll; display: flex; }
+.FilterSelector__form-label { font-size: 10px!important; color: $brand-highlight!important; margin: 1.5em 0 .5em }
+.FilterSelector__input-item { display: flex; flex-direction: column; display: block; margin-top: auto; background: none; padding-top: 2px; padding-bottom: 1px; padding-left: 2px; padding-right: 2px; border-width: 0 0 1px 0; line-height: 26px; -ms-flex-preferred-size: 26px; border-radius: 0; width: auto; font-size: 16px; color: $brand-primary; width: 100%; margin-bottom:.5em; }
+.FilterSelector__input-item:focus { outline:none; border-bottom: 1px solid $brand-highlight; -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1);}
+.FilterSelector__button-container { display: flex; flex-direction: row; }
+.FilterSelector__button,
+.FilterSelector__button-cancel { width: 100vw; height: 44px; border: 0; font-size: 12px; font-weight: 700; text-transform: uppercase;  margin: 1em 0; display: flex; text-align: center; justify-content: space-around; margin: 0;}
+.FilterSelector__button { background: $brand-tertiary; color: $brand-text; }
+.FilterSelector__button-cancel { background: $brand-text; color: $brand-tertiary; }
+.FilterSelector__button:first-child { margin-right: .5em;}
+.FilterSelector__button:last-child { margin-left: .5em;}
+.FilterSelector__button:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }
+.FilterSelector__button-cancel:hover { background: lighten($brand-text, 4%); color: darken($brand-tertiary, 5%) }
+.FilterSelector__button:focus,
+.FilterSelector__button-cancel:focus { outline: none; }
+.FilterSelector__checkbox { flex-direction: row; width: 100%; }
+.FilterSelector__checkbox-item { margin-bottom: 5px; list-style: none;}
+.FilterSelector__checkbox-item:last-child { margin-bottom: 20px;}
+.FilterSelector__checkbox-item-input { margin-right: 5px;}

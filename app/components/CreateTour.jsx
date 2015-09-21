@@ -87,8 +87,10 @@ export default class CreateTour extends React.Component {
               {list}
             </ul>
           </div>
-          <button onClick={this.selectSites} className="CreateTour__form-submit">Select Sites</button>
-          <input type="submit" name="Save" className="CreateTour__form-submit" />
+          <div className="CreateTour__form-submit-container">
+            <button onClick={this.selectSites} className="CreateTour__form-select">Select Sites</button>
+            <input type="submit" name="Save" className="CreateTour__form-submit" />
+          </div>
         </form>
       </div>
     );
