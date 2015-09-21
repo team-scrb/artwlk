@@ -140,8 +140,8 @@ export default class TourSection extends React.Component {
       }
     }
   }
-
   render() {
+    const showSpinner = this.props.tours.length || this.props.currTour;
     return (
       <div className="TourSection">
         <RouteHandler
@@ -149,7 +149,7 @@ export default class TourSection extends React.Component {
           {...this.props}
           renderTopBar={this.renderTopBar}
         />
-      {this.props.tours.length ? null : this.props.nearbyToursLoader}
+        {showSpinner ? null : this.props.nearbyToursLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

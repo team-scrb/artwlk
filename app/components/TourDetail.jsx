@@ -27,8 +27,9 @@ export default class TourDetail extends React.Component {
     const tour = this.props.currTour;
     let sites;
 
-    if (tour) {
-      const _tour = this.props.tours.find(t => t.id === tour.id);
+    if (tour && tour.sites) {
+      // const _tour = this.props.tours.find(t => t.id === tour.id);
+      const _tour = tour;
 
       if (_tour) {
         sites = _tour.sites.map(site => {
