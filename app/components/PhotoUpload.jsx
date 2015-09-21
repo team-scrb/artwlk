@@ -33,7 +33,7 @@ export default class PhotoUpload extends React.Component {
         <Dropzone ref="dropzone" onDrop={this.onDrop} >
         {
           this.props.imageData ? <div><img src={this.props.photoUploadFile.preview} /></div> :
-          <div>Try dropping some files here, or click to select files to upload.</div>
+          <div className="PhotoUpload__message">Try dropping some files here, or click to select files to upload.</div>
         }
         </Dropzone>
       </div>
