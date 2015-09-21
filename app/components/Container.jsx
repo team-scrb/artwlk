@@ -251,7 +251,6 @@ export default class Container extends React.Component {
   }
 
   markerIconHandler(category) {
-    // Temporary fix until we finalize how we will do categories
     const iconSets = {
       mural: {
         url: '../src/images/cpin.svg',

@@ -12,6 +12,7 @@ export default class SearchSection extends React.Component {
     };
     this.handleFocus = this.handleFocus.bind(this);
     this.closeSearch = this.closeSearch.bind(this);
+    this.closeSearchModal = this.closeSearchModal.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +32,8 @@ export default class SearchSection extends React.Component {
     this.props.closeModal();
   }
 
-  closeSearchModal() {
+  closeSearchModal(event) {
+    event.preventDefault();
     this.props.closeModal();
   }
 

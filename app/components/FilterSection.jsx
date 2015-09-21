@@ -7,9 +7,11 @@ export default class FilterSection extends React.Component {
   constructor() {
     super();
     this.closeFilter = this.closeFilter.bind(this);
+    this.closeFilterModal = this.closeFilterModal.bind(this);
   }
 
-  closeFilter() {
+  closeFilter(event) {
+    event.preventDefault();
     this.props.doFilterSearch({
       architecture: this.refs.architecture.getDOMNode().checked,
       mural: this.refs.mural.getDOMNode().checked,
@@ -20,7 +22,8 @@ export default class FilterSection extends React.Component {
     this.props.closeModal();
   }
 
-  closeFilterModal() {
+  closeFilterModal(event) {
+    event.preventDefault();
     this.props.closeModal();
   }
 
@@ -38,7 +41,7 @@ export default class FilterSection extends React.Component {
           <label className="FilterSelector__input"><input type="text" ref="distance" placeholder="Distance in km" className="FilterSelector__input-item"/></label><br/>
           <div className="FilterSelector__button-container">
             <input type="submit" className="FilterSelector__button" name="Seach" />
-            <button className="FilterSelector__button-cancel" onSubmit={this.closeFilterModal}>Cancel</button>
+            <button className="FilterSelector__button-cancel" onClick={this.closeFilterModal}>Cancel</button>
           </div>
         </form>
       </div>
