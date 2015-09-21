@@ -2,10 +2,10 @@
 ####An application for users discover and plot public art sites on a map.
 
 ##Problem
-Public art is hard to find without knowledge of the location of the art piece.
+Public art is hard to find without prior knowledge or exploration of the area.
 
 ##Strategy
-Art Wlk allows users to share and discover the location of public art pieces through an easy to use interface.
+Art Wlk allows users to share and discover locations of public art pieces through an easy to use interface.
 
 ## Developer Documentation
 
@@ -38,9 +38,9 @@ Art Wlk allows users to share and discover the location of public art pieces thr
   3. Input your Google Maps API key in the appropriate file (found in the tree diagram below)
   4. Input your Imgur API key (found in the tree diagram below)
   5. Input the FB API key into the Firebase dashboard.
-  5. npm install - server dependencies
-  6. npm start - run the app on a local server
-  7. Visit http://localhost:3000/ on your browser
+  6. npm install - server dependencies
+  7. npm start - run the app on a local server
+  8. Visit http://localhost:3000/ on your browser
 
 ##Overview:
 Art Wlk uses React and ES6 for the views. ES6 syntax is made possible by Babel and is used throughout the majority of the codebase. Firebase is used to store site, tour, and user information and the Imgur API for photo hosting. We use Webpack as our module bundler and build system. Note that because of ES6 and Webpack, we are able to import npm modules into the front-end.
