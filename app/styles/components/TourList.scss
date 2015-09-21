@@ -14,7 +14,8 @@
 .TourList__tour-num-sites,
 .TourList__tour-categories,
 .TourList__tour-category { font-size: 12px; }
-.TourList__tour-categories { float: right; padding: 0; list-style: none; }
+.TourList__tour-num-sites { display: block; }
+.TourList__tour-categories { float: right; max-width: 50%; padding: 0 0 0 16px; list-style: none; }
 .TourList__tour-category { display: inline; }
 .TourList__tour-category:after { content: ", "; }
 .TourList__tour-category:last-child:after { content: ""; }
