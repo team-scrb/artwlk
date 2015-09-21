@@ -46,8 +46,8 @@ export default class NearbySection extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.sites.length) this.props.getTours();
-    if (!this.props.tours.length) this.props.getSites();
+    if (!this.props.tours.length) this.props.getTours();
+    if (!this.props.sites.length) this.props.getSites();
   }
 
   openModal(modalContent) {

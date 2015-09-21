@@ -34,7 +34,13 @@ export default class CreateTour extends React.Component {
       title: this.refs.title.getDOMNode().value,
       descriptions: this.refs.description.getDOMNode().value,
       sites: this.props.selectedSites,
-    }).then(() => {
+    })
+    .then(tour => {
+      return this.props.getCurrTour(tour.id).then(_tour => {
+        this.props.appendTour(_tour);
+      });
+    })
+    .then(tour => {
       this.props.saveTourFormData({
         title: '',
         description: '',
@@ -43,8 +49,10 @@ export default class CreateTour extends React.Component {
       this.props.selectSites([]);
       this.refs.title.getDOMNode().value = '';
       this.refs.description.getDOMNode().value = '';
-      this.context.router.transitionTo('tours');
-    });
+      this.context.router.transitionTo('tours-detail', {tourId: tour.id});
+      return tour;
+    })
+    .catch(err => console.error(err)); // eslint-disable-line no-console
   }
 
   selectSites(event) {
@@ -106,6 +114,8 @@ CreateTour.propTypes = {
   saveTourFormData: React.PropTypes.func.isRequired,
   tourFormData: React.PropTypes.object.isRequired,
   selectSites: React.PropTypes.func.isRequired,
+  appendTour: React.PropTypes.func.isRequired,
+  getCurrTour: React.PropTypes.func.isRequired,
 };
 
 CreateTour.contextTypes = {
