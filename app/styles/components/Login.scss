@@ -1,3 +1,4 @@
 @import "../utils/config";
 
-.Login { flex: 1; }
+.Login { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.Login__img { margin: 16px; }
