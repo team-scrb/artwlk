@@ -100,12 +100,12 @@ export default class CreateSection extends React.Component {
   render() {
     return (
       <div className="CreateSection">
-        <h2>Create Site Here</h2>
+        <h2 className="CreateSection__title">Create Site Here</h2>
         <form onSubmit={this.submit} className="CreateSection__form">
           <PhotoUpload {...this.props} />
           <button className="CreateSection__form-location" onClick={this.selectLocationHandler}>{this.props.createFormLocation ? 'Update Location' : 'Select Location'}</button>
+          <span className="CreateSection__form-location-address">{this.props.address ? this.props.address : this.props.userLocation}</span>
           <div className="CreateSection__form-container">
-            <h3>{this.props.address ? this.props.address : this.props.userLocation}</h3>
             <label className="CreateSection__form-label">Name
               <input type="text" className="CreateSection__form-input" data-name="name" ref="name" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.name} />
             </label>

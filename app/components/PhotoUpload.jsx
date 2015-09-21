@@ -30,11 +30,17 @@ export default class PhotoUpload extends React.Component {
   render() {
     return (
       <div className="PhotoUpload">
-        <Dropzone ref="dropzone" onDrop={this.onDrop} >
-        {
-          this.props.imageData ? <div><img src={this.props.photoUploadFile.preview} /></div> :
-          <div className="PhotoUpload__message">Try dropping some files here, or click to select files to upload.</div>
-        }
+        <Dropzone className="PhotoUpload__dropzone" ref="dropzone" onDrop={this.onDrop}>
+          {this.props.imageData ? (
+            <div style={{
+              background: `url(${this.props.photoUploadFile.preview}) no-repeat center center/cover`,
+              width: '100%',
+              height: '100%',
+              overflow: 'hidden',
+            }} />
+          ) : (
+            <div className="PhotoUpload__message">Try dropping some files here, or click to select files to upload.</div>
+          )}
         </Dropzone>
       </div>
     );
