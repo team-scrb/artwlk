@@ -175,14 +175,16 @@ export default class Container extends React.Component {
   }
 
   getCurrTour(tourId) {
-    if (tourId) {
-      getTourByKey(tourId)
-      .then(currTour => {
-        this.setState({ currTour });
-      });
-    } else {
-      this.setState({ currTour: {} });
-    }
+    return new Promise((resolve) => {
+      if (tourId) {
+        getTourByKey(tourId)
+        .then(currTour => {
+          this.setState({ currTour }, resolve);
+        });
+      } else {
+        this.setState({ currTour: {} }, resolve);
+      }
+    });
   }
 
   getLatLng(latLng) {
@@ -330,7 +332,6 @@ export default class Container extends React.Component {
           saveTourFormData={this.saveTourFormData}
           doSearch={this.doSearch}
           doFilterSearch={this.doFilterSearch}
-          getCurrTour={this.getCurrTour}
           convertToAddress={this.convertToAddress}
           setImageData={this.setImageData}
           resetCreateSiteForm={this.resetCreateSiteForm}
