@@ -26,14 +26,14 @@ const addMockArts = () => {
     {imageUrl: 'http://i.imgur.com/GzQ6g97.jpg', name: 'Isle of California', artist: 'Los Angeles Fine Arts Squad', category: {mural: true}, location: [34.045288, -118.451485]},
     {imageUrl: 'http://i.imgur.com/GzQ6g97.jpg', name: 'Plastic Jesus Show', artist: 'Judith Baca', category: {mural: true}, location: [34.045288, -118.451485]},
     {imageUrl: 'http://i.imgur.com/dfiDgW9.jpg', name: 'Bradbury Building - Charlie Chaplin Sculpture', artist: '', category: {sculpture: true}, location: [34.050536, -118.247861]},
-    {imageUrl: 'http://i.imgur.com/KjiSYn4.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.034904, -118.231242]},
-    {imageUrl: 'http://i.imgur.com/JKr0dAX.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.035175, -118.231272]},
-    {imageUrl: 'http://i.imgur.com/YJ9fw9u.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.034594, -118.231357]},
+    {imageUrl: 'http://i.imgur.com/KjiSYn4.jpg', name: '7th and Imperial Graffiti', artist: '', category: {streetArt: true}, location: [34.034904, -118.231242]},
+    {imageUrl: 'http://i.imgur.com/JKr0dAX.jpg', name: 'TRIGZ', artist: '', category: {streetArt: true}, location: [34.035175, -118.231272]},
+    {imageUrl: 'http://i.imgur.com/YJ9fw9u.jpg', name: 'Fence', artist: '', category: {streetArt: true}, location: [34.034594, -118.231357]},
     {imageUrl: 'http://i.imgur.com/YBqXOtO.jpg', name: 'Rainbow Building', artist: '', category: {streetArt: true}, location: [34.044527, -118.236732]},
-    {imageUrl: 'http://i.imgur.com/J7KpWRl.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.043452, -118.236534]},
-    {imageUrl: 'http://i.imgur.com/udAVA7H.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.043139, -118.234383]},
-    {imageUrl: 'http://i.imgur.com/HGmXHjy.jpg', name: '', artist: '', category: {streetArt: true}, location: [34.044689, -118.234962]},
-    {imageUrl: 'http://i.imgur.com/MbghtdH.jpg', name: '', artist: 'I never finish anyt...', category: {streetArt: true}, location: [34.043450, -118.236524]},
+    {imageUrl: 'http://i.imgur.com/J7KpWRl.jpg', name: 'Blue Girl', artist: '', category: {streetArt: true}, location: [34.043452, -118.236534]},
+    {imageUrl: 'http://i.imgur.com/udAVA7H.jpg', name: 'Back to Back', artist: '', category: {streetArt: true}, location: [34.043139, -118.234383]},
+    {imageUrl: 'http://i.imgur.com/HGmXHjy.jpg', name: 'Red', artist: '', category: {streetArt: true}, location: [34.044689, -118.234962]},
+    {imageUrl: 'http://i.imgur.com/MbghtdH.jpg', name: 'I never finish anyt...', artist: 'I never finish anyt...', category: {streetArt: true}, location: [34.043450, -118.236524]},
   ];
 
   /*
