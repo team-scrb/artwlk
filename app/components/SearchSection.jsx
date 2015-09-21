@@ -7,7 +7,6 @@ export default class SearchSection extends React.Component {
   constructor() {
     super();
     this.state = {
-      // className: 'SearchSection',
       location: new google.maps.LatLng(34.04935261524454, -118.24610710144043),
     };
     this.handleFocus = this.handleFocus.bind(this);
@@ -43,7 +42,6 @@ export default class SearchSection extends React.Component {
 
   render() {
     return (
-      // <div className={this.state.className}>
       <div className="SearchForm">
         <h3 className="SearchForm__title">Search Artwlk</h3>
         <form onSubmit={this.closeSearch} className="SearchForm__form">
