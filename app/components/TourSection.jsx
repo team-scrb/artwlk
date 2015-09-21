@@ -36,6 +36,11 @@ export default class TourSection extends React.Component {
     getLocation().then(this.props.getSites);
   }
 
+  componentDidUpdate() {
+    const node = React.findDOMNode(this);
+    node.scrollTop = 0;
+  }
+
   siteDetailClick(event) {
     const router = this.context.router;
     router.transitionTo('tours-detail', { siteId: event.target.dataset.route });
