@@ -9,7 +9,10 @@ export default class SiteDetail extends React.Component {
   }
 
   componentWillMount() {
-    this.props.renderTopBar();
+    this.props.getCurrSite(this.props.params.siteId)
+      .then(() => {
+        this.props.renderTopBar();
+      });
   }
 
   render() {

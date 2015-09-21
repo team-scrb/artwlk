@@ -13,12 +13,13 @@ export default class TourDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCurrTour(this.props.params.tourId);
-    this.props.renderTopBar();
+    this.props.getCurrTour(this.props.params.tourId)
+      .then(() => {
+        this.props.renderTopBar();
+      });
   }
 
   siteDetailClick(siteInfo) {
-    this.props.getCurrSite(siteInfo.id);
     this.context.router.transitionTo('sites-detail', { siteId: siteInfo.id });
   }
 
@@ -88,8 +89,6 @@ TourDetail.propTypes = {
   getTours: React.PropTypes.func.isRequired,
   getCurrTour: React.PropTypes.func.isRequired,
   tours: React.PropTypes.array,
-  currSite: React.PropTypes.object,
   currTour: React.PropTypes.object,
   params: React.PropTypes.object,
-  getCurrSite: React.PropTypes.func.isRequired,
 };
