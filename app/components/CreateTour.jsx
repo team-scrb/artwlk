@@ -8,6 +8,7 @@ import '../styles/components/CreateTour';
 export default class CreateTour extends React.Component {
   constructor(props) {
     super(props);
+
     this.onDrop = this.onDrop.bind(this);
     this.save = this.save.bind(this);
     this.selectSites = this.selectSites.bind(this);
@@ -15,7 +16,7 @@ export default class CreateTour extends React.Component {
 
   componentWillMount() {
     this.props.setTopBar({
-      title: 'Create',
+      title: 'Create Tour',
     });
   }
 
@@ -70,9 +71,9 @@ export default class CreateTour extends React.Component {
       return (
         <div>
           <Droppable
-              types={['site']}
-              onDrop={this.onDrop.bind(null, n.id)}>
-              <Draggable type="site" data={n.id}><li className="CreateTour__form-list-item">{n.name}</li></Draggable>
+            types={['site']}
+            onDrop={this.onDrop.bind(null, n.id)}>
+            <Draggable type="site" data={n.id}><li className="CreateTour__form-list-item">{n.name}</li></Draggable>
           </Droppable>
         </div>
       );
@@ -80,7 +81,6 @@ export default class CreateTour extends React.Component {
 
     return (
       <div className="CreateTour">
-        <h1>Create Tour</h1>
         <form className="CreateTour__form" onSubmit={this.save}>
           <div className="CreateSection__form-container">
             <label className="CreateTour__form-label">
@@ -91,16 +91,13 @@ export default class CreateTour extends React.Component {
               Description
               <input className="CreateTour__form-input" type="text" ref="description" defaultValue={this.props.tourFormData && this.props.tourFormData.description} />
             </label>
-            <p className="CreateTour__form-label">Selected Sites:</p>
-            <span className="CreateTour__form-label-emphasized">Drag and drop to reorder</span>
+            <button onClick={this.selectSites} className="CreateTour__form-select">Select Sites</button>
+            {(this.props.selectedSites.length > 0) && <span className="CreateTour__form-label-emphasized">Drag and drop to reorder</span>}
             <ol className="CreateTour__form-list">
               {list}
             </ol>
           </div>
-          <div className="CreateTour__form-submit-container">
-            <button onClick={this.selectSites} className="CreateTour__form-select">Select Sites</button>
-            <input type="submit" name="Save" className="CreateTour__form-submit" />
-          </div>
+          <input type="submit" name="Save" className="CreateTour__form-submit" />
         </form>
       </div>
     );

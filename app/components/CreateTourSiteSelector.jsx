@@ -42,7 +42,16 @@ export default class CreateTourSiteSelector extends React.Component {
 
   render() {
     const list = this.state.sites.map((n, i) =>
-      <li className="CreateTourSiteSelector__form-checkbox-item"><label><input type="checkbox" className="CreateTourSiteSelector__form-checkbox-item-input" ref={'site' + i}/>{n.name}</label></li>
+      (<li className="CreateTourSiteSelector__form-checkbox-item">
+        <label className="CreateTourSiteSelector__form-checkbox-item-label">
+          <input
+            type="checkbox"
+            className="CreateTourSiteSelector__form-checkbox-item-input"
+            ref={'site' + i}
+          />
+            {n.name}
+        </label>
+      </li>)
     );
 
     return (

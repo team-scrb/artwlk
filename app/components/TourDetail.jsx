@@ -57,7 +57,7 @@ export default class TourDetail extends React.Component {
           style={{
             background: `url(${tour.imageUrl}) center center/cover`,
             width: '100%',
-            height: '240px',
+            height: '360px',
           }}
         />)}
         <div className="TourDetail__meta">
