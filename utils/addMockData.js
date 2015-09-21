@@ -36,7 +36,6 @@ const addMockArts = () => {
     {imageUrl: 'http://i.imgur.com/MbghtdH.jpg', name: '', artist: 'I never finish anyt...', category: {streetArt: true}, location: [34.043450, -118.236524]},
   ];
 
-
   /*
   const siteInfo = {
     coords: {latitude, longitude},
