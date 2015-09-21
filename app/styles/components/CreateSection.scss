@@ -1,6 +1,7 @@
 @import "../utils/config";
 
-.CreateSection { flex: 1; overflow-y: scroll; }
+.CreateSection { flex: 1; overflow-x: hidden; overflow-y: scroll; }
+.CreateSection__title { margin: 16px; }
 .CreateSection__selectLocationBtn { color: red; }
 .CreateSection__form { display: flex; flex-direction: column; }
 .CreateSection__form-container { padding:0 10px; flex-wrap: wrap; }
@@ -12,11 +13,13 @@
 .CreateSection__form-checkbox-item { margin: 0 5px 0 15px; margin-bottom: 1em; }
 .CreateSection__form-checkbox-item:first-of-type { margin: 0 5px 0 0px; }
 .CreateSection__form-location,
-.CreateSection__form-submit { width: 100vw; height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; }
+.CreateSection__form-submit { min-height: 44px; border: 0; background: $brand-tertiary; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; }
 .CreateSection__form-location:hover,
 .CreateSection__form-submit:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }
 .CreateSection__form-location:focus,
 .CreateSection__form-submit:focus { outline: none; }
+.CreateSection__form-location { margin: 0 16px 8px; border-radius: 4px; }
+.CreateSection__form-location-address { margin: 0 16px 24px; }
 .CreateModal { width: 100%; display: flex; flex-direction: column; justify-content: center; }
 .CreateModal__title { text-align: center; display: flex; justify-content: center; }
 .CreateModal__button { display: flex; width: 50%; height: 44px; border: 0; font-size: 12px; font-weight: 700; text-transform: uppercase; margin: 0 auto; background: $brand-tertiary; color: $brand-text; justify-content: center; }
