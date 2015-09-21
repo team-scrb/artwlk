@@ -36,12 +36,21 @@ export default class MapMap extends React.Component {
 
     getLocation().then(location => {
       this.props.getUserLocation(location);
+      this.centerOnCurrSite();
     });
+    this.centerOnCurrSite();
   }
 
   infoWindowClick(marker) {
     marker.showInfo = false;
     this.context.router.transitionTo('sites-detail', {siteId: marker.id});
+  }
+
+  centerOnCurrSite() {
+    if (this.props.currSite && this.props.currSite.coords) {
+      const {latitude, longitude} = this.props.currSite.coords;
+      this.refs.map.panTo( new google.maps.LatLng(latitude, longitude));
+    }
   }
 
   renderMap(props) {
