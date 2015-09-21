@@ -39,21 +39,24 @@ export const addTour = tourInfo => {
     tour.duration = duration;
     tour.distance = distance;
     tour.sites = tour.sites.map(site => site.id);
-    let _tourId;
-    return Promise.all([
-      new Promise((resolve, reject) => {
-        _tourId = fireRef.child('tours')
-          .push(tour, error => error && reject(error) || resolve())
-          .key();
-      })].concat(tour.sites.map(siteId => {
-        const tourId = {};
-        tourId[_tourId] = _tourId;
+    return new Promise((resolve, reject) => {
+      resolve(fireRef.child('tours').push(tour, error => error && reject(error)).key());
+    })
+    .then(tourId => {
+      tour.id = tourId;
+      const promises = tour.sites.map(siteId => {
+        const idObj = {};
+        idObj[tourId] = tourId;
         return new Promise((resolve, reject) => {
           fireRef.child('toursBySite').child(siteId)
-          .update(tourId, error => error && reject(error) || resolve());
+          .update(idObj, error => {
+            error && reject(error) || resolve(tour);
+          });
         });
-      }))
-    );
+      });
+      return Promise.all(promises)
+      .then(() => tour);
+    });
   });
 };
 

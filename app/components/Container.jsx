@@ -60,6 +60,7 @@ export default class Container extends React.Component {
     this.doFilterSearch = this.doFilterSearch.bind(this);
     this.setMarkers = this.setMarkers.bind(this);
     this.setTopBar = this.setTopBar.bind(this);
+    this.appendTour = this.appendTour.bind(this);
   }
 
   componentDidMount() {
@@ -179,10 +180,10 @@ export default class Container extends React.Component {
       if (tourId) {
         getTourByKey(tourId)
         .then(currTour => {
-          this.setState({ currTour }, resolve);
+          this.setState({ currTour }, () => resolve(currTour));
         });
       } else {
-        this.setState({ currTour: {} }, resolve);
+        this.setState({ currTour: {} }, () => resolve({}));
       }
     });
   }
@@ -201,14 +202,17 @@ export default class Container extends React.Component {
   setImageData(imageData, userLocation) {
     this.setState({imageData, userLocation});
   }
-
+  appendTour(tour) {
+    this.setState({tours: this.state.tours.concat(tour)});
+    return tour;
+  }
   doSearch(searchProps) {
     this.setState({sites: [], tours: [], searchProps});
     onSearch(searchProps, {}, (resultType, result) => {
-      if (resultType === 'site') {
+      if (resultType === 'site' && !this.state.sites.find(site => site.id === result.id)) {
         this.setState({sites: this.state.sites.concat(result)});
       }
-      if (resultType === 'tour') {
+      if (resultType === 'tour' && !this.state.tours.find(tour => tour.id === result.id)) {
         this.setState({tours: this.state.tours.concat(result)});
       }
     })
@@ -309,7 +313,6 @@ export default class Container extends React.Component {
         {...this.state}
       />
     ) : null;
-
     return (
       <div className="Container">
         {topBar}
@@ -338,6 +341,7 @@ export default class Container extends React.Component {
           handleCreateSiteFormInputChange={this.handleCreateSiteFormInputChange}
           setMarkers={this.setMarkers}
           getUserLocation={this.getUserLocation}
+          appendTour={this.appendTour}
         />
         <ContainerNav />
       </div>

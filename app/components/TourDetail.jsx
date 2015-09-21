@@ -27,32 +27,28 @@ export default class TourDetail extends React.Component {
     const tour = this.props.currTour;
     let sites;
 
-    if (tour) {
-      const _tour = this.props.tours.find(t => t.id === tour.id);
+    if (tour && tour.sites) {
+      sites = tour.sites.map(site => {
+        const imageStyle = {
+          backgroundImage: `url(${site.imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '120px',
+        };
 
-      if (_tour) {
-        sites = _tour.sites.map(site => {
-          const imageStyle = {
-            backgroundImage: `url(${site.imageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            height: '120px',
-          };
-
-          return (
-            <li className="TourDetail__site" onClick={this.siteDetailClick.bind(null, site)}>
-              <div
-                style={imageStyle}
-                className="TourDetail__site-hero-img"
-              />
-              <div className="TourDetail__site-meta">
-                <span className="TourDetail__site-title">{site.name}</span>
-                <span className="TourDetail__site-artist">{site.artist}</span>
-              </div>
-            </li>
-          );
-        });
-      }
+        return (
+          <li className="TourDetail__site" onClick={this.siteDetailClick.bind(null, site)}>
+            <div
+              style={imageStyle}
+              className="TourDetail__site-hero-img"
+            />
+            <div className="TourDetail__site-meta">
+              <span className="TourDetail__site-title">{site.name}</span>
+              <span className="TourDetail__site-artist">{site.artist}</span>
+            </div>
+          </li>
+        );
+      });
     }
 
     return (
