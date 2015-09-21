@@ -6,3 +6,4 @@
 .TopBarButton--right:focus { outline: none; }
 .TopBarButton--left:hover,
 .TopBarButton--right:hover { background-color: lighten($brand-primary, 4%); color: darken($brand-text, 10%); }
+.TopBarButton--right:hover { background-color: lighten($brand-primary, 4%); color: darken($brand-text, 10%); }

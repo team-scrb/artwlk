@@ -36,9 +36,9 @@ export default class CreateSection extends React.Component {
   openModal() {
     if (!this.props.imageData) {
       this.setState({modalContent: (
-        <div>
-          <h1>Please upload a photo!</h1>
-          <button onClick={this.closeModal}>Close</button>
+        <div className="CreateModal">
+          <h3 className="CreateModal__title">Please upload a photo!</h3>
+          <button className="CreateModal__button" onClick={this.closeModal}>Close</button>
         </div>
       )});
     } else if (!this.props.createFormLocation) {

@@ -2,3 +2,22 @@
 
 .SearchSection {flex: 1; overflow-y: scroll; height: 24px; width: 100%;}
 .SearchSection__active {height: 100%; width: 100%; position: absolute; background-color: #fff;z-index:9;}
+.SearchForm,
+.SearchForm__form { display: flex; flex-direction: column; width:100%; justify-content: center;}
+.SearchForm__title { padding-bottom: 1px; padding-left: 2px; padding-right: 2px; border-width: 0 0 1px 0; line-height: 26px; -ms-flex-preferred-size: 26px; }
+.SearchForm__form-input,
+.SearchForm__form-input-item { display: flex; flex-direction: row; display: block; margin-top: auto; background: none; padding-top: 2px; padding-bottom: 1px; padding-left: 2px; padding-right: 2px; border-width: 0 0 1px 0; line-height: 26px; -ms-flex-preferred-size: 26px; border-radius: 0; width: auto; font-size: 16px; color: $brand-primary; width: 100%; margin-bottom:.5em; }
+.SearchForm__form-input-item:focus { outline:none; border-bottom: 1px solid $brand-highlight; -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1);}
+.SearchForm__form-label { font-size: 10px; color: $brand-highlight; margin: .5em 0; }
+.SearchForm__form-buttons { display: flex; flex-direction: row; width: 100%; height: 44px; border: 0; font-size: 12px; font-weight: 700; text-transform: uppercase; color: $brand-text; margin: 1em 0; text-align: center; }
+.SearchForm__form-buttons-item,
+.SearchForm__form-buttons-item-cancel { display: flex; width: 100%; height: 44px; border: 0; font-size: 12px; font-weight: 700; text-transform: uppercase; justify-content: space-around;}
+.SearchForm__form-buttons-item { background: $brand-tertiary; color: $brand-text; }
+.SearchForm__form-buttons-item-cancel { background: $brand-text; color: $brand-tertiary; }
+.SearchForm__form-buttons-item:focus,
+.SearchForm__form-buttons-item-cancel:focus { outline: none; }
+.SearchForm__form-buttons-item:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }
+.SearchForm__form-buttons-item-cancel:hover { background: lighten($brand-text, 4%); color: darken($brand-tertiary, 5%) }
+.SearchForm__form-buttons-item { margin-right: .5em;}
+.SearchForm__form-buttons-item-cancel { margin-left: .5em;}
+.ReactModal__Content { height: 330px; display: flex; justify-content: center; }

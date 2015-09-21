@@ -9,3 +9,12 @@
 .CreateTour__form-input:focus { outline:none; border-bottom: 1px solid $brand-highlight; -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1);}
 .CreateTour__form-label { font-size: 10px; color: $brand-highlight; margin: .5em 0; }
 .CreateTour__form-label:first-of-type { margin: 0; }
+
+
+.CreateTour__form-submit-container { display: flex; flex-direction: row; }
+.CreateTour__form-select,
+.CreateTour__form-submit { width: 100vw; height: 44px; border: 0; font-size: 12px; font-weight: 700; text-transform: uppercase;  margin: 1em 0; display: flex; text-align: center; justify-content: space-around; margin: 0 .5em; background: $brand-tertiary; color: $brand-text;  }
+.CreateTour__form-select:hover,
+.CreateTour__form-submit:hover { background: lighten($brand-tertiary, 4%); color: darken($brand-text, 5%) }
+.CreateTour__form-select:focus,
+.CreateTour__form-submit:focus { outline: none; }
