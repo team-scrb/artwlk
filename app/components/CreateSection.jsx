@@ -29,7 +29,7 @@ export default class CreateSection extends React.Component {
 
   componentWillMount() {
     this.props.setTopBar({
-      title: 'Create',
+      title: 'Create Site',
     });
   }
 
@@ -100,7 +100,6 @@ export default class CreateSection extends React.Component {
   render() {
     return (
       <div className="CreateSection">
-        <h2 className="CreateSection__title">Create Site Here</h2>
         <form onSubmit={this.submit} className="CreateSection__form">
           <PhotoUpload {...this.props} />
           <button className="CreateSection__form-location" onClick={this.selectLocationHandler}>{this.props.createFormLocation ? 'Update Location' : 'Select Location'}</button>
@@ -112,16 +111,24 @@ export default class CreateSection extends React.Component {
             <label className="CreateSection__form-label">Artist
               <input type="text" className="CreateSection__form-input" data-name="artist" ref="artist" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.artist} defaultValue="Unknown" />
             </label>
-          </div>
-          <div className="CreateSection__form-container">
             <label className="CreateSection__form-label">Category</label>
-            <div className="CreateSection__form-checkbox">
-              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.streetArt} ref="streetArt"/>Street Art
-              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.architecture} ref="architecture"/>Architecture
-            </div>
-            <div className="CreateSection__form-checkbox">
-              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.sculpture} ref="sculpture"/>Sculpture
-              <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.mural} ref="mural"/>Mural
+            <div className="CreateSection__form-checkbox-container">
+              <label className="CreateSection__form-checkbox-label">
+                <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.streetArt} ref="streetArt"/>
+                Street Art
+              </label>
+              <label className="CreateSection__form-checkbox-label">
+                <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.architecture} ref="architecture"/>
+                Architecture
+              </label>
+              <label className="CreateSection__form-checkbox-label">
+                <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.sculpture} ref="sculpture"/>
+                Sculpture
+              </label>
+              <label className="CreateSection__form-checkbox-label">
+                <input type="checkbox" className="CreateSection__form-checkbox-item" data-name="category" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.mural} ref="mural"/>
+                Mural
+              </label>
             </div>
             <label className="CreateSection__form-label">Hash Tags
               <input type="text" className="CreateSection__form-input" data-name="tags" ref="tags" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.tags} />
