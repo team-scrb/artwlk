@@ -64,7 +64,7 @@ export default class CreateTour extends React.Component {
           <Droppable
               types={['site']}
               onDrop={this.onDrop.bind(null, n.id)}>
-              <Draggable type="site" data={n.id}><li>{n.name}</li></Draggable>
+              <Draggable type="site" data={n.id}><li className="CreateTour__form-list-item">{n.name}</li></Draggable>
           </Droppable>
         </div>
       );
@@ -83,9 +83,11 @@ export default class CreateTour extends React.Component {
               Description
               <input className="CreateTour__form-input" type="text" ref="description" defaultValue={this.props.tourFormData && this.props.tourFormData.description} />
             </label>
-            <ul>
+            <p className="CreateTour__form-label">Selected Sites:</p>
+            <span className="CreateTour__form-label-emphasized">Drag and drop to reorder</span>
+            <ol className="CreateTour__form-list">
               {list}
-            </ul>
+            </ol>
           </div>
           <div className="CreateTour__form-submit-container">
             <button onClick={this.selectSites} className="CreateTour__form-select">Select Sites</button>
