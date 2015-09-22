@@ -90,6 +90,7 @@ export default class MapMap extends React.Component {
   renderSingleTour(tour, retry) {
     const retries = retry || 0;
     const DirectionsService = new google.maps.DirectionsService();
+    if (!tour || !tour.sites) return this.context.router.transitionTo('nearby');
     const route = tour.sites.map((siteObj) => {
       const {latitude, longitude} = siteObj.coords;
       return {
