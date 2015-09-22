@@ -29,7 +29,7 @@ export default class NearbySection extends React.Component {
 
   componentWillMount() {
     this.props.setTopBar({
-      title: 'Nearby',
+      title: 'Artwlk',
       leftBtn: {
         name: 'Filter',
         click: this.openModal.bind(this, 'filter'),
@@ -75,7 +75,7 @@ export default class NearbySection extends React.Component {
     case '/nearby':
     case '/nearby/':
       props.setTopBar({
-        title: 'Nearby',
+        title: 'Artwlk',
         leftBtn: {
           name: 'Filter',
           click: this.openModal.bind(this, 'filter'),
@@ -112,12 +112,12 @@ export default class NearbySection extends React.Component {
     return (
       <div className="NearbySection">
         <div>
-          <h2 className="NearbySection__h2">Sites</h2>
+          <h2 className="NearbySection__h2">Nearby Sites</h2>
           <SiteList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar}/>
         </div>
         {this.props.sites.length ? null : this.props.nearbySitesLoader}
         <div>
-          <h2 className="NearbySection__h2">Tours</h2>
+          <h2 className="NearbySection__h2">Nearby Tours</h2>
           <TourList limit="3" {...this.state} {...this.props} renderTopBar={this.renderTopBar} />
         </div>
         {this.props.tours.length ? null : this.props.nearbyToursLoader}
