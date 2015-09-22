@@ -39,6 +39,7 @@ export default class CreateTour extends React.Component {
     .then(tour => {
       return this.props.getCurrTour(tour.id).then(_tour => {
         this.props.appendTour(_tour);
+        return _tour;
       });
     })
     .then(tour => {
