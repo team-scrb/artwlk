@@ -17,6 +17,10 @@ export default class CreateTour extends React.Component {
   componentWillMount() {
     this.props.setTopBar({
       title: 'Create Tour',
+      rightBtn: {
+        name: 'Submit',
+        click: () => { React.findDOMNode(this.refs.submitBtnEl).click(); },
+      },
     });
   }
 
@@ -98,7 +102,7 @@ export default class CreateTour extends React.Component {
               {list}
             </ol>
           </div>
-          <input type="submit" name="Save" className="CreateTour__form-submit" />
+          <input ref="submitBtnEl" type="submit" name="Save" className="CreateTour__form-submit" />
         </form>
       </div>
     );

@@ -30,6 +30,10 @@ export default class CreateSection extends React.Component {
   componentWillMount() {
     this.props.setTopBar({
       title: 'Create Site',
+      rightBtn: {
+        name: 'Submit',
+        click: () => { React.findDOMNode(this.refs.submitBtnEl).click(); },
+      },
     });
   }
 
@@ -137,7 +141,7 @@ export default class CreateSection extends React.Component {
               <input type="text" className="CreateSection__form-input" data-name="description" ref="description" onChange={this.props.handleCreateSiteFormInputChange} value={this.props.createForm.description} />
             </label>
           </div>
-          <input type="submit" name="Submit" className="CreateSection__form-submit" />
+          <input ref="submitBtnEl" type="submit" name="Submit" className="CreateSection__form-submit" />
         </form>
         <Modal
           isOpen={this.state.modalIsOpen}
