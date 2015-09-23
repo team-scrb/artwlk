@@ -1,11 +1,6 @@
-# Art Wlk
+# ARTWLK
 ####An application for users discover and plot public art sites on a map.
-
-##Problem
-Public art is hard to find without prior knowledge or exploration of the area.
-
-##Strategy
-Art Wlk allows users to share and discover locations of public art pieces through an easy to use interface.
+Public art is hard to find without prior knowledge or exploration of the area. ARTWLK allows users to share and discover locations of public art pieces through an easy to use interface.
 
 ## Developer Documentation
 
@@ -18,7 +13,7 @@ Art Wlk allows users to share and discover locations of public art pieces throug
 * [Google Maps APIs](https://developers.google.com/maps/?hl=en/)
 * [Imgur API](https://imgur.com/)
 
-####To start contributing to the Art Wlk codebase:
+####To start contributing to the ARTWLK codebase:
 
 #####Imgur
   * **Get an Imgur API key** - Create and Imgur account and register an app to get a client ID.
